@@ -1,0 +1,434 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CC41B1D195500C1E18D /* AppDelegate.swift */; };
+		D5D59CC71B1D195500C1E18D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CC61B1D195500C1E18D /* GameScene.sks */; };
+		D5D59CC91B1D195500C1E18D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CC81B1D195500C1E18D /* GameScene.swift */; };
+		D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CCA1B1D195500C1E18D /* GameViewController.swift */; };
+		D5D59CCE1B1D195500C1E18D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CCC1B1D195500C1E18D /* Main.storyboard */; };
+		D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CCF1B1D195500C1E18D /* Images.xcassets */; };
+		D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CD11B1D195500C1E18D /* LaunchScreen.xib */; };
+		D5D59CDF1B1D195500C1E18D /* RhythmDyscTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CDE1B1D195500C1E18D /* RhythmDyscTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D5D59CD91B1D195500C1E18D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5D59CB71B1D195500C1E18D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5D59CBE1B1D195500C1E18D;
+			remoteInfo = RhythmDysc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D5D59CBF1B1D195500C1E18D /* RhythmDysc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RhythmDysc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5D59CC31B1D195500C1E18D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5D59CC41B1D195500C1E18D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D5D59CC61B1D195500C1E18D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		D5D59CC81B1D195500C1E18D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		D5D59CCA1B1D195500C1E18D /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D5D59CCD1B1D195500C1E18D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D5D59CCF1B1D195500C1E18D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D5D59CD21B1D195500C1E18D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		D5D59CD81B1D195500C1E18D /* RhythmDyscTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RhythmDyscTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5D59CDD1B1D195500C1E18D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5D59CDE1B1D195500C1E18D /* RhythmDyscTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyscTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5D59CBC1B1D195500C1E18D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5D59CD51B1D195500C1E18D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D5D59CB61B1D195500C1E18D = {
+			isa = PBXGroup;
+			children = (
+				D5D59CC11B1D195500C1E18D /* RhythmDysc */,
+				D5D59CDB1B1D195500C1E18D /* RhythmDyscTests */,
+				D5D59CC01B1D195500C1E18D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5D59CC01B1D195500C1E18D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CBF1B1D195500C1E18D /* RhythmDysc.app */,
+				D5D59CD81B1D195500C1E18D /* RhythmDyscTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5D59CC11B1D195500C1E18D /* RhythmDysc */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CC41B1D195500C1E18D /* AppDelegate.swift */,
+				D5D59CC61B1D195500C1E18D /* GameScene.sks */,
+				D5D59CC81B1D195500C1E18D /* GameScene.swift */,
+				D5D59CCA1B1D195500C1E18D /* GameViewController.swift */,
+				D5D59CCC1B1D195500C1E18D /* Main.storyboard */,
+				D5D59CCF1B1D195500C1E18D /* Images.xcassets */,
+				D5D59CD11B1D195500C1E18D /* LaunchScreen.xib */,
+				D5D59CC21B1D195500C1E18D /* Supporting Files */,
+			);
+			path = RhythmDysc;
+			sourceTree = "<group>";
+		};
+		D5D59CC21B1D195500C1E18D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CC31B1D195500C1E18D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D5D59CDB1B1D195500C1E18D /* RhythmDyscTests */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CDE1B1D195500C1E18D /* RhythmDyscTests.swift */,
+				D5D59CDC1B1D195500C1E18D /* Supporting Files */,
+			);
+			path = RhythmDyscTests;
+			sourceTree = "<group>";
+		};
+		D5D59CDC1B1D195500C1E18D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CDD1B1D195500C1E18D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D5D59CBE1B1D195500C1E18D /* RhythmDysc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5D59CE21B1D195500C1E18D /* Build configuration list for PBXNativeTarget "RhythmDysc" */;
+			buildPhases = (
+				D5D59CBB1B1D195500C1E18D /* Sources */,
+				D5D59CBC1B1D195500C1E18D /* Frameworks */,
+				D5D59CBD1B1D195500C1E18D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RhythmDysc;
+			productName = RhythmDysc;
+			productReference = D5D59CBF1B1D195500C1E18D /* RhythmDysc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D5D59CD71B1D195500C1E18D /* RhythmDyscTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5D59CE51B1D195500C1E18D /* Build configuration list for PBXNativeTarget "RhythmDyscTests" */;
+			buildPhases = (
+				D5D59CD41B1D195500C1E18D /* Sources */,
+				D5D59CD51B1D195500C1E18D /* Frameworks */,
+				D5D59CD61B1D195500C1E18D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D5D59CDA1B1D195500C1E18D /* PBXTargetDependency */,
+			);
+			name = RhythmDyscTests;
+			productName = RhythmDyscTests;
+			productReference = D5D59CD81B1D195500C1E18D /* RhythmDyscTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D5D59CB71B1D195500C1E18D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = TynyLabs;
+				TargetAttributes = {
+					D5D59CBE1B1D195500C1E18D = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					D5D59CD71B1D195500C1E18D = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = D5D59CBE1B1D195500C1E18D;
+					};
+				};
+			};
+			buildConfigurationList = D5D59CBA1B1D195500C1E18D /* Build configuration list for PBXProject "RhythmDysc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D5D59CB61B1D195500C1E18D;
+			productRefGroup = D5D59CC01B1D195500C1E18D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5D59CBE1B1D195500C1E18D /* RhythmDysc */,
+				D5D59CD71B1D195500C1E18D /* RhythmDyscTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D5D59CBD1B1D195500C1E18D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
+				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
+				D5D59CC71B1D195500C1E18D /* GameScene.sks in Resources */,
+				D5D59CCE1B1D195500C1E18D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5D59CD61B1D195500C1E18D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D5D59CBB1B1D195500C1E18D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5D59CC91B1D195500C1E18D /* GameScene.swift in Sources */,
+				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
+				D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5D59CD41B1D195500C1E18D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5D59CDF1B1D195500C1E18D /* RhythmDyscTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D5D59CDA1B1D195500C1E18D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5D59CBE1B1D195500C1E18D /* RhythmDysc */;
+			targetProxy = D5D59CD91B1D195500C1E18D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D5D59CCC1B1D195500C1E18D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5D59CCD1B1D195500C1E18D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D5D59CD11B1D195500C1E18D /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5D59CD21B1D195500C1E18D /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D5D59CE01B1D195500C1E18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D5D59CE11B1D195500C1E18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D5D59CE31B1D195500C1E18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RhythmDysc/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D5D59CE41B1D195500C1E18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RhythmDysc/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D5D59CE61B1D195500C1E18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RhythmDyscTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RhythmDysc.app/RhythmDysc";
+			};
+			name = Debug;
+		};
+		D5D59CE71B1D195500C1E18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RhythmDyscTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RhythmDysc.app/RhythmDysc";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5D59CBA1B1D195500C1E18D /* Build configuration list for PBXProject "RhythmDysc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5D59CE01B1D195500C1E18D /* Debug */,
+				D5D59CE11B1D195500C1E18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5D59CE21B1D195500C1E18D /* Build configuration list for PBXNativeTarget "RhythmDysc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5D59CE31B1D195500C1E18D /* Debug */,
+				D5D59CE41B1D195500C1E18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D5D59CE51B1D195500C1E18D /* Build configuration list for PBXNativeTarget "RhythmDyscTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5D59CE61B1D195500C1E18D /* Debug */,
+				D5D59CE71B1D195500C1E18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D5D59CB71B1D195500C1E18D /* Project object */;
+}
