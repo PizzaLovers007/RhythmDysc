@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D50503461B1FB371008B5707 /* AssetsToImport in Resources */ = {isa = PBXBuildFile; fileRef = D50503451B1FB371008B5707 /* AssetsToImport */; };
+		D50503481B1FB906008B5707 /* GreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503471B1FB906008B5707 /* GreenButton.swift */; };
+		D505034A1B200348008B5707 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503491B200348008B5707 /* Button.swift */; };
+		D505034F1B2008F5008B5707 /* Mushikui-Saikede-Rhythm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D505034E1B2008F5008B5707 /* Mushikui-Saikede-Rhythm.mp3 */; };
+		D50503511B200ED6008B5707 /* aLIEz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D50503501B200ED6008B5707 /* aLIEz.mp3 */; };
+		D50503531B20129E008B5707 /* MapReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503521B20129E008B5707 /* MapReader.swift */; };
 		D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CC41B1D195500C1E18D /* AppDelegate.swift */; };
-		D5D59CC71B1D195500C1E18D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CC61B1D195500C1E18D /* GameScene.sks */; };
-		D5D59CC91B1D195500C1E18D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CC81B1D195500C1E18D /* GameScene.swift */; };
 		D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CCA1B1D195500C1E18D /* GameViewController.swift */; };
 		D5D59CCE1B1D195500C1E18D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CCC1B1D195500C1E18D /* Main.storyboard */; };
 		D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CCF1B1D195500C1E18D /* Images.xcassets */; };
 		D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5D59CD11B1D195500C1E18D /* LaunchScreen.xib */; };
 		D5D59CDF1B1D195500C1E18D /* RhythmDyscTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CDE1B1D195500C1E18D /* RhythmDyscTests.swift */; };
+		D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CE81B1E945000C1E18D /* InGameScene.swift */; };
+		D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */; };
+		D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,11 +35,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D50503451B1FB371008B5707 /* AssetsToImport */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AssetsToImport; sourceTree = SOURCE_ROOT; };
+		D50503471B1FB906008B5707 /* GreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenButton.swift; sourceTree = "<group>"; };
+		D50503491B200348008B5707 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		D505034E1B2008F5008B5707 /* Mushikui-Saikede-Rhythm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Mushikui-Saikede-Rhythm.mp3"; path = "/Volumes/TERRENCE P/osuStuff/Songs/87547 jippusu - Mushikui Saikede Rhythm/Mushikui-Saikede-Rhythm.mp3"; sourceTree = "<absolute>"; };
+		D50503501B200ED6008B5707 /* aLIEz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = aLIEz.mp3; path = "../../../../../../Volumes/TERRENCE P/osuStuff/Songs/211586 SawanoHiroyuki[nZk]-mizuki - aLIEz (TV size)/aLIEz.mp3"; sourceTree = "<group>"; };
+		D50503521B20129E008B5707 /* MapReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapReader.swift; sourceTree = "<group>"; };
 		D5D59CBF1B1D195500C1E18D /* RhythmDysc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RhythmDysc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D59CC31B1D195500C1E18D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5D59CC41B1D195500C1E18D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D5D59CC61B1D195500C1E18D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		D5D59CC81B1D195500C1E18D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		D5D59CCA1B1D195500C1E18D /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D5D59CCD1B1D195500C1E18D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5D59CCF1B1D195500C1E18D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -40,6 +51,9 @@
 		D5D59CD81B1D195500C1E18D /* RhythmDyscTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RhythmDyscTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D59CDD1B1D195500C1E18D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5D59CDE1B1D195500C1E18D /* RhythmDyscTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmDyscTests.swift; sourceTree = "<group>"; };
+		D5D59CE81B1E945000C1E18D /* InGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameScene.swift; sourceTree = "<group>"; };
+		D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueButton.swift; sourceTree = "<group>"; };
+		D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +74,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D505034D1B2008B6008B5707 /* Songs */ = {
+			isa = PBXGroup;
+			children = (
+				D50503501B200ED6008B5707 /* aLIEz.mp3 */,
+				D505034E1B2008F5008B5707 /* Mushikui-Saikede-Rhythm.mp3 */,
+			);
+			name = Songs;
+			sourceTree = "<group>";
+		};
 		D5D59CB61B1D195500C1E18D = {
 			isa = PBXGroup;
 			children = (
 				D5D59CC11B1D195500C1E18D /* RhythmDysc */,
 				D5D59CDB1B1D195500C1E18D /* RhythmDyscTests */,
 				D5D59CC01B1D195500C1E18D /* Products */,
+				D50503451B1FB371008B5707 /* AssetsToImport */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,14 +105,16 @@
 		D5D59CC11B1D195500C1E18D /* RhythmDysc */ = {
 			isa = PBXGroup;
 			children = (
+				D505034D1B2008B6008B5707 /* Songs */,
+				D5D59CED1B1E9CC200C1E18D /* SpriteNodes */,
+				D5D59CEA1B1E9AB300C1E18D /* Scenes */,
 				D5D59CC41B1D195500C1E18D /* AppDelegate.swift */,
-				D5D59CC61B1D195500C1E18D /* GameScene.sks */,
-				D5D59CC81B1D195500C1E18D /* GameScene.swift */,
 				D5D59CCA1B1D195500C1E18D /* GameViewController.swift */,
 				D5D59CCC1B1D195500C1E18D /* Main.storyboard */,
 				D5D59CCF1B1D195500C1E18D /* Images.xcassets */,
 				D5D59CD11B1D195500C1E18D /* LaunchScreen.xib */,
 				D5D59CC21B1D195500C1E18D /* Supporting Files */,
+				D50503521B20129E008B5707 /* MapReader.swift */,
 			);
 			path = RhythmDysc;
 			sourceTree = "<group>";
@@ -116,6 +142,25 @@
 				D5D59CDD1B1D195500C1E18D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D5D59CEA1B1E9AB300C1E18D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CE81B1E945000C1E18D /* InGameScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		D5D59CED1B1E9CC200C1E18D /* SpriteNodes */ = {
+			isa = PBXGroup;
+			children = (
+				D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */,
+				D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */,
+				D50503471B1FB906008B5707 /* GreenButton.swift */,
+				D50503491B200348008B5707 /* Button.swift */,
+			);
+			name = SpriteNodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,10 +244,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D505034F1B2008F5008B5707 /* Mushikui-Saikede-Rhythm.mp3 in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
-				D5D59CC71B1D195500C1E18D /* GameScene.sks in Resources */,
 				D5D59CCE1B1D195500C1E18D /* Main.storyboard in Resources */,
+				D50503511B200ED6008B5707 /* aLIEz.mp3 in Resources */,
+				D50503461B1FB371008B5707 /* AssetsToImport in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,9 +267,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5D59CC91B1D195500C1E18D /* GameScene.swift in Sources */,
+				D505034A1B200348008B5707 /* Button.swift in Sources */,
 				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
+				D50503481B1FB906008B5707 /* GreenButton.swift in Sources */,
+				D50503531B20129E008B5707 /* MapReader.swift in Sources */,
 				D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */,
+				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
+				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,
+				D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +478,7 @@
 				D5D59CE41B1D195500C1E18D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D5D59CE51B1D195500C1E18D /* Build configuration list for PBXNativeTarget "RhythmDyscTests" */ = {
 			isa = XCConfigurationList;
@@ -434,6 +487,7 @@
 				D5D59CE71B1D195500C1E18D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
