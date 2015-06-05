@@ -15,20 +15,27 @@ class InGameScene: SKScene {
     let redButton = RedButton();
     let greenButton = GreenButton();
     let blueButton = BlueButton();
+    let title: String;
+    let mapData: DyscMap;
     var song: AVAudioPlayer! = nil;
     var redDown: Bool = false;
     var greenDown: Bool = false;
     var blueDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
+    var startTime: NSTimeInterval = 0;
     var songTime: Double = 0;
     
-    init(size: CGSize, songURL: NSURL?) {
+    init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         NSLog("\(songURL)");
         song = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+        title = "Test";
+        mapData = data;
         super.init(size: size);
     }
 
     required init?(coder aDecoder: NSCoder) {
+        title = "Test";
+        mapData = DyscMap();
         super.init(coder: aDecoder);
     }
     
@@ -41,6 +48,8 @@ class InGameScene: SKScene {
     override func update(currentTime: NSTimeInterval) {
         if (prevTime == -1) {
             prevTime = currentTime;
+            startTime = currentTime;
+            initializeObjects();
             return;
         }
         let deltaTime: Double = (currentTime - prevTime) * 1000;
@@ -128,5 +137,35 @@ class InGameScene: SKScene {
         addChild(redButton);
         addChild(greenButton);
         addChild(blueButton);
+    }
+    
+    private func initializeObjects() {
+        let titleNode = SKLabelNode(text: title);
+        titleNode.alpha = 0;
+        titleNode.position = CGPoint(x: size.width/2, y: size.height/3*2);
+        titleNode.fontColor = SKColor.blackColor();
+        titleNode.fontSize = CGFloat(40);
+        
+        let dysc = SKSpriteNode(texture: SKTexture(imageNamed: "4SectorDysc"), size: CGSize(width: self.size.width-40, height: self.size.width-40));
+        dysc.position = CGPoint(x: size.width/2, y: size.height/3*2);
+        dysc.alpha = 0;
+        
+        let fadeInTitle = SKAction.fadeInWithDuration(0.4);
+        let fadeOutTitle = SKAction.fadeOutWithDuration(0.4);
+        let showTitle = SKAction.waitForDuration(3);
+        let delaySong = SKAction.waitForDuration(1.0 + mapData.offset/1000.0)
+        let playSong = SKAction.runBlock({
+            song.play();
+        });
+        
+        let waitForTitleCompletion = SKAction.waitForDuration(3.8);
+        let displayDysc = SKAction.fadeInWithDuration(0);
+        let keepDisplayingDysc = SKAction.repeatActionForever(SKAction.waitForDuration(1));
+        
+        titleNode.runAction(SKAction.sequence([fadeInTitle, showTitle, fadeOutTitle, delaySong, playSong]));
+        dysc.runAction(SKAction.sequence([waitForTitleCompletion, displayDysc, keepDisplayingDysc]));
+        
+        addChild(titleNode);
+        addChild(dysc);
     }
 }
