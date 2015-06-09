@@ -11,6 +11,10 @@
 		D50503481B1FB906008B5707 /* GreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503471B1FB906008B5707 /* GreenButton.swift */; };
 		D505034A1B200348008B5707 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503491B200348008B5707 /* Button.swift */; };
 		D50503531B20129E008B5707 /* MapReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503521B20129E008B5707 /* MapReader.swift */; };
+		D52F817E1B26312B00352613 /* aLIEz-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */; };
+		D52F81801B26527B00352613 /* TimingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52F817F1B26527B00352613 /* TimingPoint.swift */; };
+		D52F81821B26529300352613 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52F81811B26529300352613 /* Note.swift */; };
+		D52F81841B2653EA00352613 /* HoldNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52F81831B2653EA00352613 /* HoldNote.swift */; };
 		D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2B1B224D810077EE8F /* aLIEz.mp3 */; };
 		D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */; };
 		D5300A301B2257410077EE8F /* DyscMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5300A2F1B2257410077EE8F /* DyscMap.swift */; };
@@ -40,6 +44,10 @@
 		D50503471B1FB906008B5707 /* GreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenButton.swift; sourceTree = "<group>"; };
 		D50503491B200348008B5707 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		D50503521B20129E008B5707 /* MapReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapReader.swift; sourceTree = "<group>"; };
+		D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "aLIEz-easy-4.dmp"; sourceTree = "<group>"; };
+		D52F817F1B26527B00352613 /* TimingPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingPoint.swift; sourceTree = "<group>"; };
+		D52F81811B26529300352613 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		D52F81831B2653EA00352613 /* HoldNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoldNote.swift; sourceTree = "<group>"; };
 		D5300A2B1B224D810077EE8F /* aLIEz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aLIEz.mp3; sourceTree = "<group>"; };
 		D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mushikui-Saikede-Rhythm.mp3"; sourceTree = "<group>"; };
 		D5300A2F1B2257410077EE8F /* DyscMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyscMap.swift; sourceTree = "<group>"; };
@@ -85,6 +93,14 @@
 			name = Songs;
 			sourceTree = "<group>";
 		};
+		D52F817C1B2630EF00352613 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */,
+			);
+			name = Maps;
+			sourceTree = "<group>";
+		};
 		D5D59CB61B1D195500C1E18D = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +123,7 @@
 		D5D59CC11B1D195500C1E18D /* RhythmDysc */ = {
 			isa = PBXGroup;
 			children = (
+				D52F817C1B2630EF00352613 /* Maps */,
 				D505034D1B2008B6008B5707 /* Songs */,
 				D5D59CED1B1E9CC200C1E18D /* SpriteNodes */,
 				D5D59CEA1B1E9AB300C1E18D /* Scenes */,
@@ -118,6 +135,9 @@
 				D5D59CC21B1D195500C1E18D /* Supporting Files */,
 				D50503521B20129E008B5707 /* MapReader.swift */,
 				D5300A2F1B2257410077EE8F /* DyscMap.swift */,
+				D52F817F1B26527B00352613 /* TimingPoint.swift */,
+				D52F81811B26529300352613 /* Note.swift */,
+				D52F81831B2653EA00352613 /* HoldNote.swift */,
 			);
 			path = RhythmDysc;
 			sourceTree = "<group>";
@@ -249,6 +269,7 @@
 			files = (
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
+				D52F817E1B26312B00352613 /* aLIEz-easy-4.dmp in Resources */,
 				D5D59CCE1B1D195500C1E18D /* Main.storyboard in Resources */,
 				D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */,
 				D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */,
@@ -272,10 +293,13 @@
 			files = (
 				D505034A1B200348008B5707 /* Button.swift in Sources */,
 				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
+				D52F81841B2653EA00352613 /* HoldNote.swift in Sources */,
+				D52F81801B26527B00352613 /* TimingPoint.swift in Sources */,
 				D50503481B1FB906008B5707 /* GreenButton.swift in Sources */,
 				D50503531B20129E008B5707 /* MapReader.swift in Sources */,
 				D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
+				D52F81821B26529300352613 /* Note.swift in Sources */,
 				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,
 				D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */,
 				D5300A301B2257410077EE8F /* DyscMap.swift in Sources */,
@@ -410,6 +434,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RhythmDysc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -423,6 +448,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = RhythmDysc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

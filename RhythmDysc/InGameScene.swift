@@ -153,7 +153,7 @@ class InGameScene: SKScene {
         let fadeInTitle = SKAction.fadeInWithDuration(0.4);
         let fadeOutTitle = SKAction.fadeOutWithDuration(0.4);
         let showTitle = SKAction.waitForDuration(3);
-        let delaySong = SKAction.waitForDuration(1.0 + mapData.offset/1000.0)
+        let delaySong = SKAction.waitForDuration(1.0 + Double(mapData.offset)/1000.0)
         let playSong = SKAction.runBlock({
             song.play();
         });

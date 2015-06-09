@@ -14,19 +14,16 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
 
-        let songPath = NSBundle.mainBundle().pathForResource("aLIEz", ofType: "mp3");
         let documentDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as! NSURL;
-        let mapURL = documentDirectoryURL.URLByAppendingPathComponent("test.dmp");
-        if ("testString".writeToURL(mapURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil)) {
-            NSLog("Wrote to File!");
-            NSLog(mapURL.description);
-        }
-        let mapData: DyscMap = MapReader.readFile(mapURL);
-        if (songPath == nil) {
+        
+        let songURL = NSBundle.mainBundle().URLForResource("aLIEz", withExtension: "mp3");
+        let mapURL = NSBundle.mainBundle().URLForResource("aLIEz-easy-4", withExtension: "dmp");
+        if (songURL == nil || mapURL == nil) {
             return;
         }
-        let songURL = NSURL(fileURLWithPath: songPath!);
-        let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: DyscMap());
+        let mapData: DyscMap = MapReader.readFile(mapURL!);
+        NSLog(mapData.description);
+        let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
         // Configure the view.
         let skView = self.view as! SKView;
         skView.showsFPS = true;
