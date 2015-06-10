@@ -27,6 +27,7 @@
 		D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CE81B1E945000C1E18D /* InGameScene.swift */; };
 		D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */; };
 		D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */; };
+		D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EE34A41B279356000E4A80 /* Cursor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		D5D59CE81B1E945000C1E18D /* InGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameScene.swift; sourceTree = "<group>"; };
 		D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueButton.swift; sourceTree = "<group>"; };
 		D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
+		D5EE34A41B279356000E4A80 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,8 +138,6 @@
 				D50503521B20129E008B5707 /* MapReader.swift */,
 				D5300A2F1B2257410077EE8F /* DyscMap.swift */,
 				D52F817F1B26527B00352613 /* TimingPoint.swift */,
-				D52F81811B26529300352613 /* Note.swift */,
-				D52F81831B2653EA00352613 /* HoldNote.swift */,
 			);
 			path = RhythmDysc;
 			sourceTree = "<group>";
@@ -179,9 +179,12 @@
 			isa = PBXGroup;
 			children = (
 				D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */,
-				D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */,
-				D50503471B1FB906008B5707 /* GreenButton.swift */,
 				D50503491B200348008B5707 /* Button.swift */,
+				D5EE34A41B279356000E4A80 /* Cursor.swift */,
+				D50503471B1FB906008B5707 /* GreenButton.swift */,
+				D52F81831B2653EA00352613 /* HoldNote.swift */,
+				D52F81811B26529300352613 /* Note.swift */,
+				D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */,
 			);
 			name = SpriteNodes;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */,
 				D505034A1B200348008B5707 /* Button.swift in Sources */,
 				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
 				D52F81841B2653EA00352613 /* HoldNote.swift in Sources */,

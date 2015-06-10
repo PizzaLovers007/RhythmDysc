@@ -15,9 +15,11 @@ class InGameScene: SKScene {
     let redButton = RedButton();
     let greenButton = GreenButton();
     let blueButton = BlueButton();
-    let title: String;
+    let cursor = Cursor();
+    let highlight: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorBlueArc");
+    let dysc: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorDysc");
     let mapData: DyscMap;
-    var song: AVAudioPlayer! = nil;
+//    var song: AVAudioPlayer! = nil;
     var redDown: Bool = false;
     var greenDown: Bool = false;
     var blueDown: Bool = false;
@@ -27,14 +29,13 @@ class InGameScene: SKScene {
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         NSLog("\(songURL)");
-        song = AVAudioPlayer(contentsOfURL: songURL, error: nil);
-        title = "Test";
+//        song = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+//        song.prepareToPlay();
         mapData = data;
         super.init(size: size);
     }
 
     required init?(coder aDecoder: NSCoder) {
-        title = "Test";
         mapData = DyscMap();
         super.init(coder: aDecoder);
     }
@@ -42,21 +43,18 @@ class InGameScene: SKScene {
     override func didMoveToView(view: SKView) {
         NSLog("Entered the In Game Scene");
         self.backgroundColor = SKColor.whiteColor();
-        addButtons();
+        initializeObjects();
     }
     
     override func update(currentTime: NSTimeInterval) {
         if (prevTime == -1) {
             prevTime = currentTime;
             startTime = currentTime;
-            initializeObjects();
             return;
         }
+        let currSector: Int = checkCursorPosition();
         let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
-        if (!song.playing) {
-            NSLog("Song has finished");
-        }
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -139,33 +137,70 @@ class InGameScene: SKScene {
         addChild(blueButton);
     }
     
+    private func addCursor() {
+        cursor.center = dysc.position;
+        cursor.radius = Double(dysc.size.width/16*7);
+        cursor.position = dysc.position;
+        cursor.size = CGSize(width: dysc.size.width/10, height: dysc.size.height/10);
+        cursor.alpha = 0;
+        cursor.startUpdates();
+        addChild(cursor);
+    }
+    
     private func initializeObjects() {
-        let titleNode = SKLabelNode(text: title);
-        titleNode.alpha = 0;
-        titleNode.position = CGPoint(x: size.width/2, y: size.height/3*2);
-        titleNode.fontColor = SKColor.blackColor();
-        titleNode.fontSize = CGFloat(40);
+        let titleChange = max(CGFloat(count(mapData.title)*3), CGFloat(40));
+        let artistChange = max(CGFloat(count(mapData.artist)*3), CGFloat(40));
         
-        let dysc = SKSpriteNode(texture: SKTexture(imageNamed: "4SectorDysc"), size: CGSize(width: self.size.width-40, height: self.size.width-40));
+        let titleNode = SKLabelNode(text: mapData.title);
+        titleNode.alpha = 0;
+        titleNode.position = CGPoint(x: size.width/2 + titleChange/2, y: size.height/3*2);
+        titleNode.fontColor = SKColor.blackColor();
+        titleNode.fontName = "HelveticaNeue-Medium";
+        let artistNode = SKLabelNode(text: mapData.artist);
+        artistNode.alpha = 0;
+        artistNode.position = CGPoint(x: size.width/2 + artistChange/2, y: size.height/3*2-30);
+        artistNode.fontColor = SKColor.blackColor();
+        artistNode.fontName = "HelveticaNeue-Light";
+        
+        dysc.size = CGSize(width: self.size.width-40, height: self.size.width-40);
         dysc.position = CGPoint(x: size.width/2, y: size.height/3*2);
         dysc.alpha = 0;
         
-        let fadeInTitle = SKAction.fadeInWithDuration(0.4);
-        let fadeOutTitle = SKAction.fadeOutWithDuration(0.4);
-        let showTitle = SKAction.waitForDuration(3);
-        let delaySong = SKAction.waitForDuration(1.0 + Double(mapData.offset)/1000.0)
-        let playSong = SKAction.runBlock({
-            song.play();
+        highlight.position = dysc.position;
+        highlight.alpha = 0;
+        
+        let fadeText = SKAction.sequence([SKAction.fadeInWithDuration(0.4), SKAction.waitForDuration(3), SKAction.fadeOutWithDuration(0.4)]);
+        let moveTitle = SKAction.moveBy(CGVector(dx: -titleChange, dy: 0), duration: 3.8);
+        let moveArtist = SKAction.moveBy(CGVector(dx: -artistChange, dy: 0), duration: 3.8);
+        let titleAction = SKAction.group([fadeText, moveTitle]);
+        let artistAction = SKAction.group([fadeText, moveArtist]);
+        let delaySong = SKAction.waitForDuration(5.0 + Double(mapData.offset)/1000.0)
+//        let playSong = SKAction.runBlock({
+//            self.song.play();
+//        });
+        let showField = SKAction.runBlock({
+            self.dysc.alpha = 1;
+            self.highlight.alpha = 1;
+            self.cursor.alpha = 1;
         });
         
-        let waitForTitleCompletion = SKAction.waitForDuration(3.8);
-        let displayDysc = SKAction.fadeInWithDuration(0);
-        let keepDisplayingDysc = SKAction.repeatActionForever(SKAction.waitForDuration(1));
+        titleNode.runAction(SKAction.sequence([titleAction, showField, delaySong, SKAction.playSoundFileNamed("aLIEz.mp3", waitForCompletion: false)]));
+        artistNode.runAction(artistAction);
         
-        titleNode.runAction(SKAction.sequence([fadeInTitle, showTitle, fadeOutTitle, delaySong, playSong]));
-        dysc.runAction(SKAction.sequence([waitForTitleCompletion, displayDysc, keepDisplayingDysc]));
-        
-        addChild(titleNode);
+        addButtons();
         addChild(dysc);
+        addCursor();
+        addChild(highlight);
+        addChild(titleNode);
+        addChild(artistNode);
+    }
+    
+    private func checkCursorPosition() -> Int {
+        let sectorSize = M_PI*2/Double(mapData.sector);
+        let theta = cursor.theta;
+        let currSector = (Int(round(theta/sectorSize))+4)%4;
+        let highlightRotation = CGFloat(round(theta/sectorSize)*sectorSize);
+        highlight.runAction(SKAction.rotateToAngle(highlightRotation, duration: 0));
+        return currSector;
     }
 }
