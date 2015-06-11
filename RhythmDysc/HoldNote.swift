@@ -14,11 +14,13 @@ class HoldNote: Note {
     struct Node {
         let rotation: Int;
         let length: Double;
+        var ms: Int = 0;
         var description: String {
             return "Rotating \(rotation) for \(length)";
         }
     }
     
+    var isHeld: Bool = false;
     private(set) var nodes: [Node] = [Node]();
     
     override var description: String {
@@ -29,8 +31,8 @@ class HoldNote: Note {
         super.init();
     }
     
-    init(direction dir: Int, color col: Int, measure meas: Int, beat bt: Double, rotation rot: Int, length len: Double) {
-        super.init(direction: dir, color: col, measure: meas, beat: bt);
+    init(direction dir: Int, color col: Int, timePoint tp: Int, measure meas: Int, beat bt: Double, rotation rot: Int, length len: Double) {
+        super.init(direction: dir, color: col, timePoint: tp, measure: meas, beat: bt);
         addNode(rotation: rot, length: len);
     }
 
@@ -39,6 +41,24 @@ class HoldNote: Note {
     }
     
     func addNode(#rotation: Int, length: Double) {
-        nodes.append(Node(rotation: rotation, length: length));
+        nodes.append(Node(rotation: rotation, length: length, ms: 0));
+    }
+    
+    override func setTiming(timePoint: TimingPoint, appearFor appear: Int) {
+        super.setTiming(timePoint, appearFor: appear);
+        let msPerBeat = 60000/timePoint.bpm;
+        var currLength = 0.0;
+        for i in 0..<count(nodes) {
+            nodes[i].ms = msHit + Int(round(currLength * msPerBeat));
+            currLength += nodes[i].length;
+        }
+    }
+    
+    func letGo() {
+        isHeld = false;
+    }
+    
+    func holdDown() {
+        isHeld = true;
     }
 }

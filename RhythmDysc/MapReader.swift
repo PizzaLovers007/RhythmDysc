@@ -65,9 +65,10 @@ class MapReader: NSObject {
                     }
                     let direction: Int = line[1].toInt()!;
                     let color: Int = line[2].toInt()!;
-                    let measure: Int = line[3].toInt()!;
-                    let beat: Double = (line[4] as NSString).doubleValue;
-                    mapData.addNote(Note(direction: direction, color: color, measure: measure, beat: beat));
+                    let timePoint: Int = line[3].toInt()!;
+                    let measure: Int = line[4].toInt()!;
+                    let beat: Double = (line[5] as NSString).doubleValue;
+                    mapData.addNote(Note(direction: direction, color: color, timePoint: timePoint, measure: measure, beat: beat));
                     break;
                 case 1:     //Hold note
                     if (currHoldNote != nil) {
@@ -76,11 +77,12 @@ class MapReader: NSObject {
                     }
                     let direction: Int = line[1].toInt()!;
                     let color: Int = line[2].toInt()!;
-                    let measure: Int = line[3].toInt()!;
-                    let beat: Double = (line[4] as NSString).doubleValue;
-                    let rotation: Int = line[5].toInt()!;
-                    let length: Double = (line[6] as NSString).doubleValue;
-                    currHoldNote = HoldNote(direction: direction, color: color, measure: measure, beat: beat, rotation: rotation, length: length);
+                    let timePoint: Int = line[3].toInt()!;
+                    let measure: Int = line[4].toInt()!;
+                    let beat: Double = (line[5] as NSString).doubleValue;
+                    let rotation: Int = line[6].toInt()!;
+                    let length: Double = (line[7] as NSString).doubleValue;
+                    currHoldNote = HoldNote(direction: direction, color: color, timePoint: timePoint, measure: measure, beat: beat, rotation: rotation, length: length);
                     break;
                 case 2:     //Hold note node
                     let rotation = line[1].toInt()!;

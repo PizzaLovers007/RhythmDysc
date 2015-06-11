@@ -25,7 +25,7 @@ class InGameScene: SKScene {
     var blueDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
-    var songTime: Double = 0;
+    var songHasStarted: Bool = false;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         NSLog("\(songURL)");
@@ -49,10 +49,11 @@ class InGameScene: SKScene {
     override func update(currentTime: NSTimeInterval) {
         if (prevTime == -1) {
             prevTime = currentTime;
-            startTime = currentTime;
+            startTime = currentTime + 6.8 - Double(mapData.offset)/1000.0;
             return;
         }
         let currSector: Int = checkCursorPosition();
+        mapData.update(songTime: currentTime - startTime, cursorInHold: true);
         let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
     }
@@ -62,18 +63,22 @@ class InGameScene: SKScene {
             let touch = t as! UITouch;
             let touchLocation = touch.locationInNode(self);
             let touchedNode = self.nodeAtPoint(touchLocation);
-            if (touchedNode.name == "redButton") {
+            if (!redDown && touchedNode.name == "redButton") {
                 NSLog("Red button pressed");
                 redDown = true;
                 redButton.pressButton();
-            } else if (touchedNode.name == "greenButton") {
+                mapData.updateButton(ButtonColor.RED, isPressed: true);
+            } else if (!greenDown && touchedNode.name == "greenButton") {
                 NSLog("Green button pressed");
                 greenDown = true;
                 greenButton.pressButton();
-            } else if (touchedNode.name == "blueButton") {
+                mapData.updateButton(ButtonColor.GREEN, isPressed: true);
+            } else if (!blueDown && touchedNode.name == "blueButton") {
                 NSLog("Blue button pressed");
                 blueDown = true;
                 blueButton.pressButton();
+                mapData.updateButton(ButtonColor.BLUE, isPressed: true);
+                
             }
         }
     }
@@ -87,14 +92,17 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
+                mapData.updateButton(ButtonColor.RED, isPressed: false);
             } else if (greenDown && self.nodeAtPoint(touchLocation).name != "greenButton" && self.nodeAtPoint(prevTouchLocation).name == "greenButton") {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
+                mapData.updateButton(ButtonColor.GREEN, isPressed: false);
             } else if (blueDown && self.nodeAtPoint(touchLocation).name != "blueButton" && self.nodeAtPoint(prevTouchLocation).name == "blueButton") {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
+                mapData.updateButton(ButtonColor.BLUE, isPressed: false);
             }
         }
     }
@@ -108,14 +116,17 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
+                mapData.updateButton(ButtonColor.RED, isPressed: false);
             } else if (touchedNode.name == "greenButton" && greenDown) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
+                mapData.updateButton(ButtonColor.GREEN, isPressed: false);
             } else if (touchedNode.name == "blueButton" && blueDown) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
+                mapData.updateButton(ButtonColor.BLUE, isPressed: false);
             }
         }
     }
@@ -174,7 +185,7 @@ class InGameScene: SKScene {
         let moveArtist = SKAction.moveBy(CGVector(dx: -artistChange, dy: 0), duration: 3.8);
         let titleAction = SKAction.group([fadeText, moveTitle]);
         let artistAction = SKAction.group([fadeText, moveArtist]);
-        let delaySong = SKAction.waitForDuration(5.0 + Double(mapData.offset)/1000.0)
+        let delaySong = SKAction.waitForDuration(max(3.0 - Double(mapData.offset)/1000.0, 0));
 //        let playSong = SKAction.runBlock({
 //            self.song.play();
 //        });
@@ -193,6 +204,60 @@ class InGameScene: SKScene {
         addChild(highlight);
         addChild(titleNode);
         addChild(artistNode);
+        for note in mapData.notes {
+            addChild(note);
+            NSLog("\(note.texture?.description)");
+            note.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+            note.size = CGSize(width: 50, height: 300);
+        }
+        
+        
+        //TEMPORARY HOLD NOTE CODE
+        let holdPath = CGPathCreateMutable();
+        let holdPath2 = CGPathCreateMutable();
+        let rInner = 30.0;
+        let rOuter = 200.0;
+        let thetaStart = -3*M_PI_4;
+        let thetaEnd = -M_PI_4;
+        let dTheta = thetaEnd - thetaStart;
+        let numSteps = 30.0;
+        let step = (thetaEnd - thetaStart)/numSteps;
+        CGPathMoveToPoint(holdPath, nil, CGFloat(-rOuter/sqrt(2)+200), CGFloat(-rOuter/sqrt(2)+300));
+        CGPathMoveToPoint(holdPath2, nil, CGFloat(-rOuter/sqrt(2)+200), CGFloat(-rOuter/sqrt(2)+300));
+        CGPathAddCurveToPoint(holdPath2, nil, 200, 125, 200, 300, 200+30/sqrt(2), 300-30/sqrt(2));
+        var i: Double;
+        for i = 0; i <= numSteps; i++ {
+            let t = thetaStart + step*i;
+            let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * cos(t))+200;
+            let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * sin(t))+300;
+            NSLog("(\(x), \(y))");
+            CGPathAddLineToPoint(holdPath, nil, x, y);
+        }
+        CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rInner), CGFloat(thetaStart+dTheta), CGFloat(thetaEnd+dTheta), false);
+        CGPathAddArc(holdPath2, nil, 0+200, 0+300, CGFloat(rInner), CGFloat(thetaStart+dTheta), CGFloat(thetaEnd+dTheta), false);
+        CGPathAddCurveToPoint(holdPath2, nil, 200, 300, 375, 300, 200+200/sqrt(2), 300-200/sqrt(2));
+        for i = numSteps; i >= 0; i-- {
+            let t = thetaEnd + step*i;
+            let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * cos(t))+200;
+            let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * sin(t))+300;
+            NSLog("(\(x), \(y))");
+            CGPathAddLineToPoint(holdPath, nil, x, y);
+        }
+        CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rOuter), CGFloat(thetaEnd), CGFloat(thetaStart), true);
+        CGPathAddArc(holdPath2, nil, 0+200, 0+300, CGFloat(rOuter), CGFloat(thetaEnd), CGFloat(thetaStart), true);
+        CGPathCloseSubpath(holdPath);
+        CGPathCloseSubpath(holdPath2);
+        let holdTest = SKShapeNode(path: holdPath);
+        let holdTest2 = SKShapeNode(path: holdPath2);
+        holdTest.strokeColor = UIColor.brownColor();
+        holdTest.zPosition = 10;
+        holdTest2.strokeColor = UIColor.blackColor();
+        holdTest2.zPosition = 10;
+        let holdTestAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveBy(CGVector(dx: -50, dy: 0), duration: 3), SKAction.moveBy(CGVector(dx: 50, dy: 0), duration: 3)]));
+        holdTest.runAction(holdTestAction);
+//        addChild(holdTest);
+//        addChild(holdTest2);
+        //END TEMPORARY HOLD NOTE CODE
     }
     
     private func checkCursorPosition() -> Int {
