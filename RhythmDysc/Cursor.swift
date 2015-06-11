@@ -29,7 +29,7 @@ class Cursor: SKSpriteNode {
     }
     
     func startUpdates() {
-        motionManager.deviceMotionUpdateInterval = 0.005;
+        motionManager.deviceMotionUpdateInterval = 0.02;
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue(), withHandler: { data, error in
             self.theta = atan2(-data.attitude.pitch/M_PI, data.attitude.roll/M_PI);
             self.position.x = self.center.x + CGFloat(self.radius * cos(self.theta));

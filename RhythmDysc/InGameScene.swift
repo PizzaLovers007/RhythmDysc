@@ -52,8 +52,14 @@ class InGameScene: SKScene {
             startTime = currentTime + 6.8 - Double(mapData.offset)/1000.0;
             return;
         }
+        if (songHasStarted) {
+            songHasStarted = false;
+            startTime = currentTime;
+        }
         let currSector: Int = checkCursorPosition();
-        mapData.update(songTime: currentTime - startTime, cursorInHold: true);
+        mapData.currSector = currSector;
+        mapData.update(songTime: currentTime - startTime, cursorTheta: cursor.theta);
+        mapData.updateNotePositions(songTime: currentTime - startTime, dysc: dysc);
         let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
     }
@@ -186,6 +192,9 @@ class InGameScene: SKScene {
         let titleAction = SKAction.group([fadeText, moveTitle]);
         let artistAction = SKAction.group([fadeText, moveArtist]);
         let delaySong = SKAction.waitForDuration(max(3.0 - Double(mapData.offset)/1000.0, 0));
+        let startSongTimer = SKAction.runBlock({
+            self.songHasStarted = true;
+        });
 //        let playSong = SKAction.runBlock({
 //            self.song.play();
 //        });
@@ -195,8 +204,15 @@ class InGameScene: SKScene {
             self.cursor.alpha = 1;
         });
         
-        titleNode.runAction(SKAction.sequence([titleAction, showField, delaySong, SKAction.playSoundFileNamed("aLIEz.mp3", waitForCompletion: false)]));
+        titleNode.runAction(SKAction.sequence([titleAction, showField, delaySong, startSongTimer, SKAction.playSoundFileNamed("aLIEz.mp3", waitForCompletion: false)]));
         artistNode.runAction(artistAction);
+        
+        mapData.comboTitle.position = CGPoint(x: size.width/2, y: size.height/4);
+        mapData.comboTitle.zPosition = 100;
+        mapData.comboTitle.fontColor = UIColor.blackColor();
+        mapData.judgmentTitle.position = CGPoint(x: size.width/2, y: size.height/3);
+        mapData.judgmentTitle.zPosition = 100;
+        mapData.judgmentTitle.fontColor = UIColor.blackColor();
         
         addButtons();
         addChild(dysc);
@@ -207,9 +223,12 @@ class InGameScene: SKScene {
         for note in mapData.notes {
             addChild(note);
             NSLog("\(note.texture?.description)");
-            note.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
-            note.size = CGSize(width: 50, height: 300);
+            note.position = dysc.position;
+            note.size = CGSize(width: dysc.size.width/2*(1-1/sqrt(2)), height: dysc.size.height/sqrt(2));
         }
+        addChild(mapData.soundPlayer);
+        addChild(mapData.comboTitle);
+        addChild(mapData.judgmentTitle);
         
         
         //TEMPORARY HOLD NOTE CODE

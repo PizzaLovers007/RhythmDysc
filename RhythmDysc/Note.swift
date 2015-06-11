@@ -15,13 +15,6 @@ struct NoteColor {
     static let BLUE = 2;
 }
 
-struct NoteDirection {
-    static let RIGHT = 0;
-    static let UP = 1;
-    static let LEFT = 2;
-    static let DOWN = 3;
-}
-
 enum NoteJudgment: Int {
     case MISS = 0;
     case GOOD = 1;
@@ -90,5 +83,12 @@ class Note: SKSpriteNode {
         let beatsAfterTime = Double(timePoint.keySignature * (measure-1)) + beat-1;
         msHit = timePoint.time + Int(round(msPerBeat * beatsAfterTime));
         msAppear = msHit-appear;
+    }
+    
+    func getPositionFraction(currTime msCurrTime: Int, appearTime msAppearTime: Int) -> Double {
+        let currTime: Double = Double(msCurrTime)/1000;
+        let appearTime: Double = Double(msAppearTime)/1000;
+        let hitTime: Double = Double(msHit)/1000;
+        return min(1, max(0, (currTime - appearTime) / (hitTime - appearTime)));
     }
 }
