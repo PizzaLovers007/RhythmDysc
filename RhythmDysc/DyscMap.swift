@@ -20,8 +20,9 @@ class DyscMap: NSObject {
     let perfectRange: [Int] = [80, 60, 40, 20];
     let judgmentDifference: [Int] = [55, 50, 45, 40];
     let msAppear: [Int] = [1500, 1200, 900, 600];
-    let soundPlayer: SoundPlayer = SoundPlayer();
+    let soundPlayer: HitSoundPlayer = HitSoundPlayer();
     let judgmentTitle: SKLabelNode = SKLabelNode();
+    let judgmentAction: SKAction;
     let comboTitle: SKLabelNode = SKLabelNode();
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
@@ -48,6 +49,9 @@ class DyscMap: NSObject {
         approach = 0;
         sector = 0;
         offset = 0;
+        let zoomAction = SKAction.sequence([SKAction.scaleTo(1, duration: 0), SKAction.scaleTo(1.1, duration: 0.1), SKAction.scaleTo(1, duration: 0.1)]);
+        let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
+        judgmentAction = SKAction.group([zoomAction, fadeAction]);
         super.init();
     }
     
@@ -64,6 +68,9 @@ class DyscMap: NSObject {
         hitStats[NoteJudgment.PERFECT] = 0;
         hitStats[NoteJudgment.HOLD] = 0;
         hitStats[NoteJudgment.SLIP] = 0;
+        let zoomAction = SKAction.sequence([SKAction.scaleTo(1, duration: 0), SKAction.scaleTo(1.1, duration: 0.1), SKAction.scaleTo(1, duration: 0.1)]);
+        let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
+        judgmentAction = SKAction.group([zoomAction, fadeAction]);
         super.init();
     }
     
@@ -92,9 +99,6 @@ class DyscMap: NSObject {
     
     func addHold(hold: HoldNote) {
         addNote(hold);
-        for node in hold.nodes {
-            NSLog(node.description);
-        }
     }
     
     func update(songTime timeSec: NSTimeInterval, cursorTheta: Double) {
@@ -106,6 +110,7 @@ class DyscMap: NSObject {
         } else {
             currTimingPoint = timingPoints[currTimingPointIndex];
         }
+        currTimingPoint.playMetronome(currTime, node: soundPlayer);
         if (notes.count > 0) {
             let perfect = perfectRange[approach];
             let great = perfectRange[approach] + judgmentDifference[approach];
@@ -116,8 +121,10 @@ class DyscMap: NSObject {
                 let nextNote = notes[i];
                 if (nextNote.msAppear > currTime) {
                     return;
+                } else if (!nextNote.hasAppeared) {
+                    nextNote.hasAppeared = true;
+                    nextNote.alpha = 1;
                 }
-                nextNote.alpha = 1;
                 if let holdNote = notes[0] as? HoldNote {
                     if (currTime - holdNote.msEnd > miss) {
                         lastHoldCycle = Int.max;
@@ -127,12 +134,13 @@ class DyscMap: NSObject {
                     } else if (!holdNote.hasHit && currTime - holdNote.msHit > miss) {
                         calcMiss();
                         holdNote.hasHit = true;
+                        holdNote.alpha = 0;
                     }
                     if (lastHoldCycle == Int.max) {
                         lastHoldCycle = holdNote.msHit;
                     }
                     let cursorInHold = holdNote.isInHold(angle: cursorTheta, time: currTime, sector: sector);
-                    if (currTime > holdNote.msHit && currTime - lastHoldCycle > 200 && currTime < holdNote.msEnd) {
+                    if (currTime > holdNote.msHit && currTime - lastHoldCycle > 150 && currTime < holdNote.msEnd) {
                         lastHoldCycle = currTime;
                         if (holdNote.isHeld) {
                             if (cursorInHold) {
@@ -152,8 +160,18 @@ class DyscMap: NSObject {
                 }
                 let timeDifference = currTime - nextNote.msAppear;
                 let scale = newScale(timeDifference);
-                nextNote.xScale = scale;
-                nextNote.yScale = scale;
+                if let holdNote = nextNote as? HoldNote {
+                    if (holdNote.isHeld) {
+                        nextNote.xScale = 1;
+                        nextNote.yScale = 1;
+                    } else {
+                        nextNote.xScale = scale;
+                        nextNote.yScale = scale;
+                    }
+                } else {
+                    nextNote.xScale = scale;
+                    nextNote.yScale = scale;
+                }
                 i++;
             }
         }
@@ -162,12 +180,24 @@ class DyscMap: NSObject {
     func updateNotePositions(songTime timeSec: NSTimeInterval, dysc: SKSpriteNode) {
         let currTime = Int(timeSec*1000);
         for currNote in notes {
-            let frac = currNote.getPositionFraction(currTime: currTime, appearTime: msAppear[approach]);
+            if (currNote.msAppear > currTime) {
+                break;
+            }
+            let frac = currNote.getPositionFraction(currTime: currTime);
             let targetPositionX = Double(dysc.position.x) + Double(dysc.size.width)/2*cos(Double(currNote.direction)*M_PI*2/Double(sector));
             let targetPositionY = Double(dysc.position.y) + Double(dysc.size.height)/2*sin(Double(currNote.direction)*M_PI*2/Double(sector));
             let newPositionX = lerp(lower: Double(dysc.position.x), upper: targetPositionX, val: frac);
             let newPositionY = lerp(lower: Double(dysc.position.y), upper: targetPositionY, val: frac);
-            currNote.runAction(SKAction.moveTo(CGPoint(x: newPositionX, y: newPositionY), duration: 0));
+            if let holdNote = currNote as? HoldNote {
+                holdNote.updateArea(currTime, sector: sector, dysc: dysc);
+                if (holdNote.isHeld) {
+                    currNote.runAction(SKAction.moveTo(CGPoint(x: targetPositionX, y: targetPositionY), duration: 0));
+                } else {
+                    currNote.runAction(SKAction.moveTo(CGPoint(x: newPositionX, y: newPositionY), duration: 0));
+                }
+            } else {
+                currNote.runAction(SKAction.moveTo(CGPoint(x: newPositionX, y: newPositionY), duration: 0));
+            }
         }
     }
     
@@ -187,6 +217,7 @@ class DyscMap: NSObject {
                 if let holdNote = notes[0] as? HoldNote {
                     if (holdNote.noteColor == button.rawValue && currSector == holdNote.direction) {
                         holdNote.holdDown();
+                        holdNote.alpha = 0;
                     }
                 }
                 var i: Int = 0;
@@ -227,6 +258,8 @@ class DyscMap: NSObject {
         combo = 0;
         comboTitle.text = "";
         judgmentTitle.text = "Miss";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.MISS]! += 1;
         NSLog("Missed note");
         soundPlayer.playMiss();
@@ -236,6 +269,8 @@ class DyscMap: NSObject {
         combo = 0;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Good";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GOOD]! += 1;
         NSLog("Good note");
         soundPlayer.playGood();
@@ -245,6 +280,8 @@ class DyscMap: NSObject {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Great";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GREAT]! += 1;
         NSLog("Great note");
         soundPlayer.playGreat();
@@ -254,6 +291,8 @@ class DyscMap: NSObject {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Perfect";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.PERFECT]! += 1;
         NSLog("Perfect note");
         soundPlayer.playPerfect();
@@ -263,6 +302,8 @@ class DyscMap: NSObject {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Hold";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.HOLD]! += 1;
         NSLog("Hold note");
         soundPlayer.playHold();
@@ -272,6 +313,8 @@ class DyscMap: NSObject {
         combo = 0;
         comboTitle.text = "";
         judgmentTitle.text = "Slip";
+        judgmentTitle.removeActionForKey("ShowFade");
+        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.SLIP]! += 1;
         NSLog("Slip note");
         soundPlayer.playSlip();
@@ -282,6 +325,6 @@ class DyscMap: NSObject {
     }
     
     private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
-        return min(1, max(0, val)) * (upper-lower) + lower;
+        return min(2, max(0, val)) * (upper-lower) + lower;
     }
 }

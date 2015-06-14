@@ -19,18 +19,16 @@ class InGameScene: SKScene {
     let highlight: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorBlueArc");
     let dysc: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorDysc");
     let mapData: DyscMap;
-//    var song: AVAudioPlayer! = nil;
+    var songPlayer: AVAudioPlayer! = nil;
     var redDown: Bool = false;
     var greenDown: Bool = false;
     var blueDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
-    var songHasStarted: Bool = false;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         NSLog("\(songURL)");
-//        song = AVAudioPlayer(contentsOfURL: songURL, error: nil);
-//        song.prepareToPlay();
+        songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
         mapData = data;
         super.init(size: size);
     }
@@ -44,22 +42,18 @@ class InGameScene: SKScene {
         NSLog("Entered the In Game Scene");
         self.backgroundColor = SKColor.whiteColor();
         initializeObjects();
+        songPlayer.delegate = self;
     }
     
     override func update(currentTime: NSTimeInterval) {
         if (prevTime == -1) {
             prevTime = currentTime;
-            startTime = currentTime + 6.8 - Double(mapData.offset)/1000.0;
             return;
-        }
-        if (songHasStarted) {
-            songHasStarted = false;
-            startTime = currentTime;
         }
         let currSector: Int = checkCursorPosition();
         mapData.currSector = currSector;
-        mapData.update(songTime: currentTime - startTime, cursorTheta: cursor.theta);
-        mapData.updateNotePositions(songTime: currentTime - startTime, dysc: dysc);
+        mapData.update(songTime: songPlayer.currentTime, cursorTheta: cursor.theta);
+        mapData.updateNotePositions(songTime: songPlayer.currentTime, dysc: dysc);
         let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
     }
@@ -191,20 +185,17 @@ class InGameScene: SKScene {
         let moveArtist = SKAction.moveBy(CGVector(dx: -artistChange, dy: 0), duration: 3.8);
         let titleAction = SKAction.group([fadeText, moveTitle]);
         let artistAction = SKAction.group([fadeText, moveArtist]);
-        let delaySong = SKAction.waitForDuration(max(3.0 - Double(mapData.offset)/1000.0, 0));
-        let startSongTimer = SKAction.runBlock({
-            self.songHasStarted = true;
+        let playSong = SKAction.runBlock({
+            self.songPlayer.prepareToPlay();
+            self.songPlayer.play();
         });
-//        let playSong = SKAction.runBlock({
-//            self.song.play();
-//        });
         let showField = SKAction.runBlock({
             self.dysc.alpha = 1;
             self.highlight.alpha = 1;
             self.cursor.alpha = 1;
         });
         
-        titleNode.runAction(SKAction.sequence([titleAction, showField, delaySong, startSongTimer, SKAction.playSoundFileNamed("aLIEz.mp3", waitForCompletion: false)]));
+        titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
         artistNode.runAction(artistAction);
         
         mapData.comboTitle.position = CGPoint(x: size.width/2, y: size.height/4);
@@ -222,9 +213,12 @@ class InGameScene: SKScene {
         addChild(artistNode);
         for note in mapData.notes {
             addChild(note);
-            NSLog("\(note.texture?.description)");
+            note.anchorPoint = CGPoint(x: 1.0, y: 0.5);
             note.position = dysc.position;
             note.size = CGSize(width: dysc.size.width/2*(1-1/sqrt(2)), height: dysc.size.height/sqrt(2));
+            if let holdNote = note as? HoldNote {
+                addChild(holdNote.pathNode);
+            }
         }
         addChild(mapData.soundPlayer);
         addChild(mapData.comboTitle);
@@ -249,7 +243,6 @@ class InGameScene: SKScene {
             let t = thetaStart + step*i;
             let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * cos(t))+200;
             let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * sin(t))+300;
-            NSLog("(\(x), \(y))");
             CGPathAddLineToPoint(holdPath, nil, x, y);
         }
         CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rInner), CGFloat(thetaStart+dTheta), CGFloat(thetaEnd+dTheta), false);
@@ -259,7 +252,6 @@ class InGameScene: SKScene {
             let t = thetaEnd + step*i;
             let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * cos(t))+200;
             let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * sin(t))+300;
-            NSLog("(\(x), \(y))");
             CGPathAddLineToPoint(holdPath, nil, x, y);
         }
         CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rOuter), CGFloat(thetaEnd), CGFloat(thetaStart), true);
@@ -286,5 +278,23 @@ class InGameScene: SKScene {
         let highlightRotation = CGFloat(round(theta/sectorSize)*sectorSize);
         highlight.runAction(SKAction.rotateToAngle(highlightRotation, duration: 0));
         return currSector;
+    }
+}
+
+extension InGameScene: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        NSLog("Song finished");
+        let endTitle: SKLabelNode = SKLabelNode(text: "Song Complete!");
+        endTitle.fontColor = UIColor.blackColor();
+        endTitle.fontName = "HelveticaNeue-Medium";
+        endTitle.position = CGPoint(x: size.width/2, y: size.height/2);
+        let hideField = SKAction.runBlock({
+            self.dysc.alpha = 0;
+            self.highlight.alpha = 0;
+            self.cursor.alpha = 0;
+        });
+        endTitle.runAction(hideField);
+        
+        addChild(endTitle);
     }
 }

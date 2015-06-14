@@ -9,7 +9,7 @@
 import UIKit;
 import SpriteKit;
 
-class SoundPlayer: SKNode {
+class HitSoundPlayer: SKNode {
    
     override init() {
         super.init();

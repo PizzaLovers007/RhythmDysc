@@ -18,7 +18,7 @@
 		D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2B1B224D810077EE8F /* aLIEz.mp3 */; };
 		D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */; };
 		D5300A301B2257410077EE8F /* DyscMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5300A2F1B2257410077EE8F /* DyscMap.swift */; };
-		D5B2923C1B2A226B00B1A653 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B2923B1B2A226B00B1A653 /* SoundPlayer.swift */; };
+		D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */; };
 		D5B292441B2A24D800B1A653 /* soundGood.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B2923E1B2A24D800B1A653 /* soundGood.wav */; };
 		D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B2923F1B2A24D800B1A653 /* soundGreat.wav */; };
 		D5B292461B2A24D800B1A653 /* soundHold.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B292401B2A24D800B1A653 /* soundHold.wav */; };
@@ -34,6 +34,8 @@
 		D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CE81B1E945000C1E18D /* InGameScene.swift */; };
 		D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */; };
 		D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */; };
+		D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5DDF87D1B2CE8CE00E401B8 /* metronomeTick.wav */; };
+		D5DDF8801B2CE8CE00E401B8 /* metronomeTock.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5DDF87E1B2CE8CE00E401B8 /* metronomeTock.wav */; };
 		D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EE34A41B279356000E4A80 /* Cursor.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +61,7 @@
 		D5300A2B1B224D810077EE8F /* aLIEz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aLIEz.mp3; sourceTree = "<group>"; };
 		D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mushikui-Saikede-Rhythm.mp3"; sourceTree = "<group>"; };
 		D5300A2F1B2257410077EE8F /* DyscMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyscMap.swift; sourceTree = "<group>"; };
-		D5B2923B1B2A226B00B1A653 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitSoundPlayer.swift; sourceTree = "<group>"; };
 		D5B2923E1B2A24D800B1A653 /* soundGood.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundGood.wav; sourceTree = "<group>"; };
 		D5B2923F1B2A24D800B1A653 /* soundGreat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundGreat.wav; sourceTree = "<group>"; };
 		D5B292401B2A24D800B1A653 /* soundHold.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundHold.wav; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 		D5D59CE81B1E945000C1E18D /* InGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameScene.swift; sourceTree = "<group>"; };
 		D5D59CEB1B1E9CBE00C1E18D /* BlueButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueButton.swift; sourceTree = "<group>"; };
 		D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
+		D5DDF87D1B2CE8CE00E401B8 /* metronomeTick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronomeTick.wav; sourceTree = "<group>"; };
+		D5DDF87E1B2CE8CE00E401B8 /* metronomeTock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronomeTock.wav; sourceTree = "<group>"; };
 		D5EE34A41B279356000E4A80 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +124,8 @@
 		D5B2923D1B2A24CE00B1A653 /* HitSounds */ = {
 			isa = PBXGroup;
 			children = (
+				D5DDF87D1B2CE8CE00E401B8 /* metronomeTick.wav */,
+				D5DDF87E1B2CE8CE00E401B8 /* metronomeTock.wav */,
 				D5B2923E1B2A24D800B1A653 /* soundGood.wav */,
 				D5B2923F1B2A24D800B1A653 /* soundGreat.wav */,
 				D5B292401B2A24D800B1A653 /* soundHold.wav */,
@@ -166,7 +172,7 @@
 				D50503521B20129E008B5707 /* MapReader.swift */,
 				D5300A2F1B2257410077EE8F /* DyscMap.swift */,
 				D52F817F1B26527B00352613 /* TimingPoint.swift */,
-				D5B2923B1B2A226B00B1A653 /* SoundPlayer.swift */,
+				D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */,
 			);
 			path = RhythmDysc;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
@@ -310,6 +317,7 @@
 				D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */,
 				D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */,
 				D50503461B1FB371008B5707 /* AssetsToImport in Resources */,
+				D5DDF8801B2CE8CE00E401B8 /* metronomeTock.wav in Resources */,
 				D5B292481B2A24D800B1A653 /* soundPerfect.wav in Resources */,
 				D5B292461B2A24D800B1A653 /* soundHold.wav in Resources */,
 			);
@@ -337,7 +345,7 @@
 				D50503481B1FB906008B5707 /* GreenButton.swift in Sources */,
 				D50503531B20129E008B5707 /* MapReader.swift in Sources */,
 				D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */,
-				D5B2923C1B2A226B00B1A653 /* SoundPlayer.swift in Sources */,
+				D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
 				D52F81821B26529300352613 /* Note.swift in Sources */,
 				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,

@@ -33,6 +33,7 @@ class Note: SKSpriteNode {
     let beat: Double;
     var msHit: Int = 0;
     var msAppear: Int = 0;
+    var hasAppeared = false;
     
     override var description: String {
         return "Note:[Direction: \(direction), Color: \(noteColor), Measure: \(measure), Beat: \(beat)]";
@@ -79,16 +80,15 @@ class Note: SKSpriteNode {
     }
     
     func setTiming(timePoint: TimingPoint, appearFor appear: Int) {
-        let msPerBeat = 60000/timePoint.bpm;
         let beatsAfterTime = Double(timePoint.keySignature * (measure-1)) + beat-1;
-        msHit = timePoint.time + Int(round(msPerBeat * beatsAfterTime));
+        msHit = timePoint.time + Int(round(timePoint.msPerBeat * beatsAfterTime));
         msAppear = msHit-appear;
     }
     
-    func getPositionFraction(currTime msCurrTime: Int, appearTime msAppearTime: Int) -> Double {
+    func getPositionFraction(currTime msCurrTime: Int) -> Double {
         let currTime: Double = Double(msCurrTime)/1000;
-        let appearTime: Double = Double(msAppearTime)/1000;
+        let appearTime: Double = Double(msAppear)/1000;
         let hitTime: Double = Double(msHit)/1000;
-        return min(1, max(0, (currTime - appearTime) / (hitTime - appearTime)));
+        return min(2, max(0, (currTime - appearTime) / (hitTime - appearTime)));
     }
 }

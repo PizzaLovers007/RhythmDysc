@@ -7,7 +7,7 @@ sector=4
 offset=523
 
 [Timing]
-523,99,4
+3528,99,4
 
 [Notes]
 0,0,0,0,1,1
