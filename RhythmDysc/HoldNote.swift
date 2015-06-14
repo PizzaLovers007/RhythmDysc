@@ -61,8 +61,11 @@ class HoldNote: Note {
     func isInHold(#angle: Double, time: Int, sector: Int) -> Bool {
         let cursorAngle = (angle + M_PI*2) % (M_PI*2);
         let noteAngle = getCurrentNoteAngle(time: time, sector: sector);
-        let angleDifference = min(abs(cursorAngle - noteAngle), min(abs(cursorAngle - noteAngle + M_PI*2), abs(cursorAngle - noteAngle - M_PI*2)));
-        return angleDifference < M_PI/Double(sector);
+        let lowerAngleDifference = abs(cursorAngle - noteAngle);
+        let middleAngleDifference = abs(cursorAngle - noteAngle - M_PI*2);
+        let upperAngleDifference = abs(cursorAngle - noteAngle + M_PI*2);
+        let minAngleDifference = min(lowerAngleDifference, min(middleAngleDifference, upperAngleDifference));
+        return minAngleDifference < M_PI/Double(sector);
     }
     
     func updateArea(currTime: Int, sector: Int, dysc: SKSpriteNode) {
