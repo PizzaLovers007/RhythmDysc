@@ -22,7 +22,6 @@ class GameViewController: UIViewController {
             return;
         }
         let mapData: DyscMap = MapReader.readFile(mapURL!);
-        NSLog(mapData.description);
         let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
         // Configure the view.
         let skView = self.view as! SKView;

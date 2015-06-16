@@ -27,7 +27,6 @@ class InGameScene: SKScene {
     var startTime: NSTimeInterval = 0;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
-        NSLog("\(songURL)");
         songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
         mapData = data;
         super.init(size: size);

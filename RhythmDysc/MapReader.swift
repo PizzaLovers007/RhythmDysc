@@ -14,7 +14,6 @@ class MapReader: NSObject {
         let fileManager = NSFileManager.defaultManager();
         
         if let fileContent = String(contentsOfURL: mapURL, encoding: NSUTF8StringEncoding, error: nil) {
-            NSLog(fileContent);
             let scanner: NSScanner = NSScanner(string: fileContent);
             let parseCharacterSet = NSMutableCharacterSet.newlineCharacterSet();
             parseCharacterSet.formUnionWithCharacterSet(NSCharacterSet(charactersInString: "=,"));
@@ -31,7 +30,6 @@ class MapReader: NSObject {
                 let key: String = next as! String;
                 generalScanner.scanUpToString("\n", intoString: &next);
                 generalInfo[key] = next as? String;
-                NSLog(key + ":" + (next as! String));
             }
             let mapData: DyscMap = DyscMap(generalInfo: generalInfo);
             
