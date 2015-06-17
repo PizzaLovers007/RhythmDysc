@@ -310,6 +310,11 @@ class DyscMap: NSObject {
     }
     
     private func calcSlip() {
+        if (combo > 10) {
+            soundPlayer.playMiss();
+        } else {
+            soundPlayer.playSlip();
+        }
         combo = 0;
         comboTitle.text = "";
         judgmentTitle.text = "Slip";
@@ -317,7 +322,6 @@ class DyscMap: NSObject {
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.SLIP]! += 1;
         NSLog("Slip note");
-        soundPlayer.playSlip();
     }
     
     private func newScale(timeDifference: Int) -> CGFloat {

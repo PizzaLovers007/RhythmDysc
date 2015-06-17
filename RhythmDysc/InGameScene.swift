@@ -154,7 +154,11 @@ class InGameScene: SKScene {
         cursor.size = CGSize(width: dysc.size.width/10, height: dysc.size.height/10);
         cursor.alpha = 0;
         cursor.startUpdates();
+        cursor.tiltSprite.position = dysc.position;
+        cursor.tiltSprite.size = CGSize(width: cursor.size.width/3, height: cursor.size.height/3);
+        cursor.tiltSprite.alpha = 0;
         addChild(cursor);
+        addChild(cursor.tiltSprite);
     }
     
     private func initializeObjects() {
@@ -170,7 +174,14 @@ class InGameScene: SKScene {
         artistNode.alpha = 0;
         artistNode.position = CGPoint(x: size.width/2 + artistChange/2, y: size.height/3*2-30);
         artistNode.fontColor = SKColor.blackColor();
+        artistNode.fontSize = artistNode.fontSize*2/3;
         artistNode.fontName = "HelveticaNeue-Light";
+        let calculatingTiltNode = SKLabelNode(text: "Calibrating tilt, please hold still...");
+        calculatingTiltNode.alpha = 0;
+        calculatingTiltNode.position = CGPoint(x: size.width/2, y: size.height/4);
+        calculatingTiltNode.fontColor = SKColor.blackColor();
+        calculatingTiltNode.fontSize = calculatingTiltNode.fontSize/2;
+        calculatingTiltNode.fontName = "HelveticaNeue-Medium";
         
         dysc.size = CGSize(width: self.size.width-40, height: self.size.width-40);
         dysc.position = CGPoint(x: size.width/2, y: size.height/3*2);
@@ -184,6 +195,7 @@ class InGameScene: SKScene {
         let moveArtist = SKAction.moveBy(CGVector(dx: -artistChange, dy: 0), duration: 3.8);
         let titleAction = SKAction.group([fadeText, moveTitle]);
         let artistAction = SKAction.group([fadeText, moveArtist]);
+        let calculatingTiltAction = fadeText;
         let playSong = SKAction.runBlock({
             self.songPlayer.prepareToPlay();
             self.songPlayer.play();
@@ -192,10 +204,12 @@ class InGameScene: SKScene {
             self.dysc.alpha = 1;
             self.highlight.alpha = 1;
             self.cursor.alpha = 1;
+            self.cursor.tiltSprite.alpha = 1;
         });
         
         titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
         artistNode.runAction(artistAction);
+        calculatingTiltNode.runAction(calculatingTiltAction);
         
         mapData.comboTitle.position = CGPoint(x: size.width/2, y: size.height/4);
         mapData.comboTitle.zPosition = 100;
@@ -210,6 +224,7 @@ class InGameScene: SKScene {
         addChild(highlight);
         addChild(titleNode);
         addChild(artistNode);
+        addChild(calculatingTiltNode);
         for note in mapData.notes {
             addChild(note);
             note.anchorPoint = CGPoint(x: 1.0, y: 0.5);

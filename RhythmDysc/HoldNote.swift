@@ -40,6 +40,7 @@ class HoldNote: Note {
         nodes.append(Node(rotation: 0, length: 0, ms: 0));
         addNode(rotation: rot, length: len);
         pathNode.strokeColor = UIColor.redColor();
+        pathNode.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3);
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -98,7 +99,7 @@ class HoldNote: Note {
 //            } else {
 //                let endTheta = getCurrentNoteAngle(time: min(node.ms+approachTime, currTime+approachTime), sector: sector);
 //                NSLog("\(prevTheta)   \(endTheta)");
-//                connectNodesOnPath(path, center: CGPoint(x: center.x, y: center.y), sector: sector, startTheta: prevTheta, endTheta: endTheta, outerRadius: prevRadius, innerRadius: nodeRadius);
+//                connectNodesOnPath(path, center: CGPoint(x: center.x, y: center.y), sector: sector, startTheta: prevTheta, endTheta: endTheta, startRadius: prevRadius, endRadius: nodeRadius);
 //            }
 //            prevRadius = nodeRadius;
 //            prevTheta = nodeTheta;
@@ -118,7 +119,7 @@ class HoldNote: Note {
             prevRadius = dyscRadius * noteTimeFraction;
             prevTheta = noteAngle;
         }
-        CGPathAddArc(path, nil, center.x, center.y, CGFloat(dyscRadius), CGFloat(noteAngle), CGFloat(noteAngle - sectorAngle/2), true);
+        CGPathAddArc(path, nil, center.x, center.y, CGFloat(prevRadius), CGFloat(noteAngle), CGFloat(noteAngle - sectorAngle/2), true);
         var startIndex: Int;
         var nodeDirection: Int = direction;
         for (startIndex = nodes.count-2; startIndex >= 0; startIndex--) {
@@ -134,30 +135,50 @@ class HoldNote: Note {
                 } else {
                     nodeTheta = getCurrentNoteAngle(time: currTime+approachTime, sector: sector);
                 }
-                connectNodesOnPath(path, center: center, sector: sector, startTheta: noteAngle, endTheta: nodeTheta, outerRadius: dyscRadius, innerRadius: nodeRadius);
+                connectNodesOnPath(path, center: center, sector: sector, startTheta: noteAngle - sectorAngle/2, endTheta: nodeTheta - sectorAngle/2, startRadius: dyscRadius, endRadius: nodeRadius);
                 prevRadius = nodeRadius;
                 prevTheta = nodeTheta;
                 break;
             }
         }
         for (var currIndex = startIndex+1; currIndex < nodes.count; currIndex++) {
+            startIndex = currIndex;
             let node = nodes[currIndex];
             let timeFraction = Double(node.ms - currTime) / Double(approachTime);
             if (timeFraction > 1) {
                 let endTheta = getCurrentNoteAngle(time: currTime+approachTime, sector: sector);
-                connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta, endTheta: endTheta, outerRadius: prevRadius, innerRadius: 0);
+                connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta - sectorAngle/2, endTheta: endTheta - sectorAngle/2, startRadius: prevRadius, endRadius: 0);
+                prevRadius = 0;
+                prevTheta = endTheta;
                 break;
             }
             let nodeRadius = lerp(lower: dyscRadius, upper: 0, val: timeFraction);
             let nodeTheta = Double(nodeDirection) * sectorAngle;
-            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta, endTheta: nodeTheta, outerRadius: prevRadius, innerRadius: nodeRadius);
+            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta - sectorAngle/2, endTheta: nodeTheta - sectorAngle/2, startRadius: prevRadius, endRadius: nodeRadius);
             prevRadius = nodeRadius;
             prevTheta = nodeTheta;
             nodeDirection = (nodeDirection + node.rotation) % sector;
         }
+        CGPathAddArc(path, nil, center.x, center.y, CGFloat(prevRadius), CGFloat(prevTheta - sectorAngle/2), CGFloat(prevTheta + sectorAngle/2), false);
+        for (var currIndex = startIndex-1; currIndex >= 0; currIndex--) {
+            let node = nodes[currIndex];
+            nodeDirection = (nodeDirection - node.rotation) % sector;
+            let timeFraction = Double(node.ms - currTime) / Double(approachTime);
+            if (currTime > node.ms) {
+                connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta + sectorAngle/2, endTheta: noteAngle + sectorAngle/2, startRadius: prevRadius, endRadius: dyscRadius);
+                prevRadius = dyscRadius;
+                prevTheta = noteAngle;
+                break;
+            }
+            let nodeRadius = lerp(lower: dyscRadius, upper: 0, val: timeFraction);
+            let nodeTheta = Double(nodeDirection) * sectorAngle;
+            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta + sectorAngle/2, endTheta: nodeTheta + sectorAngle/2, startRadius: prevRadius, endRadius: nodeRadius);
+            prevRadius = nodeRadius;
+            prevTheta = nodeTheta;
+        }
         
         
-        CGPathAddArc(path, nil, center.x, center.y, CGFloat(dyscRadius), CGFloat(noteAngle + sectorAngle/2), CGFloat(noteAngle), true);
+        CGPathAddArc(path, nil, center.x, center.y, CGFloat(prevRadius), CGFloat(noteAngle + sectorAngle/2), CGFloat(noteAngle), true);
         
         pathNode.path = path;
     }
@@ -199,47 +220,55 @@ class HoldNote: Note {
         return Double(direction)*M_PI*2/Double(sector);
     }
     
-    private func connectNodesOnPath(path: CGMutablePath!, center: CGPoint, sector: Int, startTheta: Double, endTheta: Double, outerRadius: Double, innerRadius: Double) {
-        if (outerRadius > innerRadius) {
+    private func connectNodesOnPath(path: CGMutablePath!, center: CGPoint, sector: Int, startTheta: Double, endTheta: Double, startRadius: Double, endRadius: Double) {
+        if (startRadius != endRadius) {
             let dTheta = endTheta - startTheta;
             if (dTheta == 0) {  //Line connection
-                CGPathAddLineToPoint(path, nil, CGFloat(innerRadius * cos(endTheta)) + center.x, CGFloat(innerRadius * sin(endTheta)) + center.y);
+                CGPathAddLineToPoint(path, nil, CGFloat(endRadius * cos(endTheta)) + center.x, CGFloat(endRadius * sin(endTheta)) + center.y);
             } else {  //Curve connection
-                NSLog("\(outerRadius)  \(innerRadius)  \(startTheta)  \(endTheta)");
+//                NSLog("\(startRadius)  \(endRadius)  \(startTheta)  \(endTheta)");
 //                let numSteps = 30.0;
 //                let step = (endTheta - startTheta)/numSteps;
 //                var i: Double;
 //                for (i = 0; i <= numSteps; i++) {
 //                    let t = startTheta + step*i;
-//                    let nextRadius = (outerRadius-innerRadius)*(t-startTheta)/(2*M_PI/Double(sector));
-//                    let x = CGFloat((outerRadius - nextRadius) * cos(t)) + center.x;
-//                    let y = CGFloat((outerRadius - nextRadius) * sin(t)) + center.y;
+//                    let nextRadius = (startRadius-endRadius)*(t-startTheta)/(2*M_PI/Double(sector));
+//                    let x = CGFloat((startRadius - nextRadius) * cos(t)) + center.x;
+//                    let y = CGFloat((startRadius - nextRadius) * sin(t)) + center.y;
 //                    CGPathAddLineToPoint(path, nil, x, y);
 //                }
                 
-                let dRadius = outerRadius - innerRadius;
-                let x = CGFloat(innerRadius * cos(endTheta)) + center.x;
-                let y = CGFloat(innerRadius * sin(endTheta)) + center.y;
-                let cp1x = CGFloat((outerRadius - dRadius/4) * cos(endTheta - dTheta/2)) + center.x;
-                let cp1y = CGFloat((outerRadius - dRadius/4) * sin(endTheta - dTheta/2)) + center.y;
-                let cp2x = CGFloat((innerRadius + dRadius/8) * cos(endTheta)) + center.x;
-                let cp2y = CGFloat((innerRadius + dRadius/8) * sin(endTheta)) + center.y;
-                CGPathAddCurveToPoint(path, nil, cp1x, cp1y, cp2x, cp2y, x, y);
+                let dRadius = abs(startRadius - endRadius);
+                let x = CGFloat(endRadius * cos(endTheta)) + center.x;
+                let y = CGFloat(endRadius * sin(endTheta)) + center.y;
+                if (startRadius > endRadius) {
+                    let cp1x = CGFloat((startRadius - dRadius/4) * cos(endTheta - dTheta/2)) + center.x;
+                    let cp1y = CGFloat((startRadius - dRadius/4) * sin(endTheta - dTheta/2)) + center.y;
+                    let cp2x = CGFloat((endRadius + dRadius/8) * cos(endTheta)) + center.x;
+                    let cp2y = CGFloat((endRadius + dRadius/8) * sin(endTheta)) + center.y;
+                    CGPathAddCurveToPoint(path, nil, cp1x, cp1y, cp2x, cp2y, x, y);
+                } else {
+                    let cp1x = CGFloat((startRadius + dRadius/8) * cos(startTheta)) + center.x;
+                    let cp1y = CGFloat((startRadius + dRadius/8) * sin(startTheta)) + center.y;
+                    let cp2x = CGFloat((endRadius - dRadius/4) * cos(startTheta + dTheta/2)) + center.x;
+                    let cp2y = CGFloat((endRadius - dRadius/4) * sin(startTheta + dTheta/2)) + center.y;
+                    CGPathAddCurveToPoint(path, nil, cp1x, cp1y, cp2x, cp2y, x, y);
+                }
             }
         }
 //        for (i = 0; i <= numSteps; i++) {
 //            let t = startTheta + step*i;
-//            let x = CGFloat((outerRadius - 2*(outerRadius-innerRadius)*(t-startTheta)/M_PI) * cos(t))+200;
-//            let y = CGFloat((outerRadius - 2*(outerRadius-innerRadius)*(t-startTheta)/M_PI) * sin(t))+300;
+//            let x = CGFloat((startRadius - 2*(startRadius-endRadius)*(t-startTheta)/M_PI) * cos(t))+200;
+//            let y = CGFloat((startRadius - 2*(startRadius-endRadius)*(t-startTheta)/M_PI) * sin(t))+300;
 //            CGPathAddLineToPoint(path, nil, x, y);
 //        }
-//        CGPathAddArc(path, nil, 0+200, 0+300, CGFloat(innerRadius), CGFloat(startTheta+dTheta), CGFloat(endTheta+dTheta), false);
+//        CGPathAddArc(path, nil, 0+200, 0+300, CGFloat(endRadius), CGFloat(startTheta+dTheta), CGFloat(endTheta+dTheta), false);
 //        for (i = numSteps; i >= 0; i--) {
 //            let t = endTheta + step*i;
-//            let x = CGFloat((outerRadius - 2*(outerRadius-innerRadius)*(t-endTheta)/M_PI) * cos(t))+200;
-//            let y = CGFloat((outerRadius - 2*(outerRadius-innerRadius)*(t-endTheta)/M_PI) * sin(t))+300;
+//            let x = CGFloat((startRadius - 2*(startRadius-endRadius)*(t-endTheta)/M_PI) * cos(t))+200;
+//            let y = CGFloat((startRadius - 2*(startRadius-endRadius)*(t-endTheta)/M_PI) * sin(t))+300;
 //            CGPathAddLineToPoint(path, nil, x, y);
 //        }
-//        CGPathAddArc(path, nil, 0+200, 0+300, CGFloat(outerRadius), CGFloat(endTheta), CGFloat(startTheta), true);
+//        CGPathAddArc(path, nil, 0+200, 0+300, CGFloat(startRadius), CGFloat(endTheta), CGFloat(startTheta), true);
     }
 }
