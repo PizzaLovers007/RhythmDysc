@@ -14,6 +14,7 @@ class TimingPoint: NSObject {
     let bpm: Double;
     let keySignature: Int;
     let msPerBeat: Double;
+    let useMetronome = false;
     var nextMetronomeTick: Double;
     var currMetronomeBeat: Int;
     
@@ -28,7 +29,7 @@ class TimingPoint: NSObject {
     }
     
     func playMetronome(currTime: Int, node: SKNode) {
-        if (currTime > Int(round(nextMetronomeTick))) {
+        if (useMetronome && currTime > Int(round(nextMetronomeTick))) {
             if (currMetronomeBeat == 0) {
                 node.runAction(SKAction.playSoundFileNamed("metronomeTick.wav", waitForCompletion: false));
             } else {

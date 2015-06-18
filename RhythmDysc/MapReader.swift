@@ -92,7 +92,7 @@ class MapReader: NSObject {
                     currHoldNote!.addNode(rotation: rotation, length: length);
                     break;
                 default:
-                    NSLog("Note switch-case went to default wat wat this shouldn't be happening")
+                    break;
                 }
             }
             if (currHoldNote != nil) {

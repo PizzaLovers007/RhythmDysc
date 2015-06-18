@@ -36,6 +36,9 @@
 		D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */; };
 		D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5DDF87D1B2CE8CE00E401B8 /* metronomeTick.wav */; };
 		D5DDF8801B2CE8CE00E401B8 /* metronomeTock.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5DDF87E1B2CE8CE00E401B8 /* metronomeTock.wav */; };
+		D5DF0F5D1B322B6800190B11 /* SongSelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF0F5C1B322B6800190B11 /* SongSelectScene.swift */; };
+		D5DF0F5F1B322CCB00190B11 /* SongSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF0F5E1B322CCB00190B11 /* SongSelection.swift */; };
+		D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D5DF0F601B322E5800190B11 /* aLIEz-expert-4.dmp */; };
 		D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EE34A41B279356000E4A80 /* Cursor.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +86,9 @@
 		D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
 		D5DDF87D1B2CE8CE00E401B8 /* metronomeTick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronomeTick.wav; sourceTree = "<group>"; };
 		D5DDF87E1B2CE8CE00E401B8 /* metronomeTock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronomeTock.wav; sourceTree = "<group>"; };
+		D5DF0F5C1B322B6800190B11 /* SongSelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectScene.swift; sourceTree = "<group>"; };
+		D5DF0F5E1B322CCB00190B11 /* SongSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelection.swift; sourceTree = "<group>"; };
+		D5DF0F601B322E5800190B11 /* aLIEz-expert-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "aLIEz-expert-4.dmp"; sourceTree = "<group>"; };
 		D5EE34A41B279356000E4A80 /* Cursor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */,
+				D5DF0F601B322E5800190B11 /* aLIEz-expert-4.dmp */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				D5D59CE81B1E945000C1E18D /* InGameScene.swift */,
+				D5DF0F5C1B322B6800190B11 /* SongSelectScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 				D52F81831B2653EA00352613 /* HoldNote.swift */,
 				D52F81811B26529300352613 /* Note.swift */,
 				D5D59CEE1B1E9D0900C1E18D /* RedButton.swift */,
+				D5DF0F5E1B322CCB00190B11 /* SongSelection.swift */,
 			);
 			name = SpriteNodes;
 			sourceTree = "<group>";
@@ -306,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
+				D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
@@ -348,9 +358,11 @@
 				D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
 				D52F81821B26529300352613 /* Note.swift in Sources */,
+				D5DF0F5F1B322CCB00190B11 /* SongSelection.swift in Sources */,
 				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,
 				D5D59CEC1B1E9CBE00C1E18D /* BlueButton.swift in Sources */,
 				D5300A301B2257410077EE8F /* DyscMap.swift in Sources */,
+				D5DF0F5D1B322B6800190B11 /* SongSelectScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

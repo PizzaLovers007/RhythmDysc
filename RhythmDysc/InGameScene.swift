@@ -18,6 +18,7 @@ class InGameScene: SKScene {
     let cursor = Cursor();
     let highlight: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorBlueArc");
     let dysc: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorDysc");
+    let centerSprite: SKSpriteNode = SKSpriteNode(imageNamed: "Cursor");
     let mapData: DyscMap;
     var songPlayer: AVAudioPlayer! = nil;
     var redDown: Bool = false;
@@ -131,17 +132,17 @@ class InGameScene: SKScene {
     }
     
     private func addButtons() {
-        let buttonWidth = self.size.width/CGFloat(3);
-        let halfButtonWidth = buttonWidth/CGFloat(2);
+        let buttonWidth = self.size.width/3;
+        let halfButtonWidth = buttonWidth/2;
         redButton.size.width = buttonWidth;
         redButton.size.height = buttonWidth;
         redButton.position = CGPoint(x: halfButtonWidth, y: halfButtonWidth);
         greenButton.size.width = buttonWidth;
         greenButton.size.height = buttonWidth;
-        greenButton.position = CGPoint(x: halfButtonWidth + buttonWidth, y: halfButtonWidth);
+        greenButton.position = CGPoint(x: size.width/2, y: halfButtonWidth);
         blueButton.size.width = buttonWidth;
         blueButton.size.height = buttonWidth;
-        blueButton.position = CGPoint(x: halfButtonWidth + buttonWidth * CGFloat(2), y: halfButtonWidth);
+        blueButton.position = CGPoint(x: size.width - halfButtonWidth, y: halfButtonWidth);
         addChild(redButton);
         addChild(greenButton);
         addChild(blueButton);
@@ -154,29 +155,29 @@ class InGameScene: SKScene {
         cursor.size = CGSize(width: dysc.size.width/10, height: dysc.size.height/10);
         cursor.alpha = 0;
         cursor.startUpdates();
-        cursor.tiltSprite.position = dysc.position;
-        cursor.tiltSprite.size = CGSize(width: cursor.size.width/3, height: cursor.size.height/3);
-        cursor.tiltSprite.alpha = 0;
         addChild(cursor);
-        addChild(cursor.tiltSprite);
     }
     
     private func initializeObjects() {
-        let titleChange = max(CGFloat(count(mapData.title)*3), CGFloat(40));
-        let artistChange = max(CGFloat(count(mapData.artist)*3), CGFloat(40));
+        let titleChange = max(CGFloat(count(mapData.title)*3), 40);
+        let artistChange = max(CGFloat(count(mapData.artist)*3), 40);
         
         let titleNode = SKLabelNode(text: mapData.title);
+        let titlePositionX = size.width/2 + titleChange/2;
+        let titlePositionY = size.height/3*2;
         titleNode.alpha = 0;
-        titleNode.position = CGPoint(x: size.width/2 + titleChange/2, y: size.height/3*2);
+        titleNode.position = CGPoint(x: titlePositionX, y: titlePositionY);
         titleNode.fontColor = SKColor.blackColor();
         titleNode.fontName = "HelveticaNeue-Medium";
         let artistNode = SKLabelNode(text: mapData.artist);
+        let artistPositionX = size.width/2 + artistChange/2;
+        let artistPositionY = titlePositionY-30;
         artistNode.alpha = 0;
-        artistNode.position = CGPoint(x: size.width/2 + artistChange/2, y: size.height/3*2-30);
+        artistNode.position = CGPoint(x: artistPositionX, y: artistPositionY);
         artistNode.fontColor = SKColor.blackColor();
         artistNode.fontSize = artistNode.fontSize*2/3;
         artistNode.fontName = "HelveticaNeue-Light";
-        let calculatingTiltNode = SKLabelNode(text: "Calibrating tilt, please hold still...");
+        let calculatingTiltNode = SKLabelNode(text: "Hold your device flat");
         calculatingTiltNode.alpha = 0;
         calculatingTiltNode.position = CGPoint(x: size.width/2, y: size.height/4);
         calculatingTiltNode.fontColor = SKColor.blackColor();
@@ -202,9 +203,8 @@ class InGameScene: SKScene {
         });
         let showField = SKAction.runBlock({
             self.dysc.alpha = 1;
-            self.highlight.alpha = 1;
+//            self.highlight.alpha = 1;
             self.cursor.alpha = 1;
-            self.cursor.tiltSprite.alpha = 1;
         });
         
         titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
@@ -225,11 +225,14 @@ class InGameScene: SKScene {
         addChild(titleNode);
         addChild(artistNode);
         addChild(calculatingTiltNode);
+        let dyscRadius = dysc.size.width/2;
+        let noteWidth = dyscRadius - dyscRadius/sqrt(2) + dyscRadius/32;
+        let noteHeight = dysc.size.height/sqrt(2);
         for note in mapData.notes {
             addChild(note);
             note.anchorPoint = CGPoint(x: 1.0, y: 0.5);
             note.position = dysc.position;
-            note.size = CGSize(width: dysc.size.width/2*(1-1/sqrt(2)), height: dysc.size.height/sqrt(2));
+            note.size = CGSize(width: noteWidth, height: noteHeight);
             if let holdNote = note as? HoldNote {
                 addChild(holdNote.pathNode);
             }
@@ -237,52 +240,6 @@ class InGameScene: SKScene {
         addChild(mapData.soundPlayer);
         addChild(mapData.comboTitle);
         addChild(mapData.judgmentTitle);
-        
-        
-        //TEMPORARY HOLD NOTE CODE
-        let holdPath = CGPathCreateMutable();
-        let holdPath2 = CGPathCreateMutable();
-        let rInner = 30.0;
-        let rOuter = 200.0;
-        let thetaStart = -3*M_PI_4;
-        let thetaEnd = -M_PI_4;
-        let dTheta = thetaEnd - thetaStart;
-        let numSteps = 30.0;
-        let step = (thetaEnd - thetaStart)/numSteps;
-        CGPathMoveToPoint(holdPath, nil, CGFloat(-rOuter/sqrt(2)+200), CGFloat(-rOuter/sqrt(2)+300));
-        CGPathMoveToPoint(holdPath2, nil, CGFloat(-rOuter/sqrt(2)+200), CGFloat(-rOuter/sqrt(2)+300));
-        CGPathAddCurveToPoint(holdPath2, nil, 200, 125, 200, 300, 200+30/sqrt(2), 300-30/sqrt(2));
-        var i: Double;
-        for i = 0; i <= numSteps; i++ {
-            let t = thetaStart + step*i;
-            let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * cos(t))+200;
-            let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaStart)/M_PI) * sin(t))+300;
-            CGPathAddLineToPoint(holdPath, nil, x, y);
-        }
-        CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rInner), CGFloat(thetaStart+dTheta), CGFloat(thetaEnd+dTheta), false);
-        CGPathAddArc(holdPath2, nil, 0+200, 0+300, CGFloat(rInner), CGFloat(thetaStart+dTheta), CGFloat(thetaEnd+dTheta), false);
-        CGPathAddCurveToPoint(holdPath2, nil, 200, 300, 375, 300, 200+200/sqrt(2), 300-200/sqrt(2));
-        for i = numSteps; i >= 0; i-- {
-            let t = thetaEnd + step*i;
-            let x = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * cos(t))+200;
-            let y = CGFloat((rOuter - 2*(rOuter-rInner)*(t-thetaEnd)/M_PI) * sin(t))+300;
-            CGPathAddLineToPoint(holdPath, nil, x, y);
-        }
-        CGPathAddArc(holdPath, nil, 0+200, 0+300, CGFloat(rOuter), CGFloat(thetaEnd), CGFloat(thetaStart), true);
-        CGPathAddArc(holdPath2, nil, 0+200, 0+300, CGFloat(rOuter), CGFloat(thetaEnd), CGFloat(thetaStart), true);
-        CGPathCloseSubpath(holdPath);
-        CGPathCloseSubpath(holdPath2);
-        let holdTest = SKShapeNode(path: holdPath);
-        let holdTest2 = SKShapeNode(path: holdPath2);
-        holdTest.strokeColor = UIColor.brownColor();
-        holdTest.zPosition = 10;
-        holdTest2.strokeColor = UIColor.blackColor();
-        holdTest2.zPosition = 10;
-        let holdTestAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveBy(CGVector(dx: -50, dy: 0), duration: 3), SKAction.moveBy(CGVector(dx: 50, dy: 0), duration: 3)]));
-        holdTest.runAction(holdTestAction);
-//        addChild(holdTest);
-//        addChild(holdTest2);
-        //END TEMPORARY HOLD NOTE CODE
     }
     
     private func checkCursorPosition() -> Int {

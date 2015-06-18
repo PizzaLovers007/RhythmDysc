@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         let documentDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as! NSURL;
         
         let songURL = NSBundle.mainBundle().URLForResource("aLIEz", withExtension: "mp3");
-        let mapURL = NSBundle.mainBundle().URLForResource("aLIEz-easy-4", withExtension: "dmp");
+        let mapURL = NSBundle.mainBundle().URLForResource("aLIEz-expert-4", withExtension: "dmp");
         if (songURL == nil || mapURL == nil) {
             return;
         }

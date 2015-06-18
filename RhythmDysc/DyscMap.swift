@@ -17,9 +17,9 @@ class DyscMap: NSObject {
     let approach: Int;
     let sector: Int;
     let offset: Int;
-    let perfectRange: [Int] = [80, 60, 40, 20];
-    let judgmentDifference: [Int] = [55, 50, 45, 40];
-    let msAppear: [Int] = [1500, 1200, 900, 600];
+    let perfectRange: [Int] = [100, 80, 60, 40];
+    let judgmentDifference: [Int] = [45, 40, 35, 30];
+    let msAppear: [Int] = [1800, 1500, 1200, 900];
     let soundPlayer: HitSoundPlayer = HitSoundPlayer();
     let judgmentTitle: SKLabelNode = SKLabelNode();
     let judgmentAction: SKAction;
@@ -30,7 +30,6 @@ class DyscMap: NSObject {
     var score: Int = 0;
     var combo: Int = 0;
     var hitStats: [NoteJudgment: Int] = [NoteJudgment: Int]();
-    var lastHoldCycle: Int = 0;
     var currSector: Int = 0;
     var currTimingPointIndex: Int = 0;
     
@@ -127,7 +126,6 @@ class DyscMap: NSObject {
                 }
                 if let holdNote = notes[0] as? HoldNote {
                     if (currTime - holdNote.msEnd > miss) {
-                        lastHoldCycle = Int.max;
                         holdNote.removeFromParent();
                         notes.removeAtIndex(i);
                         continue;
@@ -136,21 +134,14 @@ class DyscMap: NSObject {
                         holdNote.hasHit = true;
                         holdNote.alpha = 0;
                     }
-                    if (lastHoldCycle == Int.max) {
-                        lastHoldCycle = holdNote.msHit;
-                    }
                     let cursorInHold = holdNote.isInHold(angle: cursorTheta, time: currTime, sector: sector);
-                    if (currTime > holdNote.msHit && currTime - lastHoldCycle > 150 && currTime < holdNote.msEnd) {
-                        lastHoldCycle = currTime;
-                        if (holdNote.isHeld) {
-                            if (cursorInHold) {
-                                calcHold();
-                            } else {
-                                calcSlip();
-                            }
+                    if (currTime > holdNote.msHit && holdNote.msTicks.count > 0 && currTime > holdNote.msTicks[0]) {
+                        if (holdNote.isHeld && cursorInHold) {
+                            calcHold();
                         } else {
                             calcSlip();
                         }
+                        holdNote.msTicks.removeAtIndex(0);
                     }
                 } else if (currTime - nextNote.msHit > miss) {
                     calcMiss();
@@ -325,7 +316,7 @@ class DyscMap: NSObject {
     }
     
     private func newScale(timeDifference: Int) -> CGFloat {
-        return CGFloat(lerp(lower: 0.1, upper: 1.0, val: Double(timeDifference)/Double(msAppear[approach])));
+        return CGFloat(Double(timeDifference)/Double(msAppear[approach]));
     }
     
     private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
