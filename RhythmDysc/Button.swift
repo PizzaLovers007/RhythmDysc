@@ -10,9 +10,9 @@ import UIKit;
 import SpriteKit;
 
 enum ButtonColor: Int {
-    case RED = 0;
+    case RED = 2;
     case GREEN = 1;
-    case BLUE = 2;
+    case BLUE = 0;
 }
 
 class Button: SKSpriteNode {

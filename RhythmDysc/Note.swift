@@ -10,9 +10,9 @@ import UIKit;
 import SpriteKit;
 
 struct NoteColor {
-    static let RED = 0;
+    static let BLUE = 0;
     static let GREEN = 1;
-    static let BLUE = 2;
+    static let RED = 2;
 }
 
 enum NoteJudgment: Int {

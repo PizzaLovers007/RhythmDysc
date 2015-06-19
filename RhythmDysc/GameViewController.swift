@@ -22,7 +22,8 @@ class GameViewController: UIViewController {
             return;
         }
         let mapData: DyscMap = MapReader.readFile(mapURL!);
-        let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
+//        let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
+        let scene = TitleScreenScene(size: view.bounds.size);
         // Configure the view.
         let skView = self.view as! SKView;
         skView.showsFPS = true;

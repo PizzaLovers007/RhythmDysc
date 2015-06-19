@@ -134,15 +134,15 @@ class InGameScene: SKScene {
     private func addButtons() {
         let buttonWidth = self.size.width/3;
         let halfButtonWidth = buttonWidth/2;
-        redButton.size.width = buttonWidth;
-        redButton.size.height = buttonWidth;
-        redButton.position = CGPoint(x: halfButtonWidth, y: halfButtonWidth);
+        blueButton.size.width = buttonWidth;
+        blueButton.size.height = buttonWidth;
+        blueButton.position = CGPoint(x: halfButtonWidth, y: halfButtonWidth);
         greenButton.size.width = buttonWidth;
         greenButton.size.height = buttonWidth;
         greenButton.position = CGPoint(x: size.width/2, y: halfButtonWidth);
-        blueButton.size.width = buttonWidth;
-        blueButton.size.height = buttonWidth;
-        blueButton.position = CGPoint(x: size.width - halfButtonWidth, y: halfButtonWidth);
+        redButton.size.width = buttonWidth;
+        redButton.size.height = buttonWidth;
+        redButton.position = CGPoint(x: size.width - halfButtonWidth, y: halfButtonWidth);
         addChild(redButton);
         addChild(greenButton);
         addChild(blueButton);
@@ -258,13 +258,16 @@ extension InGameScene: AVAudioPlayerDelegate {
         let endTitle: SKLabelNode = SKLabelNode(text: "Song Complete!");
         endTitle.fontColor = UIColor.blackColor();
         endTitle.fontName = "HelveticaNeue-Medium";
-        endTitle.position = CGPoint(x: size.width/2, y: size.height/2);
+        endTitle.position = CGPoint(x: size.width/2, y: size.height*2/3);
         let hideField = SKAction.runBlock({
             self.dysc.alpha = 0;
             self.highlight.alpha = 0;
             self.cursor.alpha = 0;
         });
-        endTitle.runAction(hideField);
+        let returnToSongSelect = SKAction.runBlock({
+            self.scene?.view?.presentScene(SongSelectScene(size: self.size));
+        });
+        endTitle.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), returnToSongSelect]));
         
         addChild(endTitle);
     }
