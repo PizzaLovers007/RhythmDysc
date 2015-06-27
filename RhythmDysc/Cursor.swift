@@ -40,4 +40,8 @@ class Cursor: SKSpriteNode {
             self.position.y = self.center.y + CGFloat(self.radius * sin(self.theta));
         });
     }
+    
+    func stopUpdates() {
+        motionManager.stopDeviceMotionUpdates();
+    }
 }

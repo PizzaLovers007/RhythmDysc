@@ -268,6 +268,7 @@ extension InGameScene: AVAudioPlayerDelegate {
             self.scene?.view?.presentScene(SongSelectScene(size: self.size));
         });
         endTitle.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), returnToSongSelect]));
+        cursor.stopUpdates();
         
         addChild(endTitle);
     }
