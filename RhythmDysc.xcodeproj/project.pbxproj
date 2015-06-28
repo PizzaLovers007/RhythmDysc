@@ -173,7 +173,7 @@
 				D52F817C1B2630EF00352613 /* Maps */,
 				D505034D1B2008B6008B5707 /* Songs */,
 				D5D59CED1B1E9CC200C1E18D /* SpriteNodes */,
-				D5D59CEA1B1E9AB300C1E18D /* Scenes */,
+				D5D59CEA1B1E9AB300C1E18D /* ScenesAndViews */,
 				D5D59CC41B1D195500C1E18D /* AppDelegate.swift */,
 				D5D59CCA1B1D195500C1E18D /* GameViewController.swift */,
 				D5D59CCC1B1D195500C1E18D /* Main.storyboard */,
@@ -213,14 +213,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D5D59CEA1B1E9AB300C1E18D /* Scenes */ = {
+		D5D59CEA1B1E9AB300C1E18D /* ScenesAndViews */ = {
 			isa = PBXGroup;
 			children = (
 				D5D59CE81B1E945000C1E18D /* InGameScene.swift */,
 				D5DF0F5C1B322B6800190B11 /* SongSelectScene.swift */,
 				D5CA24071B3361EF0069DE52 /* TitleScreenScene.swift */,
 			);
-			name = Scenes;
+			name = ScenesAndViews;
 			sourceTree = "<group>";
 		};
 		D5D59CED1B1E9CC200C1E18D /* SpriteNodes */ = {
