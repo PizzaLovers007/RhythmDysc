@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Main Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" userLabel="Main Menu View Controller" customClass="MainMenuViewController" customModule="RhythmDysc" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
                         <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
@@ -15,11 +17,79 @@
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhQ-dZ-Ggu">
+                                <rect key="frame" x="229" y="276" width="143" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Play Game">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="gdS-bQ-3OY" kind="custom" customClass="FadeBlackSegue" customModule="RhythmDysc" customModuleProvider="target" id="lpL-Zv-GQ5"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rhythm Dysc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRx-tM-iBV">
+                                <rect key="frame" x="36" y="120" width="528" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="GRx-tM-iBV" secondAttribute="centerX" id="2Zh-Xa-ZSW"/>
+                            <constraint firstAttribute="centerY" secondItem="mhQ-dZ-Ggu" secondAttribute="centerY" id="Rpa-EV-9XN"/>
+                            <constraint firstAttribute="centerX" secondItem="mhQ-dZ-Ggu" secondAttribute="centerX" id="fci-Pe-0uW"/>
+                            <constraint firstAttribute="centerY" secondItem="GRx-tM-iBV" secondAttribute="centerY" multiplier="2" constant="1" id="mdH-xC-jp7"/>
+                            <constraint firstItem="GRx-tM-iBV" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="20" id="pqM-SS-nwu"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Song Select View Controller-->
+        <scene sceneID="C6w-7l-Ama">
+            <objects>
+                <viewController id="gdS-bQ-3OY" customClass="SongSelectViewController" customModule="RhythmDysc" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SHb-jO-ibD"/>
+                        <viewControllerLayoutGuide type="bottom" id="vIt-Mx-zZe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GRn-X1-6pM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="c41-p9-W93">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="95f-21-amn">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Song Select" id="iRC-xg-rUH"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="c41-p9-W93" firstAttribute="bottom" secondItem="GRn-X1-6pM" secondAttribute="bottomMargin" id="1Zl-Ip-Loh"/>
+                            <constraint firstItem="95f-21-amn" firstAttribute="top" secondItem="GRn-X1-6pM" secondAttribute="top" id="77O-t2-Elx"/>
+                            <constraint firstItem="c41-p9-W93" firstAttribute="leading" secondItem="GRn-X1-6pM" secondAttribute="leading" id="C2L-A8-k8T"/>
+                            <constraint firstAttribute="centerX" secondItem="95f-21-amn" secondAttribute="centerX" id="HgJ-8I-vwk"/>
+                            <constraint firstItem="95f-21-amn" firstAttribute="leading" secondItem="GRn-X1-6pM" secondAttribute="leading" id="Jya-gg-TwG"/>
+                            <constraint firstItem="c41-p9-W93" firstAttribute="top" secondItem="95f-21-amn" secondAttribute="bottom" id="M8W-Cd-Qv0"/>
+                            <constraint firstAttribute="trailing" secondItem="c41-p9-W93" secondAttribute="trailing" id="vn4-Fv-Ag6"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="c41-p9-W93" id="hS5-Xf-cyZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S77-fY-I3M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1330" y="373"/>
         </scene>
     </scenes>
 </document>

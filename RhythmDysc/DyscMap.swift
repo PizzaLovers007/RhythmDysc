@@ -17,6 +17,7 @@ class DyscMap: NSObject {
     let approach: Int;
     let sector: Int;
     let preview: Int;
+    let coverImage: UIImage;
     let perfectRange: [Int] = [100, 80, 60, 40];
     let judgmentDifference: [Int] = [45, 40, 35, 30];
     let msAppear: [Int] = [1800, 1500, 1200, 900];
@@ -48,6 +49,7 @@ class DyscMap: NSObject {
         approach = 0;
         sector = 0;
         preview = 0;
+        coverImage = UIImage(named: "")!;
         let zoomAction = SKAction.sequence([SKAction.scaleTo(1, duration: 0), SKAction.scaleTo(1.1, duration: 0.1), SKAction.scaleTo(1, duration: 0.1)]);
         let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
         judgmentAction = SKAction.group([zoomAction, fadeAction]);
@@ -61,6 +63,7 @@ class DyscMap: NSObject {
         approach = generalInfo["approach"]!.toInt()!;
         sector = generalInfo["sector"]!.toInt()!;
         preview = generalInfo["preview"]!.toInt()!;
+        coverImage = UIImage(named: title)!;
         hitStats[NoteJudgment.MISS] = 0;
         hitStats[NoteJudgment.GOOD] = 0;
         hitStats[NoteJudgment.GREAT] = 0;
