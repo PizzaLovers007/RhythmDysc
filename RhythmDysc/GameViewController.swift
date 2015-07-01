@@ -11,18 +11,13 @@ import SpriteKit;
 
 class GameViewController: UIViewController {
 
+    var mapData: DyscMap!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
         let documentDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as! NSURL;
         
-        let songURL = NSBundle.mainBundle().URLForResource("aLIEz", withExtension: "mp3");
-        let mapURL = NSBundle.mainBundle().URLForResource("aLIEz-expert-4", withExtension: "dmp");
-        if (songURL == nil || mapURL == nil) {
-            return;
-        }
-        let mapData: DyscMap = MapReader.readFile(mapURL!);
-        let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
         // Configure the view.
         let skView = self.view as! SKView;
         skView.showsFPS = true;
@@ -31,10 +26,27 @@ class GameViewController: UIViewController {
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true;
         
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .ResizeFill;
+        skView.backgroundColor = UIColor.blackColor();
         
-        skView.presentScene(scene);
+        if (mapData != nil) {
+            let songURL = NSBundle.mainBundle().URLForResource(mapData.title, withExtension: "mp3");
+            if (songURL == nil) {
+                return;
+            }
+            let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
+            scene.viewController = self;
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .ResizeFill;
+            
+            skView.presentScene(scene);
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if (mapData == nil) {
+            performSegueWithIdentifier("backToSongSelect", sender: self);
+        }
     }
 
     override func shouldAutorotate() -> Bool {

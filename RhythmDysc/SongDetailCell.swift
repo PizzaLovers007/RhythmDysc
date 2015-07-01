@@ -16,6 +16,7 @@ class SongDetailCell: UITableViewCell {
     @IBOutlet weak var coverImageView: UIImageView!;
     @IBOutlet weak var sectorSelection: UISegmentedControl!;
     @IBOutlet weak var difficultySelection: UISegmentedControl!;
+    @IBOutlet weak var startGameButton: UIButton!;
     
     override func awakeFromNib() {
         super.awakeFromNib();
@@ -27,5 +28,4 @@ class SongDetailCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

@@ -19,6 +19,8 @@
 		D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2B1B224D810077EE8F /* aLIEz.mp3 */; };
 		D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */; };
 		D5300A301B2257410077EE8F /* DyscMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5300A2F1B2257410077EE8F /* DyscMap.swift */; };
+		D5A7F6101B434C8000F3D805 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A7F60F1B434C8000F3D805 /* NavigationControllerDelegate.swift */; };
+		D5A7F6131B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A7F6121B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift */; };
 		D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */; };
 		D5B292441B2A24D800B1A653 /* soundGood.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B2923E1B2A24D800B1A653 /* soundGood.wav */; };
 		D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B2923F1B2A24D800B1A653 /* soundGreat.wav */; };
@@ -26,9 +28,7 @@
 		D5B292471B2A24D800B1A653 /* soundMiss.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5B292411B2A24D800B1A653 /* soundMiss.mp3 */; };
 		D5B292481B2A24D800B1A653 /* soundPerfect.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B292421B2A24D800B1A653 /* soundPerfect.wav */; };
 		D5B292491B2A24D800B1A653 /* soundSlip.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5B292431B2A24D800B1A653 /* soundSlip.wav */; };
-		D5CB352F1B42007D0039D11F /* SongSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5CB352E1B42007D0039D11F /* SongSelectionCell.xib */; };
 		D5CB35311B42086A0039D11F /* SongSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB35301B42086A0039D11F /* SongSelectViewController.swift */; };
-		D5CB35331B4209380039D11F /* SongDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5CB35321B4209380039D11F /* SongDetailCell.xib */; };
 		D5CB35371B420D7B0039D11F /* SongDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB35361B420D7B0039D11F /* SongDetailCell.swift */; };
 		D5CB35391B420D880039D11F /* SongSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB35381B420D880039D11F /* SongSelectionCell.swift */; };
 		D5CB353B1B420F430039D11F /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB353A1B420F430039D11F /* MainMenuViewController.swift */; };
@@ -70,6 +70,8 @@
 		D5300A2B1B224D810077EE8F /* aLIEz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aLIEz.mp3; sourceTree = "<group>"; };
 		D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mushikui-Saikede-Rhythm.mp3"; sourceTree = "<group>"; };
 		D5300A2F1B2257410077EE8F /* DyscMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyscMap.swift; sourceTree = "<group>"; };
+		D5A7F60F1B434C8000F3D805 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
+		D5A7F6121B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeBlackTransitionAnimator.swift; sourceTree = "<group>"; };
 		D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitSoundPlayer.swift; sourceTree = "<group>"; };
 		D5B2923E1B2A24D800B1A653 /* soundGood.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundGood.wav; sourceTree = "<group>"; };
 		D5B2923F1B2A24D800B1A653 /* soundGreat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundGreat.wav; sourceTree = "<group>"; };
@@ -77,9 +79,7 @@
 		D5B292411B2A24D800B1A653 /* soundMiss.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = soundMiss.mp3; sourceTree = "<group>"; };
 		D5B292421B2A24D800B1A653 /* soundPerfect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundPerfect.wav; sourceTree = "<group>"; };
 		D5B292431B2A24D800B1A653 /* soundSlip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soundSlip.wav; sourceTree = "<group>"; };
-		D5CB352E1B42007D0039D11F /* SongSelectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongSelectionCell.xib; sourceTree = "<group>"; };
 		D5CB35301B42086A0039D11F /* SongSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectViewController.swift; sourceTree = "<group>"; };
-		D5CB35321B4209380039D11F /* SongDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongDetailCell.xib; sourceTree = "<group>"; };
 		D5CB35361B420D7B0039D11F /* SongDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongDetailCell.swift; sourceTree = "<group>"; };
 		D5CB35381B420D880039D11F /* SongSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectionCell.swift; sourceTree = "<group>"; };
 		D5CB353A1B420F430039D11F /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +146,15 @@
 			name = Maps;
 			sourceTree = "<group>";
 		};
+		D5A7F6111B434D0500F3D805 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				D5A7F60F1B434C8000F3D805 /* NavigationControllerDelegate.swift */,
+				D5A7F6121B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift */,
+			);
+			name = NavigationController;
+			sourceTree = "<group>";
+		};
 		D5B2923D1B2A24CE00B1A653 /* HitSounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,28 +183,10 @@
 		D5CB352B1B4200070039D11F /* InterfaceElements */ = {
 			isa = PBXGroup;
 			children = (
-				D5CB35351B420D4F0039D11F /* SongSelectionCell */,
-				D5CB35341B420D420039D11F /* SongDetailCell */,
-			);
-			name = InterfaceElements;
-			sourceTree = "<group>";
-		};
-		D5CB35341B420D420039D11F /* SongDetailCell */ = {
-			isa = PBXGroup;
-			children = (
-				D5CB35321B4209380039D11F /* SongDetailCell.xib */,
+				D5CB35381B420D880039D11F /* SongSelectionCell.swift */,
 				D5CB35361B420D7B0039D11F /* SongDetailCell.swift */,
 			);
-			name = SongDetailCell;
-			sourceTree = "<group>";
-		};
-		D5CB35351B420D4F0039D11F /* SongSelectionCell */ = {
-			isa = PBXGroup;
-			children = (
-				D5CB352E1B42007D0039D11F /* SongSelectionCell.xib */,
-				D5CB35381B420D880039D11F /* SongSelectionCell.swift */,
-			);
-			name = SongSelectionCell;
+			name = InterfaceElements;
 			sourceTree = "<group>";
 		};
 		D5D59CB61B1D195500C1E18D = {
@@ -228,6 +219,7 @@
 				D5D59CED1B1E9CC200C1E18D /* SpriteNodes */,
 				D5D59CEA1B1E9AB300C1E18D /* Scenes */,
 				D5CB352A1B41F80C0039D11F /* ViewControllers */,
+				D5A7F6111B434D0500F3D805 /* NavigationController */,
 				D5D59CC41B1D195500C1E18D /* AppDelegate.swift */,
 				D5D59CCC1B1D195500C1E18D /* Main.storyboard */,
 				D5D59CCF1B1D195500C1E18D /* Images.xcassets */,
@@ -370,10 +362,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
-				D5CB35331B4209380039D11F /* SongDetailCell.xib in Resources */,
 				D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
-				D5CB352F1B42007D0039D11F /* SongSelectionCell.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
 				D5B292491B2A24D800B1A653 /* soundSlip.wav in Resources */,
@@ -404,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A7F6101B434C8000F3D805 /* NavigationControllerDelegate.swift in Sources */,
 				D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */,
 				D505034A1B200348008B5707 /* Button.swift in Sources */,
 				D5CB353B1B420F430039D11F /* MainMenuViewController.swift in Sources */,
@@ -417,6 +408,7 @@
 				D526EFCB1B421FB000A8145F /* FadeBlackSegue.swift in Sources */,
 				D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */,
 				D5CB35311B42086A0039D11F /* SongSelectViewController.swift in Sources */,
+				D5A7F6131B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
 				D52F81821B26529300352613 /* Note.swift in Sources */,
 				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,

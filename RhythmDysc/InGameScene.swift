@@ -26,6 +26,7 @@ class InGameScene: SKScene {
     var blueDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
+    var viewController: UIViewController!;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
@@ -265,7 +266,7 @@ extension InGameScene: AVAudioPlayerDelegate {
             self.cursor.alpha = 0;
         });
         let returnToSongSelect = SKAction.runBlock({
-//            self.scene?.view?.presentScene(SongSelectScene(size: self.size));
+            self.viewController.performSegueWithIdentifier("backToSongSelect", sender: self.viewController);
         });
         endTitle.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), returnToSongSelect]));
         cursor.stopUpdates();
