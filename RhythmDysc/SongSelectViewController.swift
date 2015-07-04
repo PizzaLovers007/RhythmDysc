@@ -35,6 +35,18 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
         songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
         songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
         songSelections.append(SongSelection(title: "Mushikui-Saikede-Rhythm", artist: "Someone lol", maxBPM: 99, preview: 55350));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "Mushikui-Saikede-Rhythm", artist: "Someone lol", maxBPM: 99, preview: 55350));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "Mushikui-Saikede-Rhythm", artist: "Someone lol", maxBPM: 99, preview: 55350));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
+        songSelections.append(SongSelection(title: "Mushikui-Saikede-Rhythm", artist: "Someone lol", maxBPM: 99, preview: 55350));
         // Do any additional setup after loading the view.
     }
 
