@@ -15,6 +15,12 @@ struct NoteColor {
     static let RED = 2;
 }
 
+struct SparkColor {
+    static let BLUE = UIColor(red: 0, green: 0.2, blue: 1, alpha: 1);
+    static let GREEN = UIColor(red: 0, green: 1, blue: 0, alpha: 1);
+    static let RED = UIColor(red: 1, green: 0, blue: 0, alpha: 1);
+}
+
 enum NoteJudgment: Int {
     case MISS = 0;
     case GOOD = 1;
@@ -55,18 +61,20 @@ class Note: SKSpriteNode {
         timePoint = tp;
         measure = meas;
         beat = bt;
-        let imageName: String;
+        super.init(texture: SKTexture(), color: UIColor.blueColor(), size: CGSize(width: 0,height: 0));
         switch (noteColor) {
         case NoteColor.RED:
+            color = SparkColor.RED;
             break;
         case NoteColor.GREEN:
+            color = SparkColor.GREEN;
             break;
         case NoteColor.BLUE:
+            color = SparkColor.BLUE;
             break;
         default:
             break;
         }
-        super.init(texture: SKTexture(), color: UIColor.blueColor(), size: CGSize(width: 0,height: 0));
         alpha = 0;
     }
 

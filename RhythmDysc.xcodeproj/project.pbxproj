@@ -12,6 +12,10 @@
 		D505034A1B200348008B5707 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503491B200348008B5707 /* Button.swift */; };
 		D50503531B20129E008B5707 /* MapReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503521B20129E008B5707 /* MapReader.swift */; };
 		D526EFCB1B421FB000A8145F /* FadeBlackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526EFCA1B421FB000A8145F /* FadeBlackSegue.swift */; };
+		D52C15791B61A18500BB4190 /* NoteSparks.sks in Resources */ = {isa = PBXBuildFile; fileRef = D52C15771B61A18500BB4190 /* NoteSparks.sks */; };
+		D52C157A1B61A18500BB4190 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D52C15781B61A18500BB4190 /* spark.png */; };
+		D52C157F1B61B16200BB4190 /* NoteSpark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52C157E1B61B16200BB4190 /* NoteSpark.swift */; };
+		D52C15831B61CDEC00BB4190 /* aLIEz-normal-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D52C15821B61CDEC00BB4190 /* aLIEz-normal-4.dmp */; };
 		D52F817E1B26312B00352613 /* aLIEz-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */; };
 		D52F81801B26527B00352613 /* TimingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52F817F1B26527B00352613 /* TimingPoint.swift */; };
 		D52F81821B26529300352613 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52F81811B26529300352613 /* Note.swift */; };
@@ -67,6 +71,10 @@
 		D50503491B200348008B5707 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		D50503521B20129E008B5707 /* MapReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapReader.swift; sourceTree = "<group>"; };
 		D526EFCA1B421FB000A8145F /* FadeBlackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeBlackSegue.swift; sourceTree = "<group>"; };
+		D52C15771B61A18500BB4190 /* NoteSparks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoteSparks.sks; sourceTree = "<group>"; };
+		D52C15781B61A18500BB4190 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		D52C157E1B61B16200BB4190 /* NoteSpark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteSpark.swift; sourceTree = "<group>"; };
+		D52C15821B61CDEC00BB4190 /* aLIEz-normal-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "aLIEz-normal-4.dmp"; sourceTree = "<group>"; };
 		D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "aLIEz-easy-4.dmp"; sourceTree = "<group>"; };
 		D52F817F1B26527B00352613 /* TimingPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingPoint.swift; sourceTree = "<group>"; };
 		D52F81811B26529300352613 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -147,11 +155,22 @@
 			name = Segues;
 			sourceTree = "<group>";
 		};
+		D52C157B1B61A39B00BB4190 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				D52C15771B61A18500BB4190 /* NoteSparks.sks */,
+				D52C15781B61A18500BB4190 /* spark.png */,
+				D52C157E1B61B16200BB4190 /* NoteSpark.swift */,
+			);
+			name = Particles;
+			sourceTree = "<group>";
+		};
 		D52F817C1B2630EF00352613 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
 				D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */,
 				D5DF0F601B322E5800190B11 /* aLIEz-expert-4.dmp */,
+				D52C15821B61CDEC00BB4190 /* aLIEz-normal-4.dmp */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -244,6 +263,7 @@
 				D526EFC91B421F9300A8145F /* Segues */,
 				D5CB352B1B4200070039D11F /* InterfaceElements */,
 				D52F817C1B2630EF00352613 /* Maps */,
+				D52C157B1B61A39B00BB4190 /* Particles */,
 				D5D59CED1B1E9CC200C1E18D /* SpriteNodes */,
 				D5D59CEA1B1E9AB300C1E18D /* Scenes */,
 				D5CB352A1B41F80C0039D11F /* ViewControllers */,
@@ -394,6 +414,8 @@
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
+				D52C157A1B61A18500BB4190 /* spark.png in Resources */,
+				D52C15831B61CDEC00BB4190 /* aLIEz-normal-4.dmp in Resources */,
 				D5B292491B2A24D800B1A653 /* soundSlip.wav in Resources */,
 				D52F817E1B26312B00352613 /* aLIEz-easy-4.dmp in Resources */,
 				D5B292441B2A24D800B1A653 /* soundGood.wav in Resources */,
@@ -406,6 +428,7 @@
 				D5DDF8801B2CE8CE00E401B8 /* metronomeTock.wav in Resources */,
 				D5B292481B2A24D800B1A653 /* soundPerfect.wav in Resources */,
 				D57F35651B477C1E0022345D /* Ascension to Heaven.mp3 in Resources */,
+				D52C15791B61A18500BB4190 /* NoteSparks.sks in Resources */,
 				D5B292461B2A24D800B1A653 /* soundHold.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +456,7 @@
 				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
 				D52F81841B2653EA00352613 /* HoldNote.swift in Sources */,
 				D52F81801B26527B00352613 /* TimingPoint.swift in Sources */,
+				D52C157F1B61B16200BB4190 /* NoteSpark.swift in Sources */,
 				D50503481B1FB906008B5707 /* GreenButton.swift in Sources */,
 				D50503531B20129E008B5707 /* MapReader.swift in Sources */,
 				D5D59CC51B1D195500C1E18D /* AppDelegate.swift in Sources */,

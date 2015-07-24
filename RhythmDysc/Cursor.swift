@@ -13,6 +13,7 @@ import CoreMotion;
 class Cursor: SKSpriteNode {
     
     let motionManager: CMMotionManager = CMMotionManager();
+    let queue = NSOperationQueue();
     var radius: Double = 1;
     var center: CGPoint = CGPoint(x: 0, y: 0);
     var theta: Double = 0;
@@ -31,17 +32,20 @@ class Cursor: SKSpriteNode {
     }
     
     func startUpdates() {
-        motionManager.deviceMotionUpdateInterval = 0.02;
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue(), withHandler: { data, error in
+        motionManager.deviceMotionUpdateInterval = 1.0/120;
+        motionManager.startDeviceMotionUpdatesToQueue(queue, withHandler: { data, error in
             let pitch = data.attitude.pitch;
             let roll = data.attitude.roll;
             self.theta = atan2(-pitch/M_PI, roll/M_PI);
-            self.position.x = self.center.x + CGFloat(self.radius * cos(self.theta));
-            self.position.y = self.center.y + CGFloat(self.radius * sin(self.theta));
         });
     }
     
     func stopUpdates() {
         motionManager.stopDeviceMotionUpdates();
+    }
+    
+    func updatePosition() {
+        self.position.x = self.center.x + CGFloat(self.radius * cos(self.theta));
+        self.position.y = self.center.y + CGFloat(self.radius * sin(self.theta));
     }
 }

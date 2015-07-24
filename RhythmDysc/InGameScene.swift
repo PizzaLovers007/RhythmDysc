@@ -32,6 +32,7 @@ class InGameScene: SKScene {
         songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
         mapData = data;
         super.init(size: size);
+        mapData.scene = self;
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -51,10 +52,12 @@ class InGameScene: SKScene {
             prevTime = currentTime;
             return;
         }
+        cursor.updatePosition();
         let currSector: Int = checkCursorPosition();
         mapData.currSector = currSector;
         mapData.update(songTime: songPlayer.currentTime, cursorTheta: cursor.theta);
         mapData.updateNotePositions(songTime: songPlayer.currentTime, dysc: dysc);
+        mapData.updateSparks(cursor.theta);
         let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
     }
@@ -63,18 +66,17 @@ class InGameScene: SKScene {
         for t in touches {
             let touch = t as! UITouch;
             let touchLocation = touch.locationInNode(self);
-            let touchedNode = self.nodeAtPoint(touchLocation);
-            if (!redDown && touchedNode.name == "redButton") {
+            if (!redDown && redButton.containsPoint(touchLocation)) {
                 NSLog("Red button pressed");
                 redDown = true;
                 redButton.pressButton();
                 mapData.updateButton(ButtonColor.RED, isPressed: true);
-            } else if (!greenDown && touchedNode.name == "greenButton") {
+            } else if (!greenDown && greenButton.containsPoint(touchLocation)) {
                 NSLog("Green button pressed");
                 greenDown = true;
                 greenButton.pressButton();
                 mapData.updateButton(ButtonColor.GREEN, isPressed: true);
-            } else if (!blueDown && touchedNode.name == "blueButton") {
+            } else if (!blueDown && blueButton.containsPoint(touchLocation)) {
                 NSLog("Blue button pressed");
                 blueDown = true;
                 blueButton.pressButton();
@@ -89,17 +91,17 @@ class InGameScene: SKScene {
             let touch = t as! UITouch;
             let touchLocation = touch.locationInNode(self);
             let prevTouchLocation = touch.previousLocationInNode(self);
-            if (redDown && self.nodeAtPoint(touchLocation).name != "redButton" && self.nodeAtPoint(prevTouchLocation).name == "redButton") {
+            if (redDown && !redButton.containsPoint(touchLocation) && redButton.containsPoint(prevTouchLocation)) {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
                 mapData.updateButton(ButtonColor.RED, isPressed: false);
-            } else if (greenDown && self.nodeAtPoint(touchLocation).name != "greenButton" && self.nodeAtPoint(prevTouchLocation).name == "greenButton") {
+            } else if (greenDown && !greenButton.containsPoint(touchLocation) && greenButton.containsPoint(prevTouchLocation)) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
                 mapData.updateButton(ButtonColor.GREEN, isPressed: false);
-            } else if (blueDown && self.nodeAtPoint(touchLocation).name != "blueButton" && self.nodeAtPoint(prevTouchLocation).name == "blueButton") {
+            } else if (blueDown && !blueButton.containsPoint(touchLocation) && blueButton.containsPoint(prevTouchLocation)) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
@@ -112,18 +114,17 @@ class InGameScene: SKScene {
         for t in touches {
             let touch = t as! UITouch;
             let touchLocation = touch.locationInNode(self);
-            let touchedNode = self.nodeAtPoint(touchLocation);
-            if (touchedNode.name == "redButton" && redDown) {
+            if (redButton.containsPoint(touchLocation) && redDown) {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
                 mapData.updateButton(ButtonColor.RED, isPressed: false);
-            } else if (touchedNode.name == "greenButton" && greenDown) {
+            } else if (greenButton.containsPoint(touchLocation) && greenDown) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
                 mapData.updateButton(ButtonColor.GREEN, isPressed: false);
-            } else if (touchedNode.name == "blueButton" && blueDown) {
+            } else if (blueButton.containsPoint(touchLocation) && blueDown) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();

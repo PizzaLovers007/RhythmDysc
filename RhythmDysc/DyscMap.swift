@@ -25,6 +25,7 @@ class DyscMap: NSObject {
     let judgmentTitle: SKLabelNode = SKLabelNode();
     let judgmentAction: SKAction;
     let comboTitle: SKLabelNode = SKLabelNode();
+    var scene: SKScene!;
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
@@ -33,6 +34,7 @@ class DyscMap: NSObject {
     var hitStats: [NoteJudgment: Int] = [NoteJudgment: Int]();
     var currSector: Int = 0;
     var currTimingPointIndex: Int = 0;
+    var sparks: [NoteSpark] = [NoteSpark]();
     
     override var description: String {
         var result: String = "";
@@ -133,21 +135,21 @@ class DyscMap: NSObject {
                         notes.removeAtIndex(i);
                         continue;
                     } else if (!holdNote.hasHit && currTime - holdNote.msHit > miss) {
-                        calcMiss();
+                        calcMiss(holdNote);
                         holdNote.hasHit = true;
                         holdNote.alpha = 0;
                     }
                     let cursorInHold = holdNote.isInHold(angle: cursorTheta, time: currTime, sector: sector);
                     if (currTime > holdNote.msHit && holdNote.msTicks.count > 0 && currTime > holdNote.msTicks[0]) {
                         if (holdNote.isHeld && cursorInHold) {
-                            calcHold();
+                            calcHold(holdNote);
                         } else {
-                            calcSlip();
+                            calcSlip(holdNote);
                         }
                         holdNote.msTicks.removeAtIndex(0);
                     }
                 } else if (currTime - nextNote.msHit > miss) {
-                    calcMiss();
+                    calcMiss(nextNote);
                     nextNote.removeFromParent();
                     notes.removeAtIndex(i);
                     continue;
@@ -203,7 +205,7 @@ class DyscMap: NSObject {
             let miss = perfectRange[approach] + judgmentDifference[approach] * 3;
             if (!isPressed) {
                 if let nextNote = notes[0] as? HoldNote {
-                    if (nextNote.noteColor == button.rawValue && currSector == nextNote.direction) {
+                    if (nextNote.noteColor == button.rawValue) {
                         nextNote.letGo();
                     }
                 }
@@ -222,16 +224,16 @@ class DyscMap: NSObject {
                         if (abs(timeDifference) > miss) {
                             return;
                         } else if (abs(timeDifference) > good) {
-                            calcMiss();
+                            calcMiss(nextNote);
                             judgmentTitle.text = "\(timeDifference)";
                         } else if (abs(timeDifference) > great) {
-                            calcGood();
+                            calcGood(nextNote);
                             judgmentTitle.text = "\(timeDifference)";
                         } else if (abs(timeDifference) > perfect) {
-                            calcGreat();
+                            calcGreat(nextNote);
                             judgmentTitle.text = "\(timeDifference)";
                         } else {
-                            calcPerfect();
+                            calcPerfect(nextNote);
                             judgmentTitle.text = "\(timeDifference)";
                         }
                         if let holdNote = notes[i] as? HoldNote {
@@ -248,7 +250,31 @@ class DyscMap: NSObject {
         }
     }
     
-    private func calcMiss() {
+    func updateSparks(theta: Double) {
+        let tiltAcceleration = 300.0;
+        let x = CGFloat(tiltAcceleration * cos(theta));
+        let y = CGFloat(tiltAcceleration * sin(theta));
+        var i: Int = 0;
+        while (i < sparks.count) {
+            let currSpark = sparks[i];
+            if (currSpark.isDead) {
+                sparks.removeAtIndex(i)
+            } else {
+                currSpark.particles.xAcceleration = x;
+                currSpark.particles.yAcceleration = y;
+                i++;
+            }
+        }
+    }
+    
+    private func addSpark(note: Note, numSparks: Int) {
+        let spark = NoteSpark(color: note.color, numSparks: numSparks, theta: Double(note.direction) * M_PI / 2);
+        scene.addChild(spark);
+        spark.position = note.position;
+        sparks.append(spark);
+    }
+    
+    private func calcMiss(note: Note) {
         combo = 0;
         comboTitle.text = "";
         judgmentTitle.text = "Miss";
@@ -259,51 +285,55 @@ class DyscMap: NSObject {
         soundPlayer.playMiss();
     }
     
-    private func calcGood() {
+    private func calcGood(note: Note) {
         combo = 0;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Good";
         judgmentTitle.removeActionForKey("ShowFade");
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GOOD]! += 1;
+        addSpark(note, numSparks: 10);
         NSLog("Good note");
         soundPlayer.playGood();
     }
     
-    private func calcGreat() {
+    private func calcGreat(note: Note) {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Great";
         judgmentTitle.removeActionForKey("ShowFade");
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GREAT]! += 1;
+        addSpark(note, numSparks: 30);
         NSLog("Great note");
         soundPlayer.playGreat();
     }
     
-    private func calcPerfect() {
+    private func calcPerfect(note: Note) {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Perfect";
         judgmentTitle.removeActionForKey("ShowFade");
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.PERFECT]! += 1;
+        addSpark(note, numSparks: 50);
         NSLog("Perfect note");
         soundPlayer.playPerfect();
     }
     
-    private func calcHold() {
+    private func calcHold(note: Note) {
         combo++;
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Hold";
         judgmentTitle.removeActionForKey("ShowFade");
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.HOLD]! += 1;
+        addSpark(note, numSparks: 5);
         NSLog("Hold note");
         soundPlayer.playHold();
     }
     
-    private func calcSlip() {
+    private func calcSlip(note: Note) {
         if (combo > 10) {
             soundPlayer.playMiss();
         } else {
