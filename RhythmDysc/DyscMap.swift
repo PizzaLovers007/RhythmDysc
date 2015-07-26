@@ -194,6 +194,7 @@ class DyscMap: NSObject {
             } else {
                 currNote.runAction(SKAction.moveTo(CGPoint(x: newPositionX, y: newPositionY), duration: 0));
             }
+            currNote.updateCurrTheta(time: currTime, sector: sector);
         }
     }
     
@@ -268,9 +269,11 @@ class DyscMap: NSObject {
     }
     
     private func addSpark(note: Note, numSparks: Int) {
-        let spark = NoteSpark(color: note.color, numSparks: numSparks, theta: Double(note.direction) * M_PI / 2);
+        let spark = NoteSpark(color: note.color, numSparks: numSparks, theta: note.currTheta);
         scene.addChild(spark);
-        spark.position = note.position;
+        let dysc = (scene as! InGameScene).dysc;
+        spark.position.x = dysc.position.x + dysc.size.width/2 * CGFloat(cos(note.currTheta));
+        spark.position.y = dysc.position.y + dysc.size.height/2 * CGFloat(sin(note.currTheta));
         sparks.append(spark);
     }
     

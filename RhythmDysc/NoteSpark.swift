@@ -13,6 +13,7 @@ class NoteSpark: SKNode {
     
     let lifetime = 2.0;
     let particles = SKEmitterNode(fileNamed: "NoteSparks.sks");
+    let maxSpread = 50.0;
     var isDead: Bool = false;
     
     init(color: UIColor, numSparks: Int, theta: Double) {
@@ -22,6 +23,8 @@ class NoteSpark: SKNode {
         particles.particleColorBlendFactor = 1.0;
         particles.numParticlesToEmit = numSparks;
         particles.emissionAngle = CGFloat(theta - M_PI);
+        particles.particlePositionRange.dx = CGFloat(maxSpread * abs(sin(theta)));
+        particles.particlePositionRange.dy = CGFloat(maxSpread * abs(cos(theta)));
         addChild(particles);
         delay(lifetime) {
             self.isDead = true;

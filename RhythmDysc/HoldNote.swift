@@ -186,8 +186,8 @@ class HoldNote: Note {
         super.removeFromParent();
     }
     
-    private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
-        return min(1, max(0, val)) * (upper-lower) + lower;
+    override func updateCurrTheta(#time: Int, sector: Int) {
+        currTheta = getCurrentNoteAngle(time: time, sector: sector);
     }
     
     private func getCurrentNoteAngle(#time: Int, sector: Int) -> Double {
@@ -206,6 +206,10 @@ class HoldNote: Note {
             }
         }
         return Double(direction)*M_PI*2/Double(sector);
+    }
+    
+    private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
+        return min(1, max(0, val)) * (upper-lower) + lower;
     }
     
     private func connectNodesOnPath(path: CGMutablePath!, center: CGPoint, sector: Int, startTheta: Double, endTheta: Double, startRadius: Double, endRadius: Double) {

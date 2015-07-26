@@ -40,6 +40,7 @@ class Note: SKSpriteNode {
     var msHit: Int = 0;
     var msAppear: Int = 0;
     var hasAppeared = false;
+    var currTheta: Double = 0;
     
     override var description: String {
         return "Note:[Direction: \(direction), Color: \(noteColor), Measure: \(measure), Beat: \(beat)]";
@@ -98,5 +99,9 @@ class Note: SKSpriteNode {
         let appearTime: Double = Double(msAppear)/1000;
         let hitTime: Double = Double(msHit)/1000;
         return min(2, max(0, (currTime - appearTime) / (hitTime - appearTime)));
+    }
+    
+    func updateCurrTheta(#time: Int, sector: Int) {
+        currTheta = M_PI * 2 / Double(sector) * Double(direction);
     }
 }
