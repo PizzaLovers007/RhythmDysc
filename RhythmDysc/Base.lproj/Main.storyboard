@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="v2s-4P-zLz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="v2s-4P-zLz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -11,36 +11,34 @@
             <objects>
                 <viewController storyboardIdentifier="mainMenuViewController" id="BV1-FR-VrT" userLabel="Main Menu View Controller" customClass="MainMenuViewController" customModule="RhythmDysc" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
-                        <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
+                        <viewControllerLayoutGuide type="top" id="IcT-YL-Wgs"/>
+                        <viewControllerLayoutGuide type="bottom" id="BYi-Dk-B31"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="Spf-bl-eBR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhQ-dZ-Ggu">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tly-S4-gDI">
                                 <rect key="frame" x="229" y="276" width="143" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Play Game">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="Play Game"/>
                                 <connections>
-                                    <segue destination="gdS-bQ-3OY" kind="show" id="LVd-yg-oDH"/>
+                                    <segue destination="gdS-bQ-3OY" kind="show" id="zcJ-mr-xAt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rhythm Dysc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRx-tM-iBV">
-                                <rect key="frame" x="36" y="120" width="528" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rhythm Dysc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXU-EH-OMl">
+                                <rect key="frame" x="154" y="120" width="293" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="GRx-tM-iBV" secondAttribute="centerX" id="2Zh-Xa-ZSW"/>
-                            <constraint firstAttribute="centerY" secondItem="mhQ-dZ-Ggu" secondAttribute="centerY" id="Rpa-EV-9XN"/>
-                            <constraint firstAttribute="centerX" secondItem="mhQ-dZ-Ggu" secondAttribute="centerX" id="fci-Pe-0uW"/>
-                            <constraint firstAttribute="centerY" secondItem="GRx-tM-iBV" secondAttribute="centerY" multiplier="2" constant="1" id="mdH-xC-jp7"/>
-                            <constraint firstItem="GRx-tM-iBV" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="20" id="pqM-SS-nwu"/>
+                            <constraint firstAttribute="centerY" secondItem="tly-S4-gDI" secondAttribute="centerY" id="BNd-KS-YZJ"/>
+                            <constraint firstAttribute="centerX" secondItem="GXU-EH-OMl" secondAttribute="centerX" id="FAv-3o-7de"/>
+                            <constraint firstAttribute="centerX" secondItem="tly-S4-gDI" secondAttribute="centerX" id="et5-S7-SEJ"/>
+                            <constraint firstAttribute="centerY" secondItem="GXU-EH-OMl" secondAttribute="centerY" multiplier="2" constant="1" id="xZC-Ag-7zH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wS2-hF-pXb"/>
@@ -53,6 +51,8 @@
         <!--Navigation Controller-->
         <scene sceneID="few-QT-Cpl">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D70-2b-kh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="qb3-f1-FBp" userLabel="Navigation Controller Delegate" customClass="NavigationControllerDelegate" customModule="RhythmDysc" customModuleProvider="target"/>
                 <navigationController navigationBarHidden="YES" id="v2s-4P-zLz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1gJ-iJ-ayk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -63,8 +63,6 @@
                         <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="Zfi-0B-vHs"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D70-2b-kh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="qb3-f1-FBp" userLabel="Navigation Controller Delegate" customClass="NavigationControllerDelegate" customModule="RhythmDysc" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-236" y="373"/>
         </scene>

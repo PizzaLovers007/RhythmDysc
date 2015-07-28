@@ -207,6 +207,7 @@ class InGameScene: SKScene {
             self.dysc.alpha = 1;
 //            self.highlight.alpha = 1;
             self.cursor.alpha = 1;
+            self.mapData.scoreTitle.alpha = 1;
         });
         
         titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
@@ -219,6 +220,13 @@ class InGameScene: SKScene {
         mapData.judgmentTitle.position = CGPoint(x: size.width/2, y: size.height/3);
         mapData.judgmentTitle.zPosition = 100;
         mapData.judgmentTitle.fontColor = UIColor.blackColor();
+        mapData.scoreTitle.position = CGPoint(x: size.width/2, y: size.height-35);
+        mapData.scoreTitle.zPosition = 100;
+        mapData.scoreTitle.fontColor = UIColor.blackColor();
+        mapData.scoreTitle.alpha = 0;
+        mapData.hitErrorTitle.position = CGPoint(x: 45, y: size.height-35);
+        mapData.hitErrorTitle.zPosition = 100;
+        mapData.hitErrorTitle.fontColor = UIColor.blackColor();
         
         addButtons();
         addChild(dysc);
@@ -242,6 +250,8 @@ class InGameScene: SKScene {
         addChild(mapData.soundPlayer);
         addChild(mapData.comboTitle);
         addChild(mapData.judgmentTitle);
+        addChild(mapData.scoreTitle);
+        addChild(mapData.hitErrorTitle);
     }
     
     private func checkCursorPosition() -> Int {

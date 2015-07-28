@@ -17,6 +17,7 @@ class DyscMap: NSObject {
     let approach: Int;
     let sector: Int;
     let preview: Int;
+    let scoreMultiplier: Double;
     let coverImage: UIImage;
     let perfectRange: [Int] = [100, 80, 60, 40];
     let judgmentDifference: [Int] = [45, 40, 35, 30];
@@ -25,11 +26,13 @@ class DyscMap: NSObject {
     let judgmentTitle: SKLabelNode = SKLabelNode();
     let judgmentAction: SKAction;
     let comboTitle: SKLabelNode = SKLabelNode();
+    let scoreTitle: SKLabelNode = SKLabelNode();
+    let hitErrorTitle: SKLabelNode = SKLabelNode();
     var scene: SKScene!;
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
-    var score: Int = 0;
+    var score: Double = 0;
     var combo: Int = 0;
     var hitStats: [NoteJudgment: Int] = [NoteJudgment: Int]();
     var currSector: Int = 0;
@@ -51,6 +54,7 @@ class DyscMap: NSObject {
         approach = 0;
         sector = 0;
         preview = 0;
+        scoreMultiplier = 0;
         coverImage = UIImage(named: "")!;
         let zoomAction = SKAction.sequence([SKAction.scaleTo(1, duration: 0), SKAction.scaleTo(1.1, duration: 0.1), SKAction.scaleTo(1, duration: 0.1)]);
         let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
@@ -65,6 +69,7 @@ class DyscMap: NSObject {
         approach = generalInfo["approach"]!.toInt()!;
         sector = generalInfo["sector"]!.toInt()!;
         preview = generalInfo["preview"]!.toInt()!;
+        scoreMultiplier = Double(approach+2)/2 * log2(Double(sector))/2 / 32;     //difficultyMultiplier * sectorMultiplier / offsetMultiplier
         coverImage = UIImage(named: title)!;
         hitStats[NoteJudgment.MISS] = 0;
         hitStats[NoteJudgment.GOOD] = 0;
@@ -76,6 +81,7 @@ class DyscMap: NSObject {
         let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
         judgmentAction = SKAction.group([zoomAction, fadeAction]);
         super.init();
+        scoreTitle.text = String(format: "%08d", 0);
     }
     
     func addTimingPoint(timingPoint: TimingPoint) {
@@ -226,16 +232,16 @@ class DyscMap: NSObject {
                             return;
                         } else if (abs(timeDifference) > good) {
                             calcMiss(nextNote);
-                            judgmentTitle.text = "\(timeDifference)";
+                            hitErrorTitle.text = "\(timeDifference)";
                         } else if (abs(timeDifference) > great) {
                             calcGood(nextNote);
-                            judgmentTitle.text = "\(timeDifference)";
+                            hitErrorTitle.text = "\(timeDifference)";
                         } else if (abs(timeDifference) > perfect) {
                             calcGreat(nextNote);
-                            judgmentTitle.text = "\(timeDifference)";
+                            hitErrorTitle.text = "\(timeDifference)";
                         } else {
                             calcPerfect(nextNote);
-                            judgmentTitle.text = "\(timeDifference)";
+                            hitErrorTitle.text = "\(timeDifference)";
                         }
                         if let holdNote = notes[i] as? HoldNote {
                             holdNote.hasHit = true;
@@ -279,6 +285,7 @@ class DyscMap: NSObject {
     
     private func calcMiss(note: Note) {
         combo = 0;
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "";
         judgmentTitle.text = "Miss";
         judgmentTitle.removeActionForKey("ShowFade");
@@ -289,7 +296,10 @@ class DyscMap: NSObject {
     }
     
     private func calcGood(note: Note) {
-        combo = 0;
+        combo++;
+        score += 20;
+        score += 20 * Double(combo) * scoreMultiplier;
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Good";
         judgmentTitle.removeActionForKey("ShowFade");
@@ -302,6 +312,9 @@ class DyscMap: NSObject {
     
     private func calcGreat(note: Note) {
         combo++;
+        score += 50;
+        score += 50 * Double(combo) * scoreMultiplier;
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Great";
         judgmentTitle.removeActionForKey("ShowFade");
@@ -314,6 +327,9 @@ class DyscMap: NSObject {
     
     private func calcPerfect(note: Note) {
         combo++;
+        score += 100;
+        score += 100 * Double(combo) * scoreMultiplier;
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Perfect";
         judgmentTitle.removeActionForKey("ShowFade");
@@ -326,6 +342,9 @@ class DyscMap: NSObject {
     
     private func calcHold(note: Note) {
         combo++;
+        score += 10;
+        score += 10 * Double(combo) * scoreMultiplier;
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "\(combo) COMBO!";
         judgmentTitle.text = "Hold";
         judgmentTitle.removeActionForKey("ShowFade");
@@ -342,6 +361,7 @@ class DyscMap: NSObject {
         } else {
             soundPlayer.playSlip();
         }
+        scoreTitle.text = String(format: "%08d", Int(round(score)));
         combo = 0;
         comboTitle.text = "";
         judgmentTitle.text = "Slip";
