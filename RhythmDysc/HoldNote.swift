@@ -21,11 +21,11 @@ class HoldNote: Note {
     }
     
     let pathNode: SKShapeNode = SKShapeNode();
-    var path: CGMutablePath = CGPathCreateMutable();
     var isHeld: Bool = false;
     var hasHit: Bool = false;
     var msEnd: Int = 0;
     var msTicks: [Int] = [Int]();
+    var heldLast: Int = 0;
     private(set) var nodes: [Node] = [Node]();
     
     override var description: String {
@@ -57,6 +57,7 @@ class HoldNote: Note {
             pathNode.strokeColor = UIColor.whiteColor();
             break;
         }
+        pathNode.zPosition = -20;
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,8 +81,8 @@ class HoldNote: Note {
         let cursorAngle = (angle + TAU) % (TAU);
         let noteAngle = (getCurrentNoteAngle(time: time, sector: sector) % (TAU) + TAU) % (TAU);
         let lowerAngleDifference = abs(cursorAngle - noteAngle);
-        let middleAngleDifference = abs(cursorAngle - noteAngle - M_PI*2);
-        let upperAngleDifference = abs(cursorAngle - noteAngle + M_PI*2);
+        let middleAngleDifference = abs(cursorAngle - noteAngle - TAU);
+        let upperAngleDifference = abs(cursorAngle - noteAngle + TAU);
         let minAngleDifference = min(lowerAngleDifference, min(middleAngleDifference, upperAngleDifference));
         return minAngleDifference < M_PI/Double(sector);
     }
@@ -90,9 +91,9 @@ class HoldNote: Note {
         let approachTime = msHit - msAppear;
         let noteAngle = getCurrentNoteAngle(time: currTime, sector: sector);
         let center = dysc.position;
-        let dyscRadius = Double(dysc.size.width/2);
+        let dyscRadius = Double(dysc.size.width/2-1);
         let sectorAngle = M_PI * 2 / Double(sector);
-        path = CGPathCreateMutable();
+        var path = CGPathCreateMutable();
         
         var prevRadius: Double;
         var prevTheta: Double;

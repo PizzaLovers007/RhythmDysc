@@ -23,8 +23,8 @@ class NoteSpark: SKNode {
         particles.particleColorBlendFactor = 1.0;
         particles.numParticlesToEmit = numSparks;
         particles.emissionAngle = CGFloat(theta - M_PI);
-        particles.particlePositionRange.dx = CGFloat(maxSpread * abs(sin(theta)));
-        particles.particlePositionRange.dy = CGFloat(maxSpread * abs(cos(theta)));
+//        particles.particlePositionRange.dx = CGFloat(maxSpread * abs(sin(theta)));
+//        particles.particlePositionRange.dy = CGFloat(maxSpread * abs(cos(theta)));
         addChild(particles);
         delay(lifetime) {
             self.isDead = true;

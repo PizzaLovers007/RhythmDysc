@@ -28,7 +28,7 @@ class DyscMap: NSObject {
     let comboTitle: SKLabelNode = SKLabelNode();
     let scoreTitle: SKLabelNode = SKLabelNode();
     let hitErrorTitle: SKLabelNode = SKLabelNode();
-    var scene: SKScene!;
+    var scene: InGameScene!;
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
@@ -275,11 +275,9 @@ class DyscMap: NSObject {
     }
     
     private func addSpark(note: Note, numSparks: Int) {
-        let spark = NoteSpark(color: note.color, numSparks: numSparks, theta: note.currTheta);
+        let spark = NoteSpark(color: note.color, numSparks: numSparks, theta: scene.cursor.theta);
         scene.addChild(spark);
-        let dysc = (scene as! InGameScene).dysc;
-        spark.position.x = dysc.position.x + dysc.size.width/2 * CGFloat(cos(note.currTheta));
-        spark.position.y = dysc.position.y + dysc.size.height/2 * CGFloat(sin(note.currTheta));
+        spark.position = scene.cursor.position;
         sparks.append(spark);
     }
     

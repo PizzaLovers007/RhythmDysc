@@ -16,9 +16,9 @@ class InGameScene: SKScene {
     let greenButton = GreenButton();
     let blueButton = BlueButton();
     let cursor = Cursor();
-    let highlight: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorBlueArc");
-    let dysc: SKSpriteNode = SKSpriteNode(imageNamed: "4SectorDysc");
-    let centerSprite: SKSpriteNode = SKSpriteNode(imageNamed: "Cursor");
+    let highlight = SKSpriteNode(imageNamed: "4SectorBlueArc");
+    let dysc = SKSpriteNode(imageNamed: "4SectorDysc");
+    let centerSprite = SKSpriteNode(imageNamed: "Cursor");
     let mapData: DyscMap;
     var songPlayer: AVAudioPlayer! = nil;
     var redDown: Bool = false;
@@ -152,10 +152,11 @@ class InGameScene: SKScene {
     
     private func addCursor() {
         cursor.center = dysc.position;
-        cursor.radius = Double(dysc.size.width/16*7);
+        cursor.radius = Double(dysc.size.width/512*249);
         cursor.position = dysc.position;
         cursor.size = CGSize(width: dysc.size.width/10, height: dysc.size.height/10);
         cursor.alpha = 0;
+        cursor.zPosition = 10;
         cursor.startUpdates();
         addChild(cursor);
     }
@@ -189,6 +190,7 @@ class InGameScene: SKScene {
         dysc.size = CGSize(width: self.size.width-40, height: self.size.width-40);
         dysc.position = CGPoint(x: size.width/2, y: size.height/3*2);
         dysc.alpha = 0;
+        dysc.zPosition = -10;
         
         highlight.position = dysc.position;
         highlight.alpha = 0;

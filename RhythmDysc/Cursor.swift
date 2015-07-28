@@ -19,14 +19,12 @@ class Cursor: SKSpriteNode {
     var theta: Double = 0;
     
     init() {
-        center = CGPoint(x: 0, y: 0);
         let cursorTexture = SKTexture(imageNamed: "Cursor2");
         let tiltTexture = SKTexture(imageNamed: "Cursor");
         super.init(texture: cursorTexture, color: UIColor.whiteColor(), size: cursorTexture.size());
     }
 
     required init?(coder aDecoder: NSCoder) {
-        center = CGPoint(x: 0, y: 0);
         let tiltTexture = SKTexture(imageNamed: "Cursor");
         super.init(coder: aDecoder);
     }

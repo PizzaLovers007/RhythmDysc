@@ -48,6 +48,14 @@ class GameViewController: UIViewController {
             performSegueWithIdentifier("backToSongSelect", sender: self);
         }
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        ((view as! SKView).scene as! InGameScene).songPlayer.pause();
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        (view as! SKView).presentScene(nil);
+    }
 
     override func shouldAutorotate() -> Bool {
         return true;
