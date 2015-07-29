@@ -21,12 +21,13 @@ class HoldNote: Note {
     }
     
     let pathNode: SKShapeNode = SKShapeNode();
-    var isHeld: Bool = false;
     var hasHit: Bool = false;
     var msEnd: Int = 0;
     var msTicks: [Int] = [Int]();
     var heldLast: Int = 0;
+    var prevTime: Int = Int.max;
     private(set) var nodes: [Node] = [Node]();
+    private var isHeld: Bool = false;
     
     override var description: String {
         return "Hold\(super.description) with \(nodes.count) Node(s)";
@@ -68,12 +69,17 @@ class HoldNote: Note {
         nodes.insert(Node(rotation: rotation, length: length, ms: 0), atIndex: nodes.count-1);
     }
     
-    func letGo() {
+    func letGo(currTime: Int) {
+        heldLast = currTime;
         isHeld = false;
     }
     
     func holdDown() {
         isHeld = true;
+    }
+    
+    func isBeingHeld() -> Bool {
+        return isHeld || prevTime - heldLast < 100;
     }
     
     func isInHold(#angle: Double, time: Int, sector: Int) -> Bool {
@@ -97,7 +103,7 @@ class HoldNote: Note {
         
         var prevRadius: Double;
         var prevTheta: Double;
-        if (currTime > msHit) {
+        if (currTime > msHit || currTime < msHit && hasHit) {
             CGPathMoveToPoint(path, nil, CGFloat(dyscRadius * cos(noteAngle)) + center.x, CGFloat(dyscRadius * sin(noteAngle)) + center.y);
             prevRadius = dyscRadius;
             prevTheta = noteAngle;
@@ -164,6 +170,10 @@ class HoldNote: Note {
             prevRadius = nodeRadius;
             prevTheta = nodeTheta;
         }
+        if (currTime < msHit && hasHit) {
+            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta, endTheta: prevTheta, startRadius: prevRadius, endRadius: dyscRadius);
+            prevRadius = dyscRadius;
+        }
         CGPathAddArc(path, nil, center.x, center.y, CGFloat(prevRadius), CGFloat(prevTheta + sectorAngle/2), CGFloat(prevTheta), true);
         
         pathNode.path = path;
@@ -176,7 +186,7 @@ class HoldNote: Note {
             nodes[i].ms = msHit + Int(round(currLength * timePoint.msPerBeat));
             currLength += nodes[i].length;
         }
-        for (var i = 0.25; i <= currLength; i+=0.25) {
+        for (var i = 0.5; i <= currLength; i+=0.5) {
             msTicks.append(msHit + Int(round(i * timePoint.msPerBeat)));
         }
         msEnd = msHit + Int(round(currLength * timePoint.msPerBeat));
@@ -189,6 +199,7 @@ class HoldNote: Note {
     
     override func updateCurrTheta(#time: Int, sector: Int) {
         currTheta = getCurrentNoteAngle(time: time, sector: sector);
+        prevTime = time;
     }
     
     private func getCurrentNoteAngle(#time: Int, sector: Int) -> Double {

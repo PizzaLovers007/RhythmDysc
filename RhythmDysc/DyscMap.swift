@@ -21,7 +21,7 @@ class DyscMap: NSObject {
     let coverImage: UIImage;
     let perfectRange: [Int] = [100, 80, 60, 40];
     let judgmentDifference: [Int] = [45, 40, 35, 30];
-    let msAppear: [Int] = [1800, 1500, 1200, 900];
+    let msAppear: [Int] = [1700, 1500, 1300, 1100];
     let soundPlayer: HitSoundPlayer = HitSoundPlayer();
     let judgmentTitle: SKLabelNode = SKLabelNode();
     let judgmentAction: SKAction;
@@ -38,6 +38,7 @@ class DyscMap: NSObject {
     var currSector: Int = 0;
     var currTimingPointIndex: Int = 0;
     var sparks: [NoteSpark] = [NoteSpark]();
+    var heldButtons: [Bool] = [false, false, false];
     
     override var description: String {
         var result: String = "";
@@ -146,8 +147,8 @@ class DyscMap: NSObject {
                         holdNote.alpha = 0;
                     }
                     let cursorInHold = holdNote.isInHold(angle: cursorTheta, time: currTime, sector: sector);
-                    if (currTime > holdNote.msHit && holdNote.msTicks.count > 0 && currTime > holdNote.msTicks[0]) {
-                        if (holdNote.isHeld && cursorInHold) {
+                    if (currTime >= holdNote.msHit && holdNote.msTicks.count > 0 && currTime >= holdNote.msTicks[0]) {
+                        if ((holdNote.isBeingHeld() || heldButtons[holdNote.noteColor]) && cursorInHold) {
                             calcHold(holdNote);
                         } else {
                             calcSlip(holdNote);
@@ -163,7 +164,7 @@ class DyscMap: NSObject {
                 let timeDifference = currTime - nextNote.msAppear;
                 let scale = newScale(timeDifference);
                 if let holdNote = nextNote as? HoldNote {
-                    if (holdNote.isHeld) {
+                    if (holdNote.isBeingHeld()) {
                         nextNote.xScale = 1;
                         nextNote.yScale = 1;
                     } else {
@@ -192,7 +193,7 @@ class DyscMap: NSObject {
             let newPositionY = lerp(lower: Double(dysc.position.y), upper: targetPositionY, val: frac);
             if let holdNote = currNote as? HoldNote {
                 holdNote.updateArea(currTime, sector: sector, dysc: dysc);
-                if (holdNote.isHeld) {
+                if (holdNote.isBeingHeld()) {
                     currNote.runAction(SKAction.moveTo(CGPoint(x: targetPositionX, y: targetPositionY), duration: 0));
                 } else {
                     currNote.runAction(SKAction.moveTo(CGPoint(x: newPositionX, y: newPositionY), duration: 0));
@@ -204,54 +205,52 @@ class DyscMap: NSObject {
         }
     }
     
-    func updateButton(button: ButtonColor, isPressed: Bool) {
+    func updateButton(button: ButtonColor, isPressed: Bool, songTime timeSec: NSTimeInterval) {
+        let currTime = Int(timeSec*1000);
+        heldButtons[button.rawValue] = isPressed;
         if (notes.count > 0) {
             let perfect = perfectRange[approach];
             let great = perfectRange[approach] + judgmentDifference[approach];
             let good = perfectRange[approach] + judgmentDifference[approach] * 2;
             let miss = perfectRange[approach] + judgmentDifference[approach] * 3;
             if (!isPressed) {
-                if let nextNote = notes[0] as? HoldNote {
-                    if (nextNote.noteColor == button.rawValue) {
-                        nextNote.letGo();
+                if let holdNote = notes[0] as? HoldNote {
+                    if (holdNote.noteColor == button.rawValue && holdNote.isBeingHeld()) {
+                        holdNote.letGo(currTime);
                     }
                 }
             } else {
                 if let holdNote = notes[0] as? HoldNote {
-                    if (holdNote.noteColor == button.rawValue && currSector == holdNote.direction) {
+                    let timeDifference = currTime - holdNote.msHit;
+                    if (holdNote.noteColor == button.rawValue && (currSector == holdNote.direction || holdNote.hasHit) && abs(timeDifference) <= miss) {
                         holdNote.holdDown();
                         holdNote.alpha = 0;
                     }
                 }
-                var i: Int = 0;
-                while (i < notes.count) {
-                    let nextNote = notes[i];
-                    if (nextNote.noteColor == button.rawValue && currSector == nextNote.direction) {
-                        let timeDifference = prevSongTime - nextNote.msHit;
-                        if (abs(timeDifference) > miss) {
-                            return;
-                        } else if (abs(timeDifference) > good) {
-                            calcMiss(nextNote);
-                            hitErrorTitle.text = "\(timeDifference)";
-                        } else if (abs(timeDifference) > great) {
-                            calcGood(nextNote);
-                            hitErrorTitle.text = "\(timeDifference)";
-                        } else if (abs(timeDifference) > perfect) {
-                            calcGreat(nextNote);
-                            hitErrorTitle.text = "\(timeDifference)";
-                        } else {
-                            calcPerfect(nextNote);
-                            hitErrorTitle.text = "\(timeDifference)";
-                        }
-                        if let holdNote = notes[i] as? HoldNote {
-                            holdNote.hasHit = true;
-                        } else {
-                            nextNote.removeFromParent();
-                            notes.removeAtIndex(i);
-                            continue;
-                        }
+                let nextNote = notes[0];
+                if (nextNote.noteColor == button.rawValue && currSector == nextNote.direction) {
+                    let timeDifference = currTime - nextNote.msHit;
+                    if (abs(timeDifference) > miss) {
+                        return;
+                    } else if (abs(timeDifference) > good) {
+                        calcMiss(nextNote);
+                        hitErrorTitle.text = "\(timeDifference)";
+                    } else if (abs(timeDifference) > great) {
+                        calcGood(nextNote);
+                        hitErrorTitle.text = "\(timeDifference)";
+                    } else if (abs(timeDifference) > perfect) {
+                        calcGreat(nextNote);
+                        hitErrorTitle.text = "\(timeDifference)";
+                    } else {
+                        calcPerfect(nextNote);
+                        hitErrorTitle.text = "\(timeDifference)";
                     }
-                    i++;
+                    if let holdNote = notes[0] as? HoldNote {
+                        holdNote.hasHit = true;
+                    } else {
+                        nextNote.removeFromParent();
+                        notes.removeAtIndex(0);
+                    }
                 }
             }
         }
@@ -282,6 +281,9 @@ class DyscMap: NSObject {
     }
     
     private func calcMiss(note: Note) {
+        if (combo > 10) {
+            soundPlayer.playMiss();
+        }
         combo = 0;
         scoreTitle.text = String(format: "%08d", Int(round(score)));
         comboTitle.text = "";
@@ -290,7 +292,6 @@ class DyscMap: NSObject {
         judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.MISS]! += 1;
         NSLog("Missed note");
-        soundPlayer.playMiss();
     }
     
     private func calcGood(note: Note) {

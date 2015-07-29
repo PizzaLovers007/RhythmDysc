@@ -51,8 +51,6 @@
         <!--Navigation Controller-->
         <scene sceneID="few-QT-Cpl">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D70-2b-kh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="qb3-f1-FBp" userLabel="Navigation Controller Delegate" customClass="NavigationControllerDelegate" customModule="RhythmDysc" customModuleProvider="target"/>
                 <navigationController navigationBarHidden="YES" id="v2s-4P-zLz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1gJ-iJ-ayk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -63,6 +61,8 @@
                         <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="Zfi-0B-vHs"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D70-2b-kh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="qb3-f1-FBp" userLabel="Navigation Controller Delegate" customClass="NavigationControllerDelegate" customModule="RhythmDysc" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-236" y="373"/>
         </scene>

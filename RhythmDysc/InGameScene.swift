@@ -70,17 +70,17 @@ class InGameScene: SKScene {
                 NSLog("Red button pressed");
                 redDown = true;
                 redButton.pressButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: true);
+                mapData.updateButton(ButtonColor.RED, isPressed: true, songTime: songPlayer.currentTime);
             } else if (!greenDown && greenButton.containsPoint(touchLocation)) {
                 NSLog("Green button pressed");
                 greenDown = true;
                 greenButton.pressButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: true);
+                mapData.updateButton(ButtonColor.GREEN, isPressed: true, songTime: songPlayer.currentTime);
             } else if (!blueDown && blueButton.containsPoint(touchLocation)) {
                 NSLog("Blue button pressed");
                 blueDown = true;
                 blueButton.pressButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: true);
+                mapData.updateButton(ButtonColor.BLUE, isPressed: true, songTime: songPlayer.currentTime);
                 
             }
         }
@@ -95,17 +95,17 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: false);
+                mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
             } else if (greenDown && !greenButton.containsPoint(touchLocation) && greenButton.containsPoint(prevTouchLocation)) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: false);
+                mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
             } else if (blueDown && !blueButton.containsPoint(touchLocation) && blueButton.containsPoint(prevTouchLocation)) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: false);
+                mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
             }
         }
     }
@@ -118,17 +118,17 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: false);
+                mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
             } else if (greenButton.containsPoint(touchLocation) && greenDown) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: false);
+                mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
             } else if (blueButton.containsPoint(touchLocation) && blueDown) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: false);
+                mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
             }
         }
     }
@@ -180,7 +180,7 @@ class InGameScene: SKScene {
         artistNode.fontColor = SKColor.blackColor();
         artistNode.fontSize = artistNode.fontSize*2/3;
         artistNode.fontName = "HelveticaNeue-Light";
-        let calculatingTiltNode = SKLabelNode(text: "Hold your device flat");
+        let calculatingTiltNode = SKLabelNode(text: "Hold device flat. Tilt a lot when playing!");
         calculatingTiltNode.alpha = 0;
         calculatingTiltNode.position = CGPoint(x: size.width/2, y: size.height/4);
         calculatingTiltNode.fontColor = SKColor.blackColor();

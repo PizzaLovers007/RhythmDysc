@@ -50,7 +50,9 @@ class GameViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        ((view as! SKView).scene as! InGameScene).songPlayer.pause();
+        if let scene = (view as! SKView).scene {
+            (scene as! InGameScene).songPlayer.pause()
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {

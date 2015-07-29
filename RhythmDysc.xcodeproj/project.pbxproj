@@ -25,6 +25,9 @@
 		D5300A301B2257410077EE8F /* DyscMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5300A2F1B2257410077EE8F /* DyscMap.swift */; };
 		D53C11461B471E1B00EA68FE /* SongSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53C11451B471E1B00EA68FE /* SongSelectCollectionViewController.swift */; };
 		D53C11481B471E5000EA68FE /* SongSelectionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53C11471B471E5000EA68FE /* SongSelectionCollectionCell.swift */; };
+		D55BF9311B685C6C00F20A04 /* Midnight Sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */; };
+		D55BF9331B685CD200F20A04 /* Midnight Sky-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */; };
+		D55BF9351B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */; };
 		D57F35631B477B1B0022345D /* SongSelect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D57F35621B477B1B0022345D /* SongSelect.mp3 */; };
 		D57F35651B477C1E0022345D /* Ascension to Heaven.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D57F35641B477C1E0022345D /* Ascension to Heaven.mp3 */; };
 		D5A7F6101B434C8000F3D805 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A7F60F1B434C8000F3D805 /* NavigationControllerDelegate.swift */; };
@@ -84,6 +87,9 @@
 		D5300A2F1B2257410077EE8F /* DyscMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyscMap.swift; sourceTree = "<group>"; };
 		D53C11451B471E1B00EA68FE /* SongSelectCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectCollectionViewController.swift; sourceTree = "<group>"; };
 		D53C11471B471E5000EA68FE /* SongSelectionCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectionCollectionCell.swift; sourceTree = "<group>"; };
+		D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Midnight Sky.mp3"; sourceTree = "<group>"; };
+		D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Midnight Sky-easy-4.dmp"; sourceTree = "<group>"; };
+		D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Mushikui-Saikede-Rhythm-easy-4.dmp"; sourceTree = "<group>"; };
 		D57F35621B477B1B0022345D /* SongSelect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SongSelect.mp3; sourceTree = "<group>"; };
 		D57F35641B477C1E0022345D /* Ascension to Heaven.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ascension to Heaven.mp3"; sourceTree = "<group>"; };
 		D5A7F60F1B434C8000F3D805 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +145,7 @@
 		D505034D1B2008B6008B5707 /* Songs */ = {
 			isa = PBXGroup;
 			children = (
+				D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */,
 				D57F35621B477B1B0022345D /* SongSelect.mp3 */,
 				D5300A2B1B224D810077EE8F /* aLIEz.mp3 */,
 				D57F35641B477C1E0022345D /* Ascension to Heaven.mp3 */,
@@ -171,6 +178,8 @@
 				D52F817D1B26312B00352613 /* aLIEz-easy-4.dmp */,
 				D5DF0F601B322E5800190B11 /* aLIEz-expert-4.dmp */,
 				D52C15821B61CDEC00BB4190 /* aLIEz-normal-4.dmp */,
+				D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */,
+				D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -411,7 +420,9 @@
 			files = (
 				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
 				D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */,
+				D55BF9311B685C6C00F20A04 /* Midnight Sky.mp3 in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
+				D55BF9351B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
 				D52C157A1B61A18500BB4190 /* spark.png in Resources */,
@@ -429,6 +440,7 @@
 				D5B292481B2A24D800B1A653 /* soundPerfect.wav in Resources */,
 				D57F35651B477C1E0022345D /* Ascension to Heaven.mp3 in Resources */,
 				D52C15791B61A18500BB4190 /* NoteSparks.sks in Resources */,
+				D55BF9331B685CD200F20A04 /* Midnight Sky-easy-4.dmp in Resources */,
 				D5B292461B2A24D800B1A653 /* soundHold.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
