@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D503C5F81B697C5B00CF3B7F /* ResultsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503C5F71B697C5B00CF3B7F /* ResultsScene.swift */; };
 		D50503461B1FB371008B5707 /* AssetsToImport in Resources */ = {isa = PBXBuildFile; fileRef = D50503451B1FB371008B5707 /* AssetsToImport */; };
 		D50503481B1FB906008B5707 /* GreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503471B1FB906008B5707 /* GreenButton.swift */; };
 		D505034A1B200348008B5707 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503491B200348008B5707 /* Button.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D503C5F71B697C5B00CF3B7F /* ResultsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsScene.swift; sourceTree = "<group>"; };
 		D50503451B1FB371008B5707 /* AssetsToImport */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AssetsToImport; sourceTree = SOURCE_ROOT; };
 		D50503471B1FB906008B5707 /* GreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenButton.swift; sourceTree = "<group>"; };
 		D50503491B200348008B5707 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				D5D59CE81B1E945000C1E18D /* InGameScene.swift */,
+				D503C5F71B697C5B00CF3B7F /* ResultsScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */,
 				D5CB35311B42086A0039D11F /* SongSelectViewController.swift in Sources */,
 				D5A7F6131B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift in Sources */,
+				D503C5F81B697C5B00CF3B7F /* ResultsScene.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
 				D52F81821B26529300352613 /* Note.swift in Sources */,
 				D5D59CEF1B1E9D0900C1E18D /* RedButton.swift in Sources */,

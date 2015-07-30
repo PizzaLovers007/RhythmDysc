@@ -21,6 +21,11 @@ class SongDetailCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib();
         // Initialization code
+        startGameButton.backgroundColor = UIColor.clearColor();
+        startGameButton.layer.cornerRadius = 5;
+        startGameButton.layer.borderWidth = 1;
+        startGameButton.layer.borderColor = startGameButton.tintColor?.CGColor;
+        startGameButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

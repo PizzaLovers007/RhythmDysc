@@ -23,17 +23,22 @@ class DyscMap: NSObject {
     let judgmentDifference: [Int] = [45, 40, 35, 30];
     let msAppear: [Int] = [1700, 1500, 1300, 1100];
     let soundPlayer: HitSoundPlayer = HitSoundPlayer();
-    let judgmentTitle: SKLabelNode = SKLabelNode();
+    let judgmentLabel = SKLabelNode();
     let judgmentAction: SKAction;
-    let comboTitle: SKLabelNode = SKLabelNode();
-    let scoreTitle: SKLabelNode = SKLabelNode();
-    let hitErrorTitle: SKLabelNode = SKLabelNode();
+    let comboLabel = SKLabelNode();
+    let scoreLabel = SKLabelNode();
+    let hitErrorLabel = SKLabelNode();
+    let accuracyLabel = SKLabelNode();
     var scene: InGameScene!;
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
     var score: Double = 0;
     var combo: Int = 0;
+    var maxCombo: Int = 0;
+    var accuracy: Double = 0;
+    var notesPassed: Int = 0;
+    var totalBaseScore: Int = 0;
     var hitStats: [NoteJudgment: Int] = [NoteJudgment: Int]();
     var currSector: Int = 0;
     var currTimingPointIndex: Int = 0;
@@ -82,7 +87,10 @@ class DyscMap: NSObject {
         let fadeAction = SKAction.sequence([SKAction.fadeAlphaTo(1, duration: 0), SKAction.waitForDuration(1), SKAction.fadeAlphaTo(0, duration: 1)]);
         judgmentAction = SKAction.group([zoomAction, fadeAction]);
         super.init();
-        scoreTitle.text = String(format: "%08d", 0);
+        scoreLabel.text = String(format: "%08d", 0);
+        accuracyLabel.text = String(format: "%.2f%%", 0);
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right;
+        accuracyLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left;
     }
     
     func addTimingPoint(timingPoint: TimingPoint) {
@@ -234,16 +242,16 @@ class DyscMap: NSObject {
                         return;
                     } else if (abs(timeDifference) > good) {
                         calcMiss(nextNote);
-                        hitErrorTitle.text = "\(timeDifference)";
+                        hitErrorLabel.text = "\(timeDifference)";
                     } else if (abs(timeDifference) > great) {
                         calcGood(nextNote);
-                        hitErrorTitle.text = "\(timeDifference)";
+                        hitErrorLabel.text = "\(timeDifference)";
                     } else if (abs(timeDifference) > perfect) {
                         calcGreat(nextNote);
-                        hitErrorTitle.text = "\(timeDifference)";
+                        hitErrorLabel.text = "\(timeDifference)";
                     } else {
                         calcPerfect(nextNote);
-                        hitErrorTitle.text = "\(timeDifference)";
+                        hitErrorLabel.text = "\(timeDifference)";
                     }
                     if let holdNote = notes[0] as? HoldNote {
                         holdNote.hasHit = true;
@@ -280,78 +288,102 @@ class DyscMap: NSObject {
         sparks.append(spark);
     }
     
+    private func calcAccuracy(#basePoints: Int) {
+        notesPassed++;
+        totalBaseScore += basePoints;
+        accuracy = Double(totalBaseScore) / Double(notesPassed);
+        accuracyLabel.text = String(format: "%.2f%%", accuracy);
+    }
+    
     private func calcMiss(note: Note) {
         if (combo > 10) {
             soundPlayer.playMiss();
         }
         combo = 0;
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
-        comboTitle.text = "";
-        judgmentTitle.text = "Miss";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        comboLabel.text = "";
+        judgmentLabel.text = "Miss";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.MISS]! += 1;
         NSLog("Missed note");
+        calcAccuracy(basePoints: 0);
     }
     
     private func calcGood(note: Note) {
         combo++;
+        if (combo > maxCombo) {
+            maxCombo = combo;
+        }
         score += 20;
         score += 20 * Double(combo) * scoreMultiplier;
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
-        comboTitle.text = "\(combo) COMBO!";
-        judgmentTitle.text = "Good";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        comboLabel.text = "\(combo) COMBO!";
+        judgmentLabel.text = "Good";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GOOD]! += 1;
         addSpark(note, numSparks: 10);
         NSLog("Good note");
         soundPlayer.playGood();
+        calcAccuracy(basePoints: 20);
     }
     
     private func calcGreat(note: Note) {
         combo++;
+        if (combo > maxCombo) {
+            maxCombo = combo;
+        }
         score += 50;
         score += 50 * Double(combo) * scoreMultiplier;
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
-        comboTitle.text = "\(combo) COMBO!";
-        judgmentTitle.text = "Great";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        comboLabel.text = "\(combo) COMBO!";
+        judgmentLabel.text = "Great!";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.GREAT]! += 1;
         addSpark(note, numSparks: 30);
         NSLog("Great note");
         soundPlayer.playGreat();
+        calcAccuracy(basePoints: 50);
     }
     
     private func calcPerfect(note: Note) {
         combo++;
+        if (combo > maxCombo) {
+            maxCombo = combo;
+        }
         score += 100;
         score += 100 * Double(combo) * scoreMultiplier;
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
-        comboTitle.text = "\(combo) COMBO!";
-        judgmentTitle.text = "Perfect";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        comboLabel.text = "\(combo) COMBO!";
+        judgmentLabel.text = "Perfect!";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.PERFECT]! += 1;
         addSpark(note, numSparks: 50);
         NSLog("Perfect note");
         soundPlayer.playPerfect();
+        calcAccuracy(basePoints: 100);
     }
     
     private func calcHold(note: Note) {
         combo++;
+        if (combo > maxCombo) {
+            maxCombo = combo;
+        }
         score += 10;
         score += 10 * Double(combo) * scoreMultiplier;
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
-        comboTitle.text = "\(combo) COMBO!";
-        judgmentTitle.text = "Hold";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        comboLabel.text = "\(combo) COMBO!";
+        judgmentLabel.text = "Hold";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.HOLD]! += 1;
-        addSpark(note, numSparks: 5);
+        addSpark(note, numSparks: 8);
         NSLog("Hold note");
         soundPlayer.playHold();
+        calcAccuracy(basePoints: 100);
     }
     
     private func calcSlip(note: Note) {
@@ -360,14 +392,15 @@ class DyscMap: NSObject {
         } else {
             soundPlayer.playSlip();
         }
-        scoreTitle.text = String(format: "%08d", Int(round(score)));
+        scoreLabel.text = String(format: "%08d", Int(round(score)));
         combo = 0;
-        comboTitle.text = "";
-        judgmentTitle.text = "Slip";
-        judgmentTitle.removeActionForKey("ShowFade");
-        judgmentTitle.runAction(judgmentAction, withKey: "ShowFade");
+        comboLabel.text = "";
+        judgmentLabel.text = "Slip";
+        judgmentLabel.removeActionForKey("ShowFade");
+        judgmentLabel.runAction(judgmentAction, withKey: "ShowFade");
         hitStats[NoteJudgment.SLIP]! += 1;
         NSLog("Slip note");
+        calcAccuracy(basePoints: 0);
     }
     
     private func newScale(timeDifference: Int) -> CGFloat {

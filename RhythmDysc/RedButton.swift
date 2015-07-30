@@ -12,8 +12,10 @@ import SpriteKit;
 class RedButton: Button {
     
     init() {
-        let texture = SKTexture(imageNamed: "RedButton");
-        super.init(texture: texture, color: UIColor.whiteColor(), size: texture.size());
+        super.init(texture: nil, color: UIColor.blackColor(), size: CGSize());
+        upTexture = SKTexture(imageNamed: "RedButtonUp");
+        downTexture = SKTexture(imageNamed: "RedButtonDown");
+        texture = upTexture;
         self.name = "redButton";
     }
 

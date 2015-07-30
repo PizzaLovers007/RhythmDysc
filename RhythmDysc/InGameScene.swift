@@ -26,7 +26,7 @@ class InGameScene: SKScene {
     var blueDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
-    var viewController: UIViewController!;
+    var viewController: GameViewController!;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
@@ -134,17 +134,17 @@ class InGameScene: SKScene {
     }
     
     private func addButtons() {
-        let buttonWidth = self.size.width/3;
+        let buttonWidth = (size.width-20)/3;
         let halfButtonWidth = buttonWidth/2;
         blueButton.size.width = buttonWidth;
         blueButton.size.height = buttonWidth;
-        blueButton.position = CGPoint(x: halfButtonWidth, y: halfButtonWidth);
+        blueButton.position = CGPoint(x: halfButtonWidth+5, y: halfButtonWidth+5);
         greenButton.size.width = buttonWidth;
         greenButton.size.height = buttonWidth;
-        greenButton.position = CGPoint(x: size.width/2, y: halfButtonWidth);
+        greenButton.position = CGPoint(x: size.width/2, y: halfButtonWidth+5);
         redButton.size.width = buttonWidth;
         redButton.size.height = buttonWidth;
-        redButton.position = CGPoint(x: size.width - halfButtonWidth, y: halfButtonWidth);
+        redButton.position = CGPoint(x: size.width-halfButtonWidth-5, y: halfButtonWidth+5);
         addChild(redButton);
         addChild(greenButton);
         addChild(blueButton);
@@ -209,26 +209,31 @@ class InGameScene: SKScene {
             self.dysc.alpha = 1;
 //            self.highlight.alpha = 1;
             self.cursor.alpha = 1;
-            self.mapData.scoreTitle.alpha = 1;
+            self.mapData.scoreLabel.alpha = 1;
+            self.mapData.accuracyLabel.alpha = 1;
         });
         
         titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
         artistNode.runAction(artistAction);
         calculatingTiltNode.runAction(calculatingTiltAction);
         
-        mapData.comboTitle.position = CGPoint(x: size.width/2, y: size.height/4);
-        mapData.comboTitle.zPosition = 100;
-        mapData.comboTitle.fontColor = UIColor.blackColor();
-        mapData.judgmentTitle.position = CGPoint(x: size.width/2, y: size.height/3);
-        mapData.judgmentTitle.zPosition = 100;
-        mapData.judgmentTitle.fontColor = UIColor.blackColor();
-        mapData.scoreTitle.position = CGPoint(x: size.width/2, y: size.height-35);
-        mapData.scoreTitle.zPosition = 100;
-        mapData.scoreTitle.fontColor = UIColor.blackColor();
-        mapData.scoreTitle.alpha = 0;
-        mapData.hitErrorTitle.position = CGPoint(x: 45, y: size.height-35);
-        mapData.hitErrorTitle.zPosition = 100;
-        mapData.hitErrorTitle.fontColor = UIColor.blackColor();
+        mapData.comboLabel.position = CGPoint(x: size.width/2, y: size.height/4);
+        mapData.comboLabel.zPosition = 100;
+        mapData.comboLabel.fontColor = UIColor.blackColor();
+        mapData.judgmentLabel.position = CGPoint(x: size.width/2, y: size.height/3);
+        mapData.judgmentLabel.zPosition = 100;
+        mapData.judgmentLabel.fontColor = UIColor.blackColor();
+        mapData.scoreLabel.position = CGPoint(x: size.width-10, y: size.height-35);
+        mapData.scoreLabel.zPosition = 100;
+        mapData.scoreLabel.fontColor = UIColor.blackColor();
+        mapData.scoreLabel.alpha = 0;
+        mapData.hitErrorLabel.position = CGPoint(x: 45, y: size.height/3);
+        mapData.hitErrorLabel.zPosition = 100;
+        mapData.hitErrorLabel.fontColor = UIColor.blackColor();
+        mapData.accuracyLabel.position = CGPoint(x: 10, y: size.height-35);
+        mapData.accuracyLabel.zPosition = 100;
+        mapData.accuracyLabel.fontColor = UIColor.blackColor();
+        mapData.accuracyLabel.alpha = 0;
         
         addButtons();
         addChild(dysc);
@@ -250,10 +255,11 @@ class InGameScene: SKScene {
             }
         }
         addChild(mapData.soundPlayer);
-        addChild(mapData.comboTitle);
-        addChild(mapData.judgmentTitle);
-        addChild(mapData.scoreTitle);
-        addChild(mapData.hitErrorTitle);
+        addChild(mapData.comboLabel);
+        addChild(mapData.judgmentLabel);
+        addChild(mapData.scoreLabel);
+        addChild(mapData.hitErrorLabel);
+        addChild(mapData.accuracyLabel);
     }
     
     private func checkCursorPosition() -> Int {
@@ -269,10 +275,10 @@ class InGameScene: SKScene {
 extension InGameScene: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         NSLog("Song finished");
-        let endTitle: SKLabelNode = SKLabelNode(text: "Song Complete!");
-        endTitle.fontColor = UIColor.blackColor();
-        endTitle.fontName = "HelveticaNeue-Medium";
-        endTitle.position = CGPoint(x: size.width/2, y: size.height*2/3);
+        let endLabel: SKLabelNode = SKLabelNode(text: "Song Complete!");
+        endLabel.fontColor = UIColor.blackColor();
+        endLabel.fontName = "HelveticaNeue-Medium";
+        endLabel.position = CGPoint(x: size.width/2, y: size.height*2/3);
         let hideField = SKAction.runBlock({
             self.dysc.alpha = 0;
             self.highlight.alpha = 0;
@@ -281,9 +287,15 @@ extension InGameScene: AVAudioPlayerDelegate {
         let returnToSongSelect = SKAction.runBlock({
             self.viewController.performSegueWithIdentifier("backToSongSelect", sender: self.viewController);
         });
-        endTitle.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), returnToSongSelect]));
+        let goToResults = SKAction.runBlock({
+            let scene = ResultsScene(size: self.size, mapData: self.mapData);
+            scene.viewController = self.viewController;
+            self.viewController.quitButton.hidden = true;
+            self.view!.presentScene(scene, transition: SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1));
+        });
+        endLabel.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), goToResults]));
         cursor.stopUpdates();
         
-        addChild(endTitle);
+        addChild(endLabel);
     }
 }

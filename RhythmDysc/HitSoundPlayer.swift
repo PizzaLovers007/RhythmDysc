@@ -10,7 +10,14 @@ import UIKit;
 import SpriteKit;
 
 class HitSoundPlayer: SKNode {
-   
+    
+    let missAction = SKAction.playSoundFileNamed("soundMiss.mp3", waitForCompletion: false);
+    let goodAction = SKAction.playSoundFileNamed("soundGood.wav", waitForCompletion: false);
+    let greatAction = SKAction.playSoundFileNamed("soundGreat.wav", waitForCompletion: false);
+    let perfectAction = SKAction.playSoundFileNamed("soundPerfect.wav", waitForCompletion: false);
+    let holdAction = SKAction.playSoundFileNamed("soundHold.wav", waitForCompletion: false);
+    let slipAction = SKAction.playSoundFileNamed("soundSlip.wav", waitForCompletion: false);
+    
     override init() {
         super.init();
     }
@@ -20,26 +27,26 @@ class HitSoundPlayer: SKNode {
     }
     
     func playMiss() {
-        self.runAction(SKAction.playSoundFileNamed("soundMiss.mp3", waitForCompletion: false));
+        self.runAction(missAction);
     }
     
     func playGood() {
-        self.runAction(SKAction.playSoundFileNamed("soundGood.wav", waitForCompletion: false));
+        self.runAction(goodAction);
     }
     
     func playGreat() {
-        self.runAction(SKAction.playSoundFileNamed("soundGreat.wav", waitForCompletion: false));
+        self.runAction(greatAction);
     }
     
     func playPerfect() {
-        self.runAction(SKAction.playSoundFileNamed("soundPerfect.wav", waitForCompletion: false));
+        self.runAction(perfectAction);
     }
     
     func playHold() {
-        self.runAction(SKAction.playSoundFileNamed("soundHold.wav", waitForCompletion: false));
+        self.runAction(holdAction);
     }
     
     func playSlip() {
-        self.runAction(SKAction.playSoundFileNamed("soundSlip.wav", waitForCompletion: false));
+        self.runAction(slipAction);
     }
 }

@@ -11,6 +11,8 @@ import SpriteKit;
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var quitButton: UIButton!;
+    
     var mapData: DyscMap!;
     
     override func viewDidLoad() {
@@ -34,6 +36,8 @@ class GameViewController: UIViewController {
                 return;
             }
             let scene = InGameScene(size: view.bounds.size, songURL: songURL!, mapData: mapData);
+//            let scene = ResultsScene(size: view.bounds.size, mapData: mapData);
+            
             scene.viewController = self;
             
             /* Set the scale mode to scale to fit the window */
@@ -50,8 +54,8 @@ class GameViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if let scene = (view as! SKView).scene {
-            (scene as! InGameScene).songPlayer.pause()
+        if let scene = (view as! SKView).scene, let gameScene = scene as? InGameScene {
+            gameScene.songPlayer.pause()
         }
     }
     

@@ -14,6 +14,7 @@ class SongSelectCollectionViewController: UIViewController, UICollectionViewDele
     @IBOutlet weak var searchBar: UISearchBar!;
     @IBOutlet weak var collectionView: UICollectionView!;
     
+    let coverImageMask = CAShapeLayer();
     var songSelections: [SongSelection] = [SongSelection]();
     var searchSelections: [SongSelection] = [SongSelection]();
     var selectedIndex: Int = Int.max;
@@ -21,7 +22,6 @@ class SongSelectCollectionViewController: UIViewController, UICollectionViewDele
     var isSearchOn: Bool = false;
     var translucentOverlay: UIView!;
     var prevScrollOffset: CGFloat = 0;
-    let coverImageMask = CAShapeLayer();
     
     override func viewDidLoad() {
         super.viewDidLoad();

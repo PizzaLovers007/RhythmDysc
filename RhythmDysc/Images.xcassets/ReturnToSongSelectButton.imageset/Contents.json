@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "green-button-2.png"
+      "filename" : "back-to-song-select-button-2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "green-button-1.png"
+      "filename" : "back-to-song-select-button-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "green-button.png"
+      "filename" : "back-to-song-select-button.png"
     }
   ],
   "info" : {

@@ -171,7 +171,7 @@ class HoldNote: Note {
             prevTheta = nodeTheta;
         }
         if (currTime < msHit && hasHit) {
-            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta, endTheta: prevTheta, startRadius: prevRadius, endRadius: dyscRadius);
+            connectNodesOnPath(path, center: center, sector: sector, startTheta: prevTheta + sectorAngle/2, endTheta: prevTheta + sectorAngle/2, startRadius: prevRadius, endRadius: dyscRadius);
             prevRadius = dyscRadius;
         }
         CGPathAddArc(path, nil, center.x, center.y, CGFloat(prevRadius), CGFloat(prevTheta + sectorAngle/2), CGFloat(prevTheta), true);
@@ -186,10 +186,11 @@ class HoldNote: Note {
             nodes[i].ms = msHit + Int(round(currLength * timePoint.msPerBeat));
             currLength += nodes[i].length;
         }
-        for (var i = 0.5; i <= currLength; i+=0.5) {
+        for (var i = 0.5; i < currLength; i+=0.5) {
             msTicks.append(msHit + Int(round(i * timePoint.msPerBeat)));
         }
         msEnd = msHit + Int(round(currLength * timePoint.msPerBeat));
+        msTicks.append(msEnd);
     }
     
     override func removeFromParent() {

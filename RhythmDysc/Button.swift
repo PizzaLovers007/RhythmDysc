@@ -17,14 +17,19 @@ enum ButtonColor: Int {
 
 class Button: SKSpriteNode {
     
+    var upTexture: SKTexture! = SKTexture();
+    var downTexture: SKTexture! = SKTexture();
+    
     //TODO: add darkened images when pressed (or make a second pressed image)
     var isPressed: Bool = false;
     
     func pressButton() {
         isPressed = true;
+        colorBlendFactor = 0.25;
     }
     
     func releaseButton() {
         isPressed = false;
+        colorBlendFactor = 0;
     }
 }

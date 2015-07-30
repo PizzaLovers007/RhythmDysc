@@ -10,10 +10,18 @@ import UIKit;
 
 class MainMenuViewController: UIViewController {
 
+    @IBOutlet weak var playGameLabel: UILabel!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
         // Do any additional setup after loading the view.
+        let animation = CABasicAnimation(keyPath: "transform.scale");
+        animation.toValue = NSNumber(float: 0.9);
+        animation.duration = 0.3;
+        animation.repeatCount = Float.infinity;
+        animation.autoreverses = true;
+        playGameLabel.layer.addAnimation(animation, forKey: nil);
     }
 
     override func didReceiveMemoryWarning() {

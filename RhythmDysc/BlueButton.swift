@@ -12,8 +12,10 @@ import SpriteKit;
 class BlueButton: Button {
     
     init() {
-        let texture = SKTexture(imageNamed: "BlueButton");
-        super.init(texture: texture, color: UIColor.whiteColor(), size: texture.size());
+        super.init(texture: nil, color: UIColor.blackColor(), size: CGSize());
+        upTexture = SKTexture(imageNamed: "BlueButtonUp");
+        downTexture = SKTexture(imageNamed: "BlueButtonDown");
+        texture = upTexture;
         self.name = "blueButton";
     }
     
