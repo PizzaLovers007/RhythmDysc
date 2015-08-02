@@ -17,6 +17,7 @@ class SongDetailCell: UITableViewCell {
     @IBOutlet weak var sectorSelection: UISegmentedControl!;
     @IBOutlet weak var difficultySelection: UISegmentedControl!;
     @IBOutlet weak var startGameButton: UIButton!;
+    @IBOutlet weak var highScoresButton: UIButton!;
     
     override func awakeFromNib() {
         super.awakeFromNib();
@@ -26,6 +27,11 @@ class SongDetailCell: UITableViewCell {
         startGameButton.layer.borderWidth = 1;
         startGameButton.layer.borderColor = startGameButton.tintColor?.CGColor;
         startGameButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
+        highScoresButton.backgroundColor = UIColor.clearColor();
+        highScoresButton.layer.cornerRadius = 5;
+        highScoresButton.layer.borderWidth = 1;
+        highScoresButton.layer.borderColor = highScoresButton.tintColor?.CGColor;
+        highScoresButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

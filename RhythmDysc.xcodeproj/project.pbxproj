@@ -12,6 +12,12 @@
 		D50503481B1FB906008B5707 /* GreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503471B1FB906008B5707 /* GreenButton.swift */; };
 		D505034A1B200348008B5707 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503491B200348008B5707 /* Button.swift */; };
 		D50503531B20129E008B5707 /* MapReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50503521B20129E008B5707 /* MapReader.swift */; };
+		D525F2771B6D7BFD00264F88 /* HighScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525F2761B6D7BFD00264F88 /* HighScoreCell.swift */; };
+		D525F2791B6D7F0700264F88 /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525F2781B6D7F0700264F88 /* HighScoresViewController.swift */; };
+		D525F27C1B6DAA5200264F88 /* ScoresDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D525F27A1B6DAA5200264F88 /* ScoresDataModel.xcdatamodeld */; };
+		D525F2B11B6DB07300264F88 /* SongScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D525F2B01B6DB07300264F88 /* SongScore.swift */; };
+		D525F2B31B6DCA6200264F88 /* Test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D525F2B21B6DCA6200264F88 /* Test.mp3 */; };
+		D525F2B51B6DCA7400264F88 /* Test-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D525F2B41B6DCA7400264F88 /* Test-easy-4.dmp */; };
 		D526EFCB1B421FB000A8145F /* FadeBlackSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526EFCA1B421FB000A8145F /* FadeBlackSegue.swift */; };
 		D52C15791B61A18500BB4190 /* NoteSparks.sks in Resources */ = {isa = PBXBuildFile; fileRef = D52C15771B61A18500BB4190 /* NoteSparks.sks */; };
 		D52C157A1B61A18500BB4190 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D52C15781B61A18500BB4190 /* spark.png */; };
@@ -75,6 +81,12 @@
 		D50503471B1FB906008B5707 /* GreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenButton.swift; sourceTree = "<group>"; };
 		D50503491B200348008B5707 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		D50503521B20129E008B5707 /* MapReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapReader.swift; sourceTree = "<group>"; };
+		D525F2761B6D7BFD00264F88 /* HighScoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoreCell.swift; sourceTree = "<group>"; };
+		D525F2781B6D7F0700264F88 /* HighScoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoresViewController.swift; sourceTree = "<group>"; };
+		D525F27B1B6DAA5200264F88 /* ScoresDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoresDataModel.xcdatamodel; sourceTree = "<group>"; };
+		D525F2B01B6DB07300264F88 /* SongScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongScore.swift; sourceTree = "<group>"; };
+		D525F2B21B6DCA6200264F88 /* Test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Test.mp3; sourceTree = "<group>"; };
+		D525F2B41B6DCA7400264F88 /* Test-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Test-easy-4.dmp"; sourceTree = "<group>"; };
 		D526EFCA1B421FB000A8145F /* FadeBlackSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeBlackSegue.swift; sourceTree = "<group>"; };
 		D52C15771B61A18500BB4190 /* NoteSparks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoteSparks.sks; sourceTree = "<group>"; };
 		D52C15781B61A18500BB4190 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
@@ -147,6 +159,7 @@
 		D505034D1B2008B6008B5707 /* Songs */ = {
 			isa = PBXGroup;
 			children = (
+				D525F2B21B6DCA6200264F88 /* Test.mp3 */,
 				D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */,
 				D57F35621B477B1B0022345D /* SongSelect.mp3 */,
 				D5300A2B1B224D810077EE8F /* aLIEz.mp3 */,
@@ -182,6 +195,7 @@
 				D52C15821B61CDEC00BB4190 /* aLIEz-normal-4.dmp */,
 				D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */,
 				D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */,
+				D525F2B41B6DCA7400264F88 /* Test-easy-4.dmp */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -234,6 +248,7 @@
 				D5CB35301B42086A0039D11F /* SongSelectViewController.swift */,
 				D5CB353A1B420F430039D11F /* MainMenuViewController.swift */,
 				D53C11451B471E1B00EA68FE /* SongSelectCollectionViewController.swift */,
+				D525F2781B6D7F0700264F88 /* HighScoresViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -244,6 +259,7 @@
 				D5CB35381B420D880039D11F /* SongSelectionCell.swift */,
 				D5CB35361B420D7B0039D11F /* SongDetailCell.swift */,
 				D53C11471B471E5000EA68FE /* SongSelectionCollectionCell.swift */,
+				D525F2761B6D7BFD00264F88 /* HighScoreCell.swift */,
 			);
 			name = InterfaceElements;
 			sourceTree = "<group>";
@@ -287,7 +303,9 @@
 				D50503521B20129E008B5707 /* MapReader.swift */,
 				D5300A2F1B2257410077EE8F /* DyscMap.swift */,
 				D52F817F1B26527B00352613 /* TimingPoint.swift */,
+				D525F2B01B6DB07300264F88 /* SongScore.swift */,
 				D5B2923B1B2A226B00B1A653 /* HitSoundPlayer.swift */,
+				D525F27A1B6DAA5200264F88 /* ScoresDataModel.xcdatamodeld */,
 			);
 			path = RhythmDysc;
 			sourceTree = "<group>";
@@ -422,12 +440,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
+				D525F2B51B6DCA7400264F88 /* Test-easy-4.dmp in Resources */,
 				D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */,
 				D55BF9311B685C6C00F20A04 /* Midnight Sky.mp3 in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D55BF9351B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
 				D5B292451B2A24D800B1A653 /* soundGreat.wav in Resources */,
+				D525F2B31B6DCA6200264F88 /* Test.mp3 in Resources */,
 				D52C157A1B61A18500BB4190 /* spark.png in Resources */,
 				D52C15831B61CDEC00BB4190 /* aLIEz-normal-4.dmp in Resources */,
 				D5B292491B2A24D800B1A653 /* soundSlip.wav in Resources */,
@@ -467,7 +487,9 @@
 				D5EE34A51B279356000E4A80 /* Cursor.swift in Sources */,
 				D505034A1B200348008B5707 /* Button.swift in Sources */,
 				D53C11461B471E1B00EA68FE /* SongSelectCollectionViewController.swift in Sources */,
+				D525F2B11B6DB07300264F88 /* SongScore.swift in Sources */,
 				D5CB353B1B420F430039D11F /* MainMenuViewController.swift in Sources */,
+				D525F27C1B6DAA5200264F88 /* ScoresDataModel.xcdatamodeld in Sources */,
 				D5D59CCB1B1D195500C1E18D /* GameViewController.swift in Sources */,
 				D52F81841B2653EA00352613 /* HoldNote.swift in Sources */,
 				D52F81801B26527B00352613 /* TimingPoint.swift in Sources */,
@@ -479,6 +501,8 @@
 				D526EFCB1B421FB000A8145F /* FadeBlackSegue.swift in Sources */,
 				D5B2923C1B2A226B00B1A653 /* HitSoundPlayer.swift in Sources */,
 				D5CB35311B42086A0039D11F /* SongSelectViewController.swift in Sources */,
+				D525F2771B6D7BFD00264F88 /* HighScoreCell.swift in Sources */,
+				D525F2791B6D7F0700264F88 /* HighScoresViewController.swift in Sources */,
 				D5A7F6131B434D2B00F3D805 /* FadeBlackTransitionAnimator.swift in Sources */,
 				D503C5F81B697C5B00CF3B7F /* ResultsScene.swift in Sources */,
 				D5D59CE91B1E945000C1E18D /* InGameScene.swift in Sources */,
@@ -706,6 +730,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D525F27A1B6DAA5200264F88 /* ScoresDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D525F27B1B6DAA5200264F88 /* ScoresDataModel.xcdatamodel */,
+			);
+			currentVersion = D525F27B1B6DAA5200264F88 /* ScoresDataModel.xcdatamodel */;
+			path = ScoresDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D5D59CB71B1D195500C1E18D /* Project object */;
 }

@@ -8,7 +8,7 @@
 
 import UIKit;
 import SpriteKit;
-import AVFoundation;
+import CoreData;
 
 class ResultsScene: SKScene {
     
@@ -41,6 +41,43 @@ class ResultsScene: SKScene {
         self.backgroundColor = UIColor.whiteColor();
         initializeObjects();
         performActions();
+        
+        let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+        let context: NSManagedObjectContext = appDel.managedObjectContext!;
+        
+        let entity = NSEntityDescription.entityForName("Scores", inManagedObjectContext: context);
+        
+        let titlePredicate = NSPredicate(format: "songTitle = %@", mapData.title);
+        let difficultyPredicate = NSPredicate(format: "difficulty = %d", mapData.approach);
+        
+        let request = NSFetchRequest(entityName: "Scores");
+        request.returnsObjectsAsFaults = false;
+        request.predicate = NSCompoundPredicate.andPredicateWithSubpredicates([titlePredicate, difficultyPredicate]);
+        
+        let oldScore = context.executeFetchRequest(request, error: nil)?.first as! SongScore?;
+        if (oldScore == nil) {
+            let newScore = SongScore(entity: entity!, insertIntoManagedObjectContext: context);
+            newScore.songTitle = mapData.title;
+            newScore.sectors = NSNumber(integer: mapData.sector);
+            newScore.difficulty = NSNumber(integer: mapData.approach);
+            newScore.grade = getGrade();
+            newScore.score = NSNumber(integer: mapData.score);
+            newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
+            newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
+            
+            context.save(nil);
+        } else if (oldScore != nil && mapData.score > oldScore?.score.integerValue) {
+            let newScore = oldScore!;
+            newScore.songTitle = mapData.title;
+            newScore.sectors = NSNumber(integer: mapData.sector);
+            newScore.difficulty = NSNumber(integer: mapData.approach);
+            newScore.grade = getGrade();
+            newScore.score = NSNumber(integer: mapData.score);
+            newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
+            newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
+            
+            context.save(nil);
+        }
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

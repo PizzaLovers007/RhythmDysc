@@ -36,6 +36,8 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
         songSelections.append(SongSelection(title: "aLIEz", artist: "SawanoHiroyuki[nZk]:mizuki", maxBPM: 99, preview: 60871));
         songSelections.append(SongSelection(title: "Mushikui-Saikede-Rhythm", artist: "Someone lol", maxBPM: 210, preview: 55554));
         songSelections.append(SongSelection(title: "Midnight Sky", artist: "Katie Park", maxBPM: 120, preview: 39970));
+        songSelections.append(SongSelection(title: "Test", artist: "testststests", maxBPM: 100, preview: 1753));
+        
         // Do any additional setup after loading the view.
     }
 
@@ -99,18 +101,22 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: selectedIndex, inSection: 0)) as! SongDetailCell;
-        let difficulty = cell.difficultySelection.titleForSegmentAtIndex(cell.difficultySelection.selectedSegmentIndex)!.lowercaseString;
-        let sector = Int(pow(2, Double(cell.sectorSelection.selectedSegmentIndex+1)));
-        let mapName = "\(cell.titleLabel.text!)-\(difficulty)-\(sector)";
-        if let mapURL = NSBundle.mainBundle().URLForResource(mapName, withExtension: "dmp") {
-            let mapData = MapReader.readFile(mapURL);
-            let destViewController = segue.destinationViewController as? GameViewController;
-            destViewController?.mapData = mapData;
-            
-            NSLog("Loading map \(mapName).dmp");
+        if let navigationController = segue.destinationViewController as? UINavigationController, let destinationVC = navigationController.viewControllers[0] as? HighScoresViewController {
+            destinationVC.songSelection = songSelections[selectedIndex];
         } else {
-            NSLog("Unable to find map \(mapName).dmp!");
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: selectedIndex, inSection: 0)) as! SongDetailCell;
+            let difficulty = cell.difficultySelection.titleForSegmentAtIndex(cell.difficultySelection.selectedSegmentIndex)!.lowercaseString;
+            let sector = Int(pow(2, Double(cell.sectorSelection.selectedSegmentIndex+1)));
+            let mapName = "\(cell.titleLabel.text!)-\(difficulty)-\(sector)";
+            if let mapURL = NSBundle.mainBundle().URLForResource(mapName, withExtension: "dmp") {
+                let mapData = MapReader.readFile(mapURL);
+                let destViewController = segue.destinationViewController as? GameViewController;
+                destViewController?.mapData = mapData;
+                
+                NSLog("Loading map \(mapName).dmp");
+            } else {
+                NSLog("Unable to find map \(mapName).dmp!");
+            }
         }
         fadeVolumeOut();
     }
@@ -158,16 +164,7 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
             musicPlayer.pause();
         }
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     private func delay(delay: Double, closure:() -> ()) {
         let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))

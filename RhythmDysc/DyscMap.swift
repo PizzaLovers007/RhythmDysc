@@ -33,7 +33,7 @@ class DyscMap: NSObject {
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
-    var score: Double = 0;
+    var score: Int = 0;
     var combo: Int = 0;
     var maxCombo: Int = 0;
     var accuracy: Double = 0;
@@ -300,7 +300,7 @@ class DyscMap: NSObject {
             soundPlayer.playMiss();
         }
         combo = 0;
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        scoreLabel.text = String(format: "%08d", score);
         comboLabel.text = "";
         judgmentLabel.text = "Miss";
         judgmentLabel.removeActionForKey("ShowFade");
@@ -316,8 +316,8 @@ class DyscMap: NSObject {
             maxCombo = combo;
         }
         score += 20;
-        score += 20 * Double(combo) * scoreMultiplier;
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        score += Int(round(20 * Double(combo) * scoreMultiplier));
+        scoreLabel.text = String(format: "%08d", score);
         comboLabel.text = "\(combo) COMBO!";
         judgmentLabel.text = "Good";
         judgmentLabel.removeActionForKey("ShowFade");
@@ -335,8 +335,8 @@ class DyscMap: NSObject {
             maxCombo = combo;
         }
         score += 50;
-        score += 50 * Double(combo) * scoreMultiplier;
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        score += Int(round(50 * Double(combo) * scoreMultiplier));
+        scoreLabel.text = String(format: "%08d", score);
         comboLabel.text = "\(combo) COMBO!";
         judgmentLabel.text = "Great!";
         judgmentLabel.removeActionForKey("ShowFade");
@@ -354,8 +354,8 @@ class DyscMap: NSObject {
             maxCombo = combo;
         }
         score += 100;
-        score += 100 * Double(combo) * scoreMultiplier;
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        score += Int(round(100 * Double(combo) * scoreMultiplier));
+        scoreLabel.text = String(format: "%08d", score);
         comboLabel.text = "\(combo) COMBO!";
         judgmentLabel.text = "Perfect!";
         judgmentLabel.removeActionForKey("ShowFade");
@@ -373,8 +373,8 @@ class DyscMap: NSObject {
             maxCombo = combo;
         }
         score += 10;
-        score += 10 * Double(combo) * scoreMultiplier;
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        score += Int(round(10 * Double(combo) * scoreMultiplier));
+        scoreLabel.text = String(format: "%08d", score);
         comboLabel.text = "\(combo) COMBO!";
         judgmentLabel.text = "Hold";
         judgmentLabel.removeActionForKey("ShowFade");
@@ -392,7 +392,7 @@ class DyscMap: NSObject {
         } else {
             soundPlayer.playSlip();
         }
-        scoreLabel.text = String(format: "%08d", Int(round(score)));
+        scoreLabel.text = String(format: "%08d", score);
         combo = 0;
         comboLabel.text = "";
         judgmentLabel.text = "Slip";
