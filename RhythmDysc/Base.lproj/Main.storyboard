@@ -25,8 +25,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Anywhere to Play" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBf-OQ-tnC">
-                                <rect key="frame" x="187" y="285" width="226" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <rect key="frame" x="205" y="288" width="190" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -140,7 +140,7 @@
                                             <outlet property="titleLabel" destination="Mcl-vf-0WC" id="2e4-6a-WDv"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songDetailCell" rowHeight="384" id="MYi-cL-13f" customClass="SongDetailCell" customModule="RhythmDysc" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songDetailCell" rowHeight="444" id="MYi-cL-13f" customClass="SongDetailCell" customModule="RhythmDysc" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="357" height="384"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MYi-cL-13f" id="3wH-4g-e0J">
@@ -189,7 +189,7 @@
                                                     </segments>
                                                 </segmentedControl>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBO-I2-Snv">
-                                                    <rect key="frame" x="28" y="345" width="142" height="34"/>
+                                                    <rect key="frame" x="229" y="345" width="142" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal" title="View High Scores">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -199,8 +199,8 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOl-Pn-cYw">
-                                                    <rect key="frame" x="475" y="345" width="97" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <rect key="frame" x="221" y="387" width="158" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <state key="normal" title="Start Game!">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -210,7 +210,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="qBO-I2-Snv" firstAttribute="leading" secondItem="3wH-4g-e0J" secondAttribute="leadingMargin" constant="20" id="2iT-Tm-jlW"/>
+                                                <constraint firstAttribute="centerX" secondItem="qBO-I2-Snv" secondAttribute="centerX" id="3bx-Ti-Cxe"/>
                                                 <constraint firstAttribute="centerX" secondItem="NpN-9y-nDF" secondAttribute="centerX" id="3jD-gw-20J"/>
                                                 <constraint firstItem="S0i-8x-9RF" firstAttribute="leading" secondItem="3wH-4g-e0J" secondAttribute="leadingMargin" constant="20" id="6Z8-o4-d4w"/>
                                                 <constraint firstItem="S0i-8x-9RF" firstAttribute="top" secondItem="21o-Ed-38g" secondAttribute="bottom" constant="8" id="7zu-5r-8ud"/>
@@ -220,7 +220,6 @@
                                                 <constraint firstItem="sfy-7x-qXm" firstAttribute="trailing" secondItem="3wH-4g-e0J" secondAttribute="trailingMargin" id="CNK-WX-6wX"/>
                                                 <constraint firstItem="JtB-Bc-QsI" firstAttribute="top" secondItem="cKD-OM-Abc" secondAttribute="bottom" constant="8" id="CXJ-y0-FM8"/>
                                                 <constraint firstItem="21o-Ed-38g" firstAttribute="top" secondItem="NpN-9y-nDF" secondAttribute="bottom" constant="8" id="D8l-1g-f4a"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="oOl-Pn-cYw" secondAttribute="trailing" constant="20" id="DwV-vv-US5"/>
                                                 <constraint firstItem="JtB-Bc-QsI" firstAttribute="trailing" secondItem="3wH-4g-e0J" secondAttribute="trailingMargin" id="FMo-hd-CyT"/>
                                                 <constraint firstAttribute="centerX" secondItem="JtB-Bc-QsI" secondAttribute="centerX" id="FsZ-g3-TNg"/>
                                                 <constraint firstItem="cKD-OM-Abc" firstAttribute="top" secondItem="3wH-4g-e0J" secondAttribute="topMargin" id="ItA-gX-PyO"/>
@@ -228,8 +227,9 @@
                                                 <constraint firstItem="sfy-7x-qXm" firstAttribute="top" secondItem="JtB-Bc-QsI" secondAttribute="bottom" constant="8" id="NFH-iY-22l"/>
                                                 <constraint firstItem="21o-Ed-38g" firstAttribute="leading" secondItem="3wH-4g-e0J" secondAttribute="leadingMargin" constant="20" id="NvN-x8-bRr"/>
                                                 <constraint firstItem="JtB-Bc-QsI" firstAttribute="leading" secondItem="3wH-4g-e0J" secondAttribute="leadingMargin" id="P8R-Ui-l7J"/>
-                                                <constraint firstItem="oOl-Pn-cYw" firstAttribute="top" secondItem="S0i-8x-9RF" secondAttribute="bottom" constant="8" id="STX-b9-BTZ"/>
+                                                <constraint firstItem="oOl-Pn-cYw" firstAttribute="top" secondItem="qBO-I2-Snv" secondAttribute="bottom" constant="8" id="W0c-0z-1Mo"/>
                                                 <constraint firstAttribute="centerX" secondItem="21o-Ed-38g" secondAttribute="centerX" id="fOk-6S-DL4"/>
+                                                <constraint firstAttribute="centerX" secondItem="oOl-Pn-cYw" secondAttribute="centerX" id="lXf-oY-B33"/>
                                                 <constraint firstItem="NpN-9y-nDF" firstAttribute="top" secondItem="sfy-7x-qXm" secondAttribute="bottom" constant="8" id="orK-Fu-7y1"/>
                                                 <constraint firstItem="qBO-I2-Snv" firstAttribute="top" secondItem="S0i-8x-9RF" secondAttribute="bottom" constant="8" id="r4V-Ze-Kbq"/>
                                                 <constraint firstItem="NpN-9y-nDF" firstAttribute="trailing" secondItem="3wH-4g-e0J" secondAttribute="trailingMargin" id="uE5-ib-SF1"/>
@@ -391,25 +391,9 @@
                     <view key="view" contentMode="scaleToFill" id="ede-3H-NPA" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLN-cK-J7f">
-                                <rect key="frame" x="285" y="8" width="30" height="30"/>
-                                <state key="normal" title="Quit">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="E91-39-hg9" kind="unwind" unwindAction="backToSongSelect:" id="riW-1L-jLP"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="hLN-cK-J7f" firstAttribute="top" secondItem="ZlP-gA-zN9" secondAttribute="bottom" constant="8" id="0Uo-0E-fT3"/>
-                            <constraint firstAttribute="centerX" secondItem="hLN-cK-J7f" secondAttribute="centerX" id="p5K-42-uZb"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="quitButton" destination="hLN-cK-J7f" id="Ffr-UK-cvh"/>
                         <segue destination="E91-39-hg9" kind="unwind" identifier="backToSongSelect" unwindAction="backToSongSelect:" id="sJn-yS-O3y"/>
                     </connections>
                 </viewController>

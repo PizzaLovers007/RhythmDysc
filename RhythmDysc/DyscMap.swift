@@ -90,7 +90,9 @@ class DyscMap: NSObject {
         scoreLabel.text = String(format: "%08d", 0);
         accuracyLabel.text = String(format: "%.2f%%", 0);
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right;
+        scoreLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top;
         accuracyLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left;
+        accuracyLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top;
     }
     
     func addTimingPoint(timingPoint: TimingPoint) {

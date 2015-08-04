@@ -15,6 +15,9 @@ class InGameScene: SKScene {
     let redButton = RedButton();
     let greenButton = GreenButton();
     let blueButton = BlueButton();
+    let pauseButton = SKSpriteNode(imageNamed: "PauseButton");
+    let continueButton = SKLabelNode(text: "Continue");
+    let quitButton = SKLabelNode(text: "Quit");
     let cursor = Cursor();
     let highlight = SKSpriteNode(imageNamed: "4SectorBlueArc");
     let dysc = SKSpriteNode(imageNamed: "4SectorDysc");
@@ -24,9 +27,14 @@ class InGameScene: SKScene {
     var redDown: Bool = false;
     var greenDown: Bool = false;
     var blueDown: Bool = false;
+    var pauseDown: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
     var viewController: GameViewController!;
+    var hideFieldAction: SKAction!;
+    var showFieldAction: SKAction!;
+    var hidePauseMenu: SKAction!;
+    var showPauseMenu: SKAction!;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
         songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
@@ -70,18 +78,33 @@ class InGameScene: SKScene {
                 NSLog("Red button pressed");
                 redDown = true;
                 redButton.pressButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: true, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.RED, isPressed: true, songTime: songPlayer.currentTime);
+                }
             } else if (!greenDown && greenButton.containsPoint(touchLocation)) {
                 NSLog("Green button pressed");
                 greenDown = true;
                 greenButton.pressButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: true, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.GREEN, isPressed: true, songTime: songPlayer.currentTime);
+                }
             } else if (!blueDown && blueButton.containsPoint(touchLocation)) {
                 NSLog("Blue button pressed");
                 blueDown = true;
                 blueButton.pressButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: true, songTime: songPlayer.currentTime);
-                
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.BLUE, isPressed: true, songTime: songPlayer.currentTime);
+                }
+            } else if (pauseButton.containsPoint(touchLocation) && pauseButton.alpha > 0) {
+                pauseDown = true;
+            } else if (!songPlayer.playing && continueButton.containsPoint(touchLocation)) {
+                runAction(SKAction.group([showFieldAction, hidePauseMenu]));
+                mapData.updateButton(ButtonColor.RED, isPressed: redDown, songTime: songPlayer.currentTime);
+                mapData.updateButton(ButtonColor.GREEN, isPressed: greenDown, songTime: songPlayer.currentTime);
+                mapData.updateButton(ButtonColor.BLUE, isPressed: blueDown, songTime: songPlayer.currentTime);
+                songPlayer.play();
+            } else if (!songPlayer.playing && quitButton.containsPoint(touchLocation)) {
+                viewController.performSegueWithIdentifier("backToSongSelect", sender: viewController);
             }
         }
     }
@@ -95,17 +118,23 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
+                }
             } else if (greenDown && !greenButton.containsPoint(touchLocation) && greenButton.containsPoint(prevTouchLocation)) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
+                }
             } else if (blueDown && !blueButton.containsPoint(touchLocation) && blueButton.containsPoint(prevTouchLocation)) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
+                }
             }
         }
     }
@@ -118,19 +147,31 @@ class InGameScene: SKScene {
                 NSLog("Red button released");
                 redDown = false;
                 redButton.releaseButton();
-                mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.RED, isPressed: false, songTime: songPlayer.currentTime);
+                }
             } else if (greenButton.containsPoint(touchLocation) && greenDown) {
                 NSLog("Green button released");
                 greenDown = false;
                 greenButton.releaseButton();
-                mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.GREEN, isPressed: false, songTime: songPlayer.currentTime);
+                }
             } else if (blueButton.containsPoint(touchLocation) && blueDown) {
                 NSLog("Blue button released");
                 blueDown = false;
                 blueButton.releaseButton();
-                mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
+                if (songPlayer.playing) {
+                    mapData.updateButton(ButtonColor.BLUE, isPressed: false, songTime: songPlayer.currentTime);
+                }
+            } else if (pauseButton.containsPoint(touchLocation) && pauseDown) {
+                if (songPlayer.playing) {
+                    runAction(SKAction.group([hideFieldAction, showPauseMenu]));
+                    songPlayer.pause();
+                }
             }
         }
+        pauseDown = false;
     }
     
     private func addButtons() {
@@ -182,12 +223,31 @@ class InGameScene: SKScene {
         artistNode.fontName = "HelveticaNeue-Light";
         let calculatingTiltNode = SKLabelNode(text: "Hold device flat. Tilt a lot when playing!");
         calculatingTiltNode.alpha = 0;
-        calculatingTiltNode.position = CGPoint(x: size.width/2, y: size.height/4);
+        calculatingTiltNode.position = CGPoint(x: size.width/2, y: size.width/3+40);
         calculatingTiltNode.fontColor = SKColor.blackColor();
         calculatingTiltNode.fontSize = calculatingTiltNode.fontSize/2;
         calculatingTiltNode.fontName = "HelveticaNeue-Medium";
+        let pausedNode = SKLabelNode(text: "Paused");
+        pausedNode.alpha = 0;
+        pausedNode.position = CGPoint(x: size.width/2, y: size.height*2/3);
+        pausedNode.fontColor = SKColor.blackColor();
+        pausedNode.fontName = "HelveticaNeue-Medium";
         
-        dysc.size = CGSize(width: self.size.width-40, height: self.size.width-40);
+        NSLog("\(size)");
+        
+        pauseButton.size = CGSize(width: size.width/10, height: size.width/10);
+        pauseButton.position = CGPoint(x: size.width/2, y: size.height-pauseButton.size.height/2-5);
+        pauseButton.alpha = 0;
+        pauseButton.zPosition = 100;
+        
+        continueButton.alpha = 0;
+        continueButton.position = CGPoint(x: size.width/2, y: size.height/2);
+        continueButton.fontColor = SKColor.blackColor();
+        quitButton.alpha = 0;
+        quitButton.position = CGPoint(x: size.width/2, y: size.height/2-50);
+        quitButton.fontColor = SKColor.blackColor();
+        
+        dysc.size = CGSize(width: size.height/2, height: size.height/2);
         dysc.position = CGPoint(x: size.width/2, y: size.height/3*2);
         dysc.alpha = 0;
         dysc.zPosition = -10;
@@ -205,15 +265,61 @@ class InGameScene: SKScene {
             self.songPlayer.prepareToPlay();
             self.songPlayer.play();
         });
-        let showField = SKAction.runBlock({
+        showFieldAction = SKAction.runBlock({
             self.dysc.alpha = 1;
 //            self.highlight.alpha = 1;
             self.cursor.alpha = 1;
             self.mapData.scoreLabel.alpha = 1;
             self.mapData.accuracyLabel.alpha = 1;
+            self.mapData.comboLabel.alpha = 1;
+            self.mapData.hitErrorLabel.alpha = 1;
+            self.pauseButton.alpha = 1;
+            for note in self.mapData.notes {
+                if (!note.hasAppeared) {
+                    break;
+                }
+                if let holdNote = note as? HoldNote {
+                    holdNote.pathNode.alpha = 1;
+                    if (!holdNote.hasHit) {
+                        holdNote.alpha = 1;
+                    }
+                } else {
+                    note.alpha = 1;
+                }
+            }
+        });
+        hideFieldAction = SKAction.runBlock({
+            self.dysc.alpha = 0;
+            //            self.highlight.alpha = 0;
+            self.cursor.alpha = 0;
+            self.mapData.scoreLabel.alpha = 0;
+            self.mapData.accuracyLabel.alpha = 0;
+            self.mapData.comboLabel.alpha = 0;
+            self.mapData.judgmentLabel.alpha = 0;
+            self.mapData.hitErrorLabel.alpha = 0;
+            self.pauseButton.alpha = 0;
+            for note in self.mapData.notes {
+                if (!note.hasAppeared) {
+                    break;
+                }
+                if let holdNote = note as? HoldNote {
+                    holdNote.pathNode.alpha = 0;
+                }
+                note.alpha = 0;
+            }
+        });
+        showPauseMenu = SKAction.runBlock({
+            pausedNode.alpha = 1;
+            self.continueButton.alpha = 1;
+            self.quitButton.alpha = 1;
+        });
+        hidePauseMenu = SKAction.runBlock({
+            pausedNode.alpha = 0;
+            self.continueButton.alpha = 0;
+            self.quitButton.alpha = 0;
         });
         
-        titleNode.runAction(SKAction.sequence([titleAction, showField, playSong]));
+        titleNode.runAction(SKAction.sequence([titleAction, showFieldAction, playSong]));
         artistNode.runAction(artistAction);
         calculatingTiltNode.runAction(calculatingTiltAction);
         
@@ -223,25 +329,31 @@ class InGameScene: SKScene {
         mapData.judgmentLabel.position = CGPoint(x: size.width/2, y: size.height/3);
         mapData.judgmentLabel.zPosition = 100;
         mapData.judgmentLabel.fontColor = UIColor.blackColor();
-        mapData.scoreLabel.position = CGPoint(x: size.width-10, y: size.height-35);
+        mapData.scoreLabel.position = CGPoint(x: size.width-10, y: size.height-10);
         mapData.scoreLabel.zPosition = 100;
         mapData.scoreLabel.fontColor = UIColor.blackColor();
+        mapData.scoreLabel.fontSize = 32/375*size.width;
         mapData.scoreLabel.alpha = 0;
         mapData.hitErrorLabel.position = CGPoint(x: 45, y: size.height/3);
         mapData.hitErrorLabel.zPosition = 100;
         mapData.hitErrorLabel.fontColor = UIColor.blackColor();
-        mapData.accuracyLabel.position = CGPoint(x: 10, y: size.height-35);
+        mapData.accuracyLabel.position = CGPoint(x: 10, y: size.height-10);
         mapData.accuracyLabel.zPosition = 100;
         mapData.accuracyLabel.fontColor = UIColor.blackColor();
+        mapData.accuracyLabel.fontSize = 32/375*size.width;
         mapData.accuracyLabel.alpha = 0;
         
         addButtons();
+        addChild(pauseButton);
         addChild(dysc);
         addCursor();
         addChild(highlight);
         addChild(titleNode);
         addChild(artistNode);
         addChild(calculatingTiltNode);
+        addChild(pausedNode);
+        addChild(continueButton);
+        addChild(quitButton);
         let dyscRadius = dysc.size.width/2;
         let noteWidth = dyscRadius - dyscRadius/sqrt(2) + dyscRadius/32;
         let noteHeight = dysc.size.height/sqrt(2);
@@ -290,7 +402,6 @@ extension InGameScene: AVAudioPlayerDelegate {
         let goToResults = SKAction.runBlock({
             let scene = ResultsScene(size: self.size, mapData: self.mapData);
             scene.viewController = self.viewController;
-            self.viewController.quitButton.hidden = true;
             self.view!.presentScene(scene, transition: SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1));
         });
         endLabel.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), goToResults]));

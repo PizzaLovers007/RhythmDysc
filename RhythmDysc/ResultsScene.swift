@@ -100,9 +100,23 @@ class ResultsScene: SKScene {
     }
     
     private func initializeObjects() {
+        let newFontSize = 32/667*size.height;
+        scoreLabel.fontSize = newFontSize;
+        accuracyLabel.fontSize = newFontSize;
+        gradeLabel.fontSize = newFontSize;
+        comboLabel.fontSize = newFontSize;
+        perfectLabel.fontSize = newFontSize;
+        greatLabel.fontSize = newFontSize;
+        goodLabel.fontSize = newFontSize;
+        missLabel.fontSize = newFontSize;
+        holdLabel.fontSize = newFontSize;
+        slipLabel.fontSize = newFontSize;
+        let space = 40/32*newFontSize;
+        
         let resultsLabel = SKLabelNode(text: "Results");
         resultsLabel.fontName = "HelveticaNeue-Medium";
         resultsLabel.fontColor = UIColor.blackColor();
+        resultsLabel.fontSize = newFontSize*4/3;
         resultsLabel.position = CGPoint(x: size.width/2, y:size.height*5/6);
         scoreLabel.text = mapData.scoreLabel.text;
         scoreLabel.position = CGPoint(x: size.width/2, y: size.height*3/4);
@@ -110,42 +124,42 @@ class ResultsScene: SKScene {
         scoreLabel.fontName = "HelveticaNeue-Light";
         scoreLabel.alpha = 0;
         accuracyLabel.text = mapData.accuracyLabel.text;
-        accuracyLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-40);
+        accuracyLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space);
         accuracyLabel.fontColor = UIColor.blackColor();
         accuracyLabel.fontName = "HelveticaNeue-Light";
         accuracyLabel.alpha = 0;
         gradeLabel.text = "Your Grade: \(getGrade())";
-        gradeLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-80);
+        gradeLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*2);
         gradeLabel.fontColor = UIColor.blackColor();
         gradeLabel.fontName = "HelveticaNeue-Light";
         gradeLabel.alpha = 0;
         comboLabel.text = "Max combo: \(mapData.maxCombo)";
-        comboLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-120);
+        comboLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*3);
         comboLabel.fontColor = UIColor.blackColor();
         comboLabel.fontName = "HelveticaNeue-Light";
         comboLabel.alpha = 0;
         perfectLabel.text = String(format: "Perfect: %d", mapData.hitStats[NoteJudgment.PERFECT]!);
-        perfectLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-180);
+        perfectLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*9/2);
         perfectLabel.fontColor = UIColor.blackColor();
         perfectLabel.alpha = 0;
         greatLabel.text = String(format: "Great: %d", mapData.hitStats[NoteJudgment.GREAT]!);
-        greatLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-220);
+        greatLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*11/2);
         greatLabel.fontColor = UIColor.blackColor();
         greatLabel.alpha = 0;
         goodLabel.text = String(format: "Good: %d", mapData.hitStats[NoteJudgment.GOOD]!);
-        goodLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-260);
+        goodLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*13/2);
         goodLabel.fontColor = UIColor.blackColor();
         goodLabel.alpha = 0;
         missLabel.text = String(format: "Miss: %d", mapData.hitStats[NoteJudgment.MISS]!);
-        missLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-300);
+        missLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*15/2);
         missLabel.fontColor = UIColor.blackColor();
         missLabel.alpha = 0;
         holdLabel.text = String(format: "Hold: %d", mapData.hitStats[NoteJudgment.HOLD]!);
-        holdLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-340);
+        holdLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*17/2);
         holdLabel.fontColor = UIColor.blackColor();
         holdLabel.alpha = 0;
         slipLabel.text = String(format: "Slip: %d", mapData.hitStats[NoteJudgment.SLIP]!);
-        slipLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-380);
+        slipLabel.position = CGPoint(x: size.width/2, y: scoreLabel.position.y-space*19/2);
         slipLabel.fontColor = UIColor.blackColor();
         slipLabel.alpha = 0;
         

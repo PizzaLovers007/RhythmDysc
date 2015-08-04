@@ -56,7 +56,7 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (selectedIndex == indexPath.row) {
-            return 384;
+            return 444;
         } else {
             return 87;
         }

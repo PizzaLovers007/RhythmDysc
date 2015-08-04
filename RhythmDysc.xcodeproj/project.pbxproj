@@ -30,9 +30,9 @@
 		D5300A2D1B224D810077EE8F /* aLIEz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2B1B224D810077EE8F /* aLIEz.mp3 */; };
 		D5300A2E1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */; };
 		D5300A301B2257410077EE8F /* DyscMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5300A2F1B2257410077EE8F /* DyscMap.swift */; };
+		D53116B71B704DBC00C772BB /* Midnight Sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D53116B61B704DBC00C772BB /* Midnight Sky.mp3 */; };
 		D53C11461B471E1B00EA68FE /* SongSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53C11451B471E1B00EA68FE /* SongSelectCollectionViewController.swift */; };
 		D53C11481B471E5000EA68FE /* SongSelectionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53C11471B471E5000EA68FE /* SongSelectionCollectionCell.swift */; };
-		D55BF9311B685C6C00F20A04 /* Midnight Sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */; };
 		D55BF9331B685CD200F20A04 /* Midnight Sky-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */; };
 		D55BF9351B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp in Resources */ = {isa = PBXBuildFile; fileRef = D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */; };
 		D57F35631B477B1B0022345D /* SongSelect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D57F35621B477B1B0022345D /* SongSelect.mp3 */; };
@@ -99,9 +99,9 @@
 		D5300A2B1B224D810077EE8F /* aLIEz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aLIEz.mp3; sourceTree = "<group>"; };
 		D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mushikui-Saikede-Rhythm.mp3"; sourceTree = "<group>"; };
 		D5300A2F1B2257410077EE8F /* DyscMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DyscMap.swift; sourceTree = "<group>"; };
+		D53116B61B704DBC00C772BB /* Midnight Sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Midnight Sky.mp3"; sourceTree = "<group>"; };
 		D53C11451B471E1B00EA68FE /* SongSelectCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectCollectionViewController.swift; sourceTree = "<group>"; };
 		D53C11471B471E5000EA68FE /* SongSelectionCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSelectionCollectionCell.swift; sourceTree = "<group>"; };
-		D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Midnight Sky.mp3"; sourceTree = "<group>"; };
 		D55BF9321B685CD200F20A04 /* Midnight Sky-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Midnight Sky-easy-4.dmp"; sourceTree = "<group>"; };
 		D55BF9341B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Mushikui-Saikede-Rhythm-easy-4.dmp"; sourceTree = "<group>"; };
 		D57F35621B477B1B0022345D /* SongSelect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SongSelect.mp3; sourceTree = "<group>"; };
@@ -160,8 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				D525F2B21B6DCA6200264F88 /* Test.mp3 */,
-				D55BF9301B685C6C00F20A04 /* Midnight Sky.mp3 */,
 				D57F35621B477B1B0022345D /* SongSelect.mp3 */,
+				D53116B61B704DBC00C772BB /* Midnight Sky.mp3 */,
 				D5300A2B1B224D810077EE8F /* aLIEz.mp3 */,
 				D57F35641B477C1E0022345D /* Ascension to Heaven.mp3 */,
 				D5300A2C1B224D810077EE8F /* Mushikui-Saikede-Rhythm.mp3 */,
@@ -440,9 +440,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5DDF87F1B2CE8CE00E401B8 /* metronomeTick.wav in Resources */,
+				D53116B71B704DBC00C772BB /* Midnight Sky.mp3 in Resources */,
 				D525F2B51B6DCA7400264F88 /* Test-easy-4.dmp in Resources */,
 				D5DF0F611B322E5800190B11 /* aLIEz-expert-4.dmp in Resources */,
-				D55BF9311B685C6C00F20A04 /* Midnight Sky.mp3 in Resources */,
 				D5D59CD31B1D195500C1E18D /* LaunchScreen.xib in Resources */,
 				D55BF9351B686B3700F20A04 /* Mushikui-Saikede-Rhythm-easy-4.dmp in Resources */,
 				D5D59CD01B1D195500C1E18D /* Images.xcassets in Resources */,
