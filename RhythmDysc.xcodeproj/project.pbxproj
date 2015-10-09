@@ -402,6 +402,7 @@
 		D5D59CB71B1D195500C1E18D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = TynyLabs;
 				TargetAttributes = {
