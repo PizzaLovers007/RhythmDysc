@@ -9,7 +9,7 @@
 import UIKit;
 import CoreData;
 
-class HighScoresViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class HighScoresViewController: UITableViewController {
 
     var songSelection: SongSelection!;
     var scores: [SongScore] = [SongScore]();
@@ -31,9 +31,13 @@ class HighScoresViewController: UITableViewController, UITableViewDelegate, UITa
         request.returnsObjectsAsFaults = false;
         request.predicate = NSPredicate(format: "songTitle = %@", songSelection.title);
         
-        let list = context.executeFetchRequest(request, error: nil)!;
-        for item in list {
-            scores.append(item as! SongScore);
+        do {
+            let list = try context.executeFetchRequest(request);
+            for item in list {
+                scores.append(item as! SongScore);
+            }
+        } catch {
+            print(error);
         }
     }
 

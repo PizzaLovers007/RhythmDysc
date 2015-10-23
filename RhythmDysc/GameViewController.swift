@@ -16,7 +16,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
 
-        let documentDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as! NSURL;
+//        let documentDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as! NSURL;
         
         // Configure the view.
         let skView = self.view as! SKView;
@@ -63,14 +63,6 @@ class GameViewController: UIViewController {
 
     override func shouldAutorotate() -> Bool {
         return true;
-    }
-
-    override func supportedInterfaceOrientations() -> Int {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.rawValue);
-        } else {
-            return Int(UIInterfaceOrientationMask.All.rawValue);
-        }
     }
 
     override func didReceiveMemoryWarning() {

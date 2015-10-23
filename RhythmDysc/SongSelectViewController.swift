@@ -130,7 +130,11 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
     private func loadAudioPlayer(selection: SongSelection) {
         delay(0.3) {
             let songURL = NSBundle.mainBundle().URLForResource(selection.title, withExtension: "mp3")!;
-            self.musicPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+            do {
+                self.musicPlayer = try AVAudioPlayer(contentsOfURL: songURL);
+            } catch {
+                print(error);
+            }
             self.musicPlayer.prepareToPlay();
             self.musicPlayer.delegate = self;
             self.musicPlayer.currentTime = Double(selection.preview)/1000;
@@ -173,7 +177,7 @@ class SongSelectViewController: UIViewController, UITableViewDelegate, UITableVi
 }
 
 extension SongSelectViewController: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         player.pause();
         player.currentTime = Double(songSelections[selectedIndex].preview)/1000;
         player.volume = 0;
@@ -181,11 +185,11 @@ extension SongSelectViewController: AVAudioPlayerDelegate {
         player.play();
     }
     
-    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
+    func audioPlayerBeginInterruption(player: AVAudioPlayer) {
         player.pause();
     }
     
-    func audioPlayerEndInterruption(player: AVAudioPlayer!) {
+    func audioPlayerEndInterruption(player: AVAudioPlayer) {
         player.play();
     }
 }

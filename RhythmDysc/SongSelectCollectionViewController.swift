@@ -257,7 +257,7 @@ class SongSelectCollectionViewController: UIViewController, UICollectionViewDele
     private func filterContentForSearchText() {
         searchSelections.removeAll(keepCapacity: false);
         if (searchBar.text != nil) {
-            let searchString = searchBar.text.lowercaseString;
+            let searchString = searchBar.text!.lowercaseString;
             for song in songSelections {
                 let titleRange = song.title.lowercaseString.rangeOfString(searchString);
                 let artistRange = song.artist.lowercaseString.rangeOfString(searchString);
@@ -281,14 +281,22 @@ class SongSelectCollectionViewController: UIViewController, UICollectionViewDele
 //        }
         if (selection != nil) {
             let songURL = NSBundle.mainBundle().URLForResource(selection.title, withExtension: "mp3")!;
-            musicPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+            do {
+                musicPlayer = try AVAudioPlayer(contentsOfURL: songURL);
+            } catch {
+                print(error);
+            }
             musicPlayer.prepareToPlay();
             musicPlayer.delegate = self;
             musicPlayer.currentTime = Double(selection.preview)/1000;
             musicPlayer.play();
         } else {
             let songURL = NSBundle.mainBundle().URLForResource("SongSelect", withExtension: "mp3")!;
-            musicPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+            do {
+                musicPlayer = try AVAudioPlayer(contentsOfURL: songURL);
+            } catch {
+                print(error);
+            }
             musicPlayer.prepareToPlay();
             musicPlayer.delegate = self;
             musicPlayer.play();
@@ -328,7 +336,7 @@ class SongSelectCollectionViewController: UIViewController, UICollectionViewDele
 
 extension SongSelectCollectionViewController: AVAudioPlayerDelegate {
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         player.pause();
         if (selectedIndex != Int.max) {
             player.currentTime = Double(songSelections[selectedIndex].preview)/1000;
@@ -340,11 +348,11 @@ extension SongSelectCollectionViewController: AVAudioPlayerDelegate {
         player.play();
     }
     
-    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
+    func audioPlayerBeginInterruption(player: AVAudioPlayer) {
         player.pause();
     }
     
-    func audioPlayerEndInterruption(player: AVAudioPlayer!) {
+    func audioPlayerEndInterruption(player: AVAudioPlayer) {
         player.play();
     }
 }

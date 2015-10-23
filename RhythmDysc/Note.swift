@@ -101,7 +101,7 @@ class Note: SKSpriteNode {
         return min(2, max(0, (currTime - appearTime) / (hitTime - appearTime)));
     }
     
-    func updateCurrTheta(#time: Int, sector: Int) {
+    func updateCurrTheta(time time: Int, sector: Int) {
         currTheta = M_PI * 2 / Double(sector) * Double(direction);
     }
 }

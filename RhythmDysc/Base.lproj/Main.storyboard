@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="v2s-4P-zLz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="v2s-4P-zLz">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -25,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Anywhere to Play" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBf-OQ-tnC">
-                                <rect key="frame" x="205" y="288" width="190" height="24"/>
+                                <rect key="frame" x="204" y="288" width="193" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -97,9 +98,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songSelectionCell" rowHeight="87" id="8IK-X1-FLl" customClass="SongSelectionCell" customModule="RhythmDysc" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                                        <rect key="frame" x="0.0" y="22" width="600" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8IK-X1-FLl" id="HMv-Nc-5wc">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jej-a7-zkk">
@@ -141,9 +143,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songDetailCell" rowHeight="444" id="MYi-cL-13f" customClass="SongDetailCell" customModule="RhythmDysc" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="357" height="384"/>
+                                        <rect key="frame" x="0.0" y="109" width="600" height="444"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MYi-cL-13f" id="3wH-4g-e0J">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="443"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-OM-Abc">
@@ -199,7 +202,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOl-Pn-cYw">
-                                                    <rect key="frame" x="221" y="387" width="158" height="48"/>
+                                                    <rect key="frame" x="221" y="387" width="159" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <state key="normal" title="Start Game!">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -301,7 +304,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="songSelection" id="mKN-bd-Pts" customClass="SongSelectionCollectionCell" customModule="RhythmDysc" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="200"/>
@@ -412,13 +415,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="highScoreCell" rowHeight="86" id="epc-zu-jiW" customClass="HighScoreCell" customModule="RhythmDysc" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="epc-zu-jiW" id="DME-Od-C7n">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0Q-BH-Mgv">
-                                            <rect key="frame" x="8" y="8" width="67" height="21"/>
+                                            <rect key="frame" x="8" y="8" width="69" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -436,13 +440,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m70-6p-YPW">
-                                            <rect key="frame" x="8" y="32" width="105" height="45"/>
+                                            <rect key="frame" x="8" y="32" width="107" height="45"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="37"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Combo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oac-0p-pr8">
-                                            <rect key="frame" x="497" y="56" width="95" height="21"/>
+                                            <rect key="frame" x="500" y="56" width="92" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -497,7 +501,6 @@
         <!--Navigation Controller-->
         <scene sceneID="vna-S4-7CA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BUC-aF-uwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ONW-AJ-2AH" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oER-5Z-2l5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -507,6 +510,7 @@
                         <segue destination="dd3-3r-B8V" kind="relationship" relationship="rootViewController" id="pDB-o9-snI"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BUC-aF-uwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2117" y="738"/>
         </scene>

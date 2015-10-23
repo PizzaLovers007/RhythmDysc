@@ -28,16 +28,21 @@ class InGameScene: SKScene {
     var greenDown: Bool = false;
     var blueDown: Bool = false;
     var pauseDown: Bool = false;
+    var songIsPaused: Bool = false;
     var prevTime: NSTimeInterval = -1;
     var startTime: NSTimeInterval = 0;
-    var viewController: GameViewController!;
+    weak var viewController: GameViewController!;
     var hideFieldAction: SKAction!;
     var showFieldAction: SKAction!;
     var hidePauseMenu: SKAction!;
     var showPauseMenu: SKAction!;
     
     init(size: CGSize, songURL: NSURL, mapData data: DyscMap) {
-        songPlayer = AVAudioPlayer(contentsOfURL: songURL, error: nil);
+        do {
+            songPlayer = try AVAudioPlayer(contentsOfURL: songURL);
+        } catch {
+            print(error);
+        }
         mapData = data;
         super.init(size: size);
         mapData.scene = self;
@@ -66,13 +71,13 @@ class InGameScene: SKScene {
         mapData.update(songTime: songPlayer.currentTime, cursorTheta: cursor.theta);
         mapData.updateNotePositions(songTime: songPlayer.currentTime, dysc: dysc);
         mapData.updateSparks(cursor.theta);
-        let deltaTime: Double = (currentTime - prevTime) * 1000;
+//        let deltaTime: Double = (currentTime - prevTime) * 1000;
         prevTime = currentTime;
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for t in touches {
-            let touch = t as! UITouch;
+            let touch = t;
             let touchLocation = touch.locationInNode(self);
             if (!redDown && redButton.containsPoint(touchLocation)) {
                 NSLog("Red button pressed");
@@ -97,21 +102,26 @@ class InGameScene: SKScene {
                 }
             } else if (pauseButton.containsPoint(touchLocation) && pauseButton.alpha > 0) {
                 pauseDown = true;
-            } else if (!songPlayer.playing && continueButton.containsPoint(touchLocation)) {
+            } else if (songIsPaused && continueButton.containsPoint(touchLocation)) {
                 runAction(SKAction.group([showFieldAction, hidePauseMenu]));
                 mapData.updateButton(ButtonColor.RED, isPressed: redDown, songTime: songPlayer.currentTime);
                 mapData.updateButton(ButtonColor.GREEN, isPressed: greenDown, songTime: songPlayer.currentTime);
                 mapData.updateButton(ButtonColor.BLUE, isPressed: blueDown, songTime: songPlayer.currentTime);
                 songPlayer.play();
-            } else if (!songPlayer.playing && quitButton.containsPoint(touchLocation)) {
+                songIsPaused = false;
+            } else if (songIsPaused && quitButton.containsPoint(touchLocation)) {
                 viewController.performSegueWithIdentifier("backToSongSelect", sender: viewController);
+                hideFieldAction = nil;
+                showFieldAction = nil;
+                hidePauseMenu = nil;
+                showPauseMenu = nil;
             }
         }
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for t in touches {
-            let touch = t as! UITouch;
+            let touch = t;
             let touchLocation = touch.locationInNode(self);
             let prevTouchLocation = touch.previousLocationInNode(self);
             if (redDown && !redButton.containsPoint(touchLocation) && redButton.containsPoint(prevTouchLocation)) {
@@ -139,9 +149,9 @@ class InGameScene: SKScene {
         }
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for t in touches {
-            let touch = t as! UITouch;
+            let touch = t;
             let touchLocation = touch.locationInNode(self);
             if (redButton.containsPoint(touchLocation) && redDown) {
                 NSLog("Red button released");
@@ -168,6 +178,7 @@ class InGameScene: SKScene {
                 if (songPlayer.playing) {
                     runAction(SKAction.group([hideFieldAction, showPauseMenu]));
                     songPlayer.pause();
+                    songIsPaused = true;
                 }
             }
         }
@@ -203,8 +214,8 @@ class InGameScene: SKScene {
     }
     
     private func initializeObjects() {
-        let titleChange = max(CGFloat(count(mapData.title)*3), 40);
-        let artistChange = max(CGFloat(count(mapData.artist)*3), 40);
+        let titleChange = max(CGFloat(mapData.title.length*3), 40);
+        let artistChange = max(CGFloat(mapData.artist.length*3), 40);
         
         let titleNode = SKLabelNode(text: mapData.title);
         let titlePositionX = size.width/2 + titleChange/2;
@@ -385,7 +396,7 @@ class InGameScene: SKScene {
 }
 
 extension InGameScene: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         NSLog("Song finished");
         let endLabel: SKLabelNode = SKLabelNode(text: "Song Complete!");
         endLabel.fontColor = UIColor.blackColor();
@@ -396,17 +407,27 @@ extension InGameScene: AVAudioPlayerDelegate {
             self.highlight.alpha = 0;
             self.cursor.alpha = 0;
         });
-        let returnToSongSelect = SKAction.runBlock({
-            self.viewController.performSegueWithIdentifier("backToSongSelect", sender: self.viewController);
-        });
+//        let returnToSongSelect = SKAction.runBlock({
+//            self.viewController.performSegueWithIdentifier("backToSongSelect", sender: self.viewController);
+//        });
         let goToResults = SKAction.runBlock({
             let scene = ResultsScene(size: self.size, mapData: self.mapData);
             scene.viewController = self.viewController;
             self.view!.presentScene(scene, transition: SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1));
+            self.hideFieldAction = nil;
+            self.showFieldAction = nil;
+            self.hidePauseMenu = nil;
+            self.showPauseMenu = nil;
         });
         endLabel.runAction(SKAction.sequence([hideField, SKAction.waitForDuration(3), goToResults]));
         cursor.stopUpdates();
         
         addChild(endLabel);
+    }
+}
+
+extension String {
+    var length : Int {
+        return self.characters.count;
     }
 }

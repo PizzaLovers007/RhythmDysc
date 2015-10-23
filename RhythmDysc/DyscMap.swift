@@ -29,7 +29,7 @@ class DyscMap: NSObject {
     let scoreLabel = SKLabelNode();
     let hitErrorLabel = SKLabelNode();
     let accuracyLabel = SKLabelNode();
-    var scene: InGameScene!;
+    weak var scene: InGameScene!;
     var timingPoints: [TimingPoint] = [TimingPoint]();
     var notes: [Note] = [Note]();
     var prevSongTime: Int = 0;
@@ -71,10 +71,10 @@ class DyscMap: NSObject {
     init(generalInfo: [String: String]) {
         title = generalInfo["title"]!;
         artist = generalInfo["artist"]!;
-        difficulty = generalInfo["difficulty"]!.toInt()!;
-        approach = generalInfo["approach"]!.toInt()!;
-        sector = generalInfo["sector"]!.toInt()!;
-        preview = generalInfo["preview"]!.toInt()!;
+        difficulty = Int(generalInfo["difficulty"]!)!;
+        approach = Int(generalInfo["approach"]!)!;
+        sector = Int(generalInfo["sector"]!)!;
+        preview = Int(generalInfo["preview"]!)!;
         scoreMultiplier = Double(approach+2)/2 * log2(Double(sector))/2 / 32;     //difficultyMultiplier * sectorMultiplier / offsetMultiplier
         coverImage = UIImage(named: title)!;
         hitStats[NoteJudgment.MISS] = 0;
@@ -133,9 +133,9 @@ class DyscMap: NSObject {
         }
         currTimingPoint.playMetronome(currTime, node: soundPlayer);
         if (notes.count > 0) {
-            let perfect = perfectRange[approach];
-            let great = perfectRange[approach] + judgmentDifference[approach];
-            let good = perfectRange[approach] + judgmentDifference[approach] * 2;
+//            let perfect = perfectRange[approach];
+//            let great = perfectRange[approach] + judgmentDifference[approach];
+//            let good = perfectRange[approach] + judgmentDifference[approach] * 2;
             let miss = perfectRange[approach] + judgmentDifference[approach] * 3;
             var i: Int = 0;
             while (i < notes.count) {
@@ -290,7 +290,7 @@ class DyscMap: NSObject {
         sparks.append(spark);
     }
     
-    private func calcAccuracy(#basePoints: Int) {
+    private func calcAccuracy(basePoints basePoints: Int) {
         notesPassed++;
         totalBaseScore += basePoints;
         accuracy = Double(totalBaseScore) / Double(notesPassed);
@@ -409,7 +409,7 @@ class DyscMap: NSObject {
         return CGFloat(Double(timeDifference)/Double(msAppear[approach]));
     }
     
-    private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
+    private func lerp(lower lower: Double, upper: Double, val: Double) -> Double {
         return min(2, max(0, val)) * (upper-lower) + lower;
     }
 }

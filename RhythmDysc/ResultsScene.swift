@@ -25,7 +25,7 @@ class ResultsScene: SKScene {
     let slipLabel = SKLabelNode();
     let quitButton = SKSpriteNode(imageNamed: "ReturnToSongSelectButton");
     var isHoldingQuitButton = false;
-    var viewController: GameViewController!;
+    weak var viewController: GameViewController!;
     
     init(size: CGSize, mapData: DyscMap) {
         self.mapData = mapData;
@@ -52,36 +52,40 @@ class ResultsScene: SKScene {
         
         let request = NSFetchRequest(entityName: "Scores");
         request.returnsObjectsAsFaults = false;
-        request.predicate = NSCompoundPredicate.andPredicateWithSubpredicates([titlePredicate, difficultyPredicate]);
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[titlePredicate, difficultyPredicate]);
         
-        let oldScore = context.executeFetchRequest(request, error: nil)?.first as! SongScore?;
-        if (oldScore == nil) {
-            let newScore = SongScore(entity: entity!, insertIntoManagedObjectContext: context);
-            newScore.songTitle = mapData.title;
-            newScore.sectors = NSNumber(integer: mapData.sector);
-            newScore.difficulty = NSNumber(integer: mapData.approach);
-            newScore.grade = getGrade();
-            newScore.score = NSNumber(integer: mapData.score);
-            newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
-            newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
-            
-            context.save(nil);
-        } else if (oldScore != nil && mapData.score > oldScore?.score.integerValue) {
-            let newScore = oldScore!;
-            newScore.songTitle = mapData.title;
-            newScore.sectors = NSNumber(integer: mapData.sector);
-            newScore.difficulty = NSNumber(integer: mapData.approach);
-            newScore.grade = getGrade();
-            newScore.score = NSNumber(integer: mapData.score);
-            newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
-            newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
-            
-            context.save(nil);
+        do {
+            let oldScore = try context.executeFetchRequest(request).first as! SongScore?;
+            if (oldScore == nil) {
+                let newScore = SongScore(entity: entity!, insertIntoManagedObjectContext: context);
+                newScore.songTitle = mapData.title;
+                newScore.sectors = NSNumber(integer: mapData.sector);
+                newScore.difficulty = NSNumber(integer: mapData.approach);
+                newScore.grade = getGrade();
+                newScore.score = NSNumber(integer: mapData.score);
+                newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
+                newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
+                
+                try context.save();
+            } else if (oldScore != nil && mapData.score > oldScore?.score.integerValue) {
+                let newScore = oldScore!;
+                newScore.songTitle = mapData.title;
+                newScore.sectors = NSNumber(integer: mapData.sector);
+                newScore.difficulty = NSNumber(integer: mapData.approach);
+                newScore.grade = getGrade();
+                newScore.score = NSNumber(integer: mapData.score);
+                newScore.accuracy = NSNumber(floatLiteral: mapData.accuracy);
+                newScore.maxCombo = NSNumber(integer: mapData.maxCombo);
+                
+                try context.save();
+            }
+        } catch {
+            print(error);
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch;
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!;
         let touchLocation = touch.locationInNode(self);
         if (quitButton.containsPoint(touchLocation)) {
             isHoldingQuitButton = true;
@@ -89,8 +93,8 @@ class ResultsScene: SKScene {
         }
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch;
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!;
         let touchLocation = touch.locationInNode(self);
         if (quitButton.containsPoint(touchLocation)) {
             viewController.performSegueWithIdentifier("backToSongSelect", sender: self.viewController);

@@ -65,7 +65,7 @@ class HoldNote: Note {
         super.init(coder: aDecoder);
     }
     
-    func addNode(#rotation: Int, length: Double) {
+    func addNode(rotation rotation: Int, length: Double) {
         nodes.insert(Node(rotation: rotation, length: length, ms: 0), atIndex: nodes.count-1);
     }
     
@@ -82,7 +82,7 @@ class HoldNote: Note {
         return isHeld || prevTime - heldLast < 100;
     }
     
-    func isInHold(#angle: Double, time: Int, sector: Int) -> Bool {
+    func isInHold(angle angle: Double, time: Int, sector: Int) -> Bool {
         let TAU = M_PI*2;
         let cursorAngle = (angle + TAU) % (TAU);
         let noteAngle = (getCurrentNoteAngle(time: time, sector: sector) % (TAU) + TAU) % (TAU);
@@ -99,7 +99,7 @@ class HoldNote: Note {
         let center = dysc.position;
         let dyscRadius = Double(dysc.size.width/2-1);
         let sectorAngle = M_PI * 2 / Double(sector);
-        var path = CGPathCreateMutable();
+        let path = CGPathCreateMutable();
         
         var prevRadius: Double;
         var prevTheta: Double;
@@ -182,7 +182,7 @@ class HoldNote: Note {
     override func setTiming(timePoint: TimingPoint, appearFor appear: Int) {
         super.setTiming(timePoint, appearFor: appear);
         var currLength = 0.0;
-        for i in 0..<count(nodes) {
+        for i in 0..<nodes.count {
             nodes[i].ms = msHit + Int(round(currLength * timePoint.msPerBeat));
             currLength += nodes[i].length;
         }
@@ -198,13 +198,13 @@ class HoldNote: Note {
         super.removeFromParent();
     }
     
-    override func updateCurrTheta(#time: Int, sector: Int) {
+    override func updateCurrTheta(time time: Int, sector: Int) {
         currTheta = getCurrentNoteAngle(time: time, sector: sector);
         prevTime = time;
     }
     
-    private func getCurrentNoteAngle(#time: Int, sector: Int) -> Double {
-        for i in stride(from: nodes.count-2, through: 0, by: -1) {
+    private func getCurrentNoteAngle(time time: Int, sector: Int) -> Double {
+        for (var i = nodes.count-2; i >= 0; i--) {
             if (nodes[i].ms < time) {
                 var currDirection = direction;
                 for e in 0..<i {
@@ -221,7 +221,7 @@ class HoldNote: Note {
         return Double(direction)*M_PI*2/Double(sector);
     }
     
-    private func lerp(#lower: Double, upper: Double, val: Double) -> Double {
+    private func lerp(lower lower: Double, upper: Double, val: Double) -> Double {
         return min(1, max(0, val)) * (upper-lower) + lower;
     }
     
@@ -233,8 +233,6 @@ class HoldNote: Note {
         } else if (sameTheta && !sameRadius) {  //Line connection
             CGPathAddLineToPoint(path, nil, CGFloat(endRadius * cos(endTheta)) + center.x, CGFloat(endRadius * sin(endTheta)) + center.y);
         } else if (!sameTheta && !sameRadius) {  //Curve connection
-            let dTheta = endTheta - startTheta;
-            let dRadius = abs(startRadius - endRadius);
             let numSteps = 32.0;
             var i: Double;
             for (i = 0; i <= numSteps; i++) {

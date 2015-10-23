@@ -20,20 +20,20 @@ class Cursor: SKSpriteNode {
     
     init() {
         let cursorTexture = SKTexture(imageNamed: "Cursor2");
-        let tiltTexture = SKTexture(imageNamed: "Cursor");
+//        let tiltTexture = SKTexture(imageNamed: "Cursor");
         super.init(texture: cursorTexture, color: UIColor.whiteColor(), size: cursorTexture.size());
     }
 
     required init?(coder aDecoder: NSCoder) {
-        let tiltTexture = SKTexture(imageNamed: "Cursor");
+//        let tiltTexture = SKTexture(imageNamed: "Cursor");
         super.init(coder: aDecoder);
     }
     
     func startUpdates() {
         motionManager.deviceMotionUpdateInterval = 1.0/120;
         motionManager.startDeviceMotionUpdatesToQueue(queue, withHandler: { data, error in
-            let pitch = data.attitude.pitch;
-            let roll = data.attitude.roll;
+            let pitch = data!.attitude.pitch;
+            let roll = data!.attitude.roll;
             self.theta = atan2(-pitch/M_PI, roll/M_PI);
         });
     }

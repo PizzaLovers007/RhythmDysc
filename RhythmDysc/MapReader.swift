@@ -11,9 +11,10 @@ import UIKit;
 class MapReader: NSObject {
     
     class func readFile(mapURL: NSURL) -> DyscMap {
-        let fileManager = NSFileManager.defaultManager();
+//        let fileManager = NSFileManager.defaultManager();
         
-        if let fileContent = String(contentsOfURL: mapURL, encoding: NSUTF8StringEncoding, error: nil) {
+        do {
+            let fileContent = try String(contentsOfURL: mapURL, encoding: NSUTF8StringEncoding);
             let scanner: NSScanner = NSScanner(string: fileContent);
             let parseCharacterSet = NSMutableCharacterSet.newlineCharacterSet();
             parseCharacterSet.formUnionWithCharacterSet(NSCharacterSet(charactersInString: "=,"));
@@ -39,32 +40,32 @@ class MapReader: NSObject {
             let timingScanner: NSScanner = NSScanner(string: next as! String);
             timingScanner.charactersToBeSkipped = parseCharacterSet;
             while (timingScanner.scanUpToString("\n", intoString: &next)) {
-                var line = next!.componentsSeparatedByString(",") as! [String];
-                let time: Int = line[0].toInt()!;
+                var line = next!.componentsSeparatedByString(",");
+                let time: Int = Int(line[0])!;
                 let bpm: Double = (line[1] as NSString).doubleValue;
-                let keySignature: Int = line[2].toInt()!;
+                let keySignature: Int = Int(line[2])!;
                 let timingPoint: TimingPoint = TimingPoint(time: time, bpm: bpm, keySignature: keySignature);
                 mapData.addTimingPoint(timingPoint);
             }
             
             //Notes section
             scanner.scanUpToString("\n", intoString: nil);
-            let notesScanner: NSScanner = NSScanner(string: scanner.string.substringFromIndex(advance(scanner.string.startIndex, scanner.scanLocation)));
+            let notesScanner: NSScanner = NSScanner(string: scanner.string.substringFromIndex(scanner.string.startIndex));
             notesScanner.charactersToBeSkipped = parseCharacterSet;
             var currHoldNote: HoldNote?;
             while (scanner.scanUpToString("\n", intoString: &next)) {
-                var line = next!.componentsSeparatedByString(",") as! [String];
-                let type: Int = line[0].toInt()!;
+                var line = next!.componentsSeparatedByString(",");
+                let type: Int = Int(line[0])!;
                 switch (type) {
                 case 0:     //Regular note
                     if (currHoldNote != nil) {
                         mapData.addHold(currHoldNote!);
                         currHoldNote = nil;
                     }
-                    let direction: Int = line[1].toInt()!;
-                    let color: Int = line[2].toInt()!;
-                    let timePoint: Int = line[3].toInt()!;
-                    let measure: Int = line[4].toInt()!;
+                    let direction: Int = Int(line[1])!;
+                    let color: Int = Int(line[2])!;
+                    let timePoint: Int = Int(line[3])!;
+                    let measure: Int = Int(line[4])!;
                     let beat: Double = (line[5] as NSString).doubleValue;
                     mapData.addNote(Note(direction: direction, color: color, timePoint: timePoint, measure: measure, beat: beat));
                     break;
@@ -73,17 +74,17 @@ class MapReader: NSObject {
                         mapData.addHold(currHoldNote!);
                         currHoldNote = nil;
                     }
-                    let direction: Int = line[1].toInt()!;
-                    let color: Int = line[2].toInt()!;
-                    let timePoint: Int = line[3].toInt()!;
-                    let measure: Int = line[4].toInt()!;
+                    let direction: Int = Int(line[1])!;
+                    let color: Int = Int(line[2])!;
+                    let timePoint: Int = Int(line[3])!;
+                    let measure: Int = Int(line[4])!;
                     let beat: Double = (line[5] as NSString).doubleValue;
-                    let rotation: Int = line[6].toInt()!;
+                    let rotation: Int = Int(line[6])!;
                     let length: Double = (line[7] as NSString).doubleValue;
                     currHoldNote = HoldNote(direction: direction, color: color, timePoint: timePoint, measure: measure, beat: beat, rotation: rotation, length: length);
                     break;
                 case 2:     //Hold note node
-                    let rotation = line[1].toInt()!;
+                    let rotation = Int(line[1])!;
                     let length: Double = (line[2] as NSString).doubleValue;
                     if (currHoldNote == nil) {
                         NSLog("Hold note node without starting hold note!");
@@ -101,9 +102,10 @@ class MapReader: NSObject {
             }
             
             return mapData;
-        } else {
-            NSLog("File is corrupted!");
-            return DyscMap();
+            
+        } catch {
+            print(error);
         }
+        return DyscMap();
     }
 }

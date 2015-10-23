@@ -12,7 +12,7 @@ import SpriteKit;
 class NoteSpark: SKNode {
     
     let lifetime = 2.0;
-    let particles = SKEmitterNode(fileNamed: "NoteSparks.sks");
+    let particles = SKEmitterNode(fileNamed: "NoteSparks.sks")!;
     let maxSpread = 50.0;
     var isDead: Bool = false;
     

@@ -10,7 +10,7 @@ import UIKit
 
 class FadeBlackTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.8;
     }
     
@@ -20,12 +20,12 @@ class FadeBlackTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!;
         
         toViewController.view.alpha = 0;
-        containerView.addSubview(toViewController.view);
+        containerView!.addSubview(toViewController.view);
         
         UIView.animateWithDuration(0.4, animations: {
             fromViewController.view.alpha = 0;
         });
-        UIView.animateWithDuration(0.4, delay: 0.4, options: nil, animations: {
+        UIView.animateWithDuration(0.4, delay: 0.4, options: UIViewAnimationOptions.TransitionNone, animations: {
                 toViewController.view.alpha = 1;
             }, completion: { finished in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled());
