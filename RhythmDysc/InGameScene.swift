@@ -65,7 +65,7 @@ class InGameScene: SKScene {
             prevTime = currentTime;
             return;
         }
-        cursor.updatePosition();
+//        cursor.updatePosition();
         let currSector: Int = checkCursorPosition();
         mapData.currSector = currSector;
         mapData.update(songTime: songPlayer.currentTime, cursorTheta: cursor.theta);
@@ -110,6 +110,7 @@ class InGameScene: SKScene {
                 songPlayer.play();
                 songIsPaused = false;
             } else if (songIsPaused && quitButton.containsPoint(touchLocation)) {
+                cursor.stopUpdates();
                 viewController.performSegueWithIdentifier("backToSongSelect", sender: viewController);
                 hideFieldAction = nil;
                 showFieldAction = nil;
